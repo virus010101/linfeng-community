@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.linfeng.modules.admin.dao.SystemDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.linfeng.modules.admin.entity.SystemEntity" id="systemMap">
+        <result property="config" column="config"/>
+        <result property="value" column="value"/>
+        <result property="extend" column="extend"/>
+        <result property="intro" column="intro"/>
+    </resultMap>
+
+
+</mapper>

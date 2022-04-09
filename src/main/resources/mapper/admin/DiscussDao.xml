@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.linfeng.modules.admin.dao.DiscussDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.linfeng.modules.admin.entity.DiscussEntity" id="discussMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="topicId" column="topic_id"/>
+        <result property="title" column="title"/>
+        <result property="introduce" column="introduce"/>
+        <result property="readCount" column="read_count"/>
+        <result property="topType" column="top_type"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+</mapper>
