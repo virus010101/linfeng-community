@@ -34,19 +34,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
 
     @Override
     public Integer getCountByTopicId(Integer id) {
-        Integer count = baseMapper.selectCount(new LambdaQueryWrapper<CommentEntity>()
+        return baseMapper.selectCount(new LambdaQueryWrapper<CommentEntity>()
                 .eq(CommentEntity::getStatus,1)
                 .eq(CommentEntity::getPostId, id));
-
-        return count;
     }
 
     @Override
     public List<CommentEntity> getByPid(Long pid) {
-        List<CommentEntity> commentList = baseMapper.selectList(
+        return baseMapper.selectList(
                 new LambdaQueryWrapper<CommentEntity>()
                         .eq(CommentEntity::getPid, pid));
-        return commentList;
     }
 
 

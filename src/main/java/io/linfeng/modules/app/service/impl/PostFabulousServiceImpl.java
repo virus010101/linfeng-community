@@ -33,10 +33,7 @@ public class PostFabulousServiceImpl extends ServiceImpl<PostFabulousDao, PostFa
                 new LambdaQueryWrapper<PostFabulousEntity>()
                         .eq(PostFabulousEntity::getPostId, id)
                         .eq(PostFabulousEntity::getUid, uid));
-        if(entity!=null){
-            return true;
-        }
-        return false;
+        return entity != null;
     }
 
 }

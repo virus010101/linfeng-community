@@ -25,7 +25,7 @@ public class TopicTopServiceImpl extends ServiceImpl<TopicTopDao, TopicTopEntity
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<TopicTopEntity> page = this.page(
                 new Query<TopicTopEntity>().getPage(params),
-                new QueryWrapper<TopicTopEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
@@ -35,8 +35,7 @@ public class TopicTopServiceImpl extends ServiceImpl<TopicTopDao, TopicTopEntity
     public List<TopicTopEntity> findByTopicId(Integer topicId) {
         LambdaQueryWrapper<TopicTopEntity> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.eq(TopicTopEntity::getTopicId, topicId);
-        List<TopicTopEntity> list = baseMapper.selectList(lambdaQueryWrapper);
-        return list;
+        return baseMapper.selectList(lambdaQueryWrapper);
     }
 
 }

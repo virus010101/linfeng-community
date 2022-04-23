@@ -17,14 +17,12 @@ import io.linfeng.modules.admin.service.SystemService;
 @Service("systemService")
 public class SystemServiceImpl extends ServiceImpl<SystemDao, SystemEntity> implements SystemService {
 
-    @Autowired
-    private AppUserDao appUserDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<SystemEntity> page = this.page(
                 new Query<SystemEntity>().getPage(params),
-                new QueryWrapper<SystemEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);

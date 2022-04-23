@@ -22,7 +22,7 @@ public class TopicAdminServiceImpl extends ServiceImpl<TopicAdminDao, TopicAdmin
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<TopicAdminEntity> page = this.page(
                 new Query<TopicAdminEntity>().getPage(params),
-                new QueryWrapper<TopicAdminEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);

@@ -27,7 +27,7 @@ public class PostCollectionServiceImpl extends ServiceImpl<PostCollectionDao, Po
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<PostCollectionEntity> page = this.page(
                 new Query<PostCollectionEntity>().getPage(params),
-                new QueryWrapper<PostCollectionEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
@@ -35,10 +35,9 @@ public class PostCollectionServiceImpl extends ServiceImpl<PostCollectionDao, Po
 
     @Override
     public Integer collectCount(Integer postId) {
-        Integer count = baseMapper.selectCount(new LambdaQueryWrapper<PostCollectionEntity>()
-                .eq(PostCollectionEntity::getPostId, postId));
 
-        return count;
+        return baseMapper.selectCount(new LambdaQueryWrapper<PostCollectionEntity>()
+                .eq(PostCollectionEntity::getPostId, postId));
     }
 
     @Override
@@ -47,10 +46,7 @@ public class PostCollectionServiceImpl extends ServiceImpl<PostCollectionDao, Po
                 new LambdaQueryWrapper<PostCollectionEntity>()
                 .eq(PostCollectionEntity::getPostId, postId)
                 .eq(PostCollectionEntity::getUid, uid));
-        if(entity!=null){
-            return true;
-        }
-        return false;
+        return entity != null;
     }
 
     @Override
@@ -66,8 +62,7 @@ public class PostCollectionServiceImpl extends ServiceImpl<PostCollectionDao, Po
         lambdaQueryWrapper.select(PostCollectionEntity::getPostId);
         lambdaQueryWrapper.in(PostCollectionEntity::getUid, uid);
         List<PostCollectionEntity> postCollectionEntities = baseMapper.selectList(lambdaQueryWrapper);
-        List<Integer> collect = postCollectionEntities.stream().map(PostCollectionEntity::getPostId).collect(Collectors.toList());
-        return collect;
+        return postCollectionEntities.stream().map(PostCollectionEntity::getPostId).collect(Collectors.toList());
     }
 
 }

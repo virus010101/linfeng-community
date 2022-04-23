@@ -3,6 +3,7 @@ package io.linfeng.modules.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.linfeng.common.response.AppUserInfoResponse;
 import io.linfeng.common.response.AppUserResponse;
+import io.linfeng.common.response.HomeRateResponse;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.PageUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
@@ -27,5 +28,11 @@ public interface AppUserService extends IService<AppUserEntity> {
     void ban(Integer id);
 
     void openBan(Integer id);
+
+    /**
+     * 首页数据
+     * @return HomeRateResponse
+     */
+    HomeRateResponse indexDate();
 }
 

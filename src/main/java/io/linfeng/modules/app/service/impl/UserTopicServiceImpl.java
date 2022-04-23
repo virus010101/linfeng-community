@@ -21,7 +21,7 @@ public class UserTopicServiceImpl extends ServiceImpl<UserTopicDao, UserTopicEnt
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<UserTopicEntity> page = this.page(
                 new Query<UserTopicEntity>().getPage(params),
-                new QueryWrapper<UserTopicEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);

@@ -86,14 +86,12 @@ public class MessageServiceImpl extends ServiceImpl<MessageDao, MessageEntity> i
 
     @Override
     public Boolean status(Integer type, Integer uid) {
-        List<Integer> list = new ArrayList<>();
-        list.add(Constant.STAR);
-        list.add(Constant.COLLECT);
+
         UpdateWrapper<MessageEntity> updateWrapper = new UpdateWrapper<>();
         updateWrapper.set("status",1);
         updateWrapper.eq("to_uid",uid);
         if(type==1){
-            updateWrapper.in("type",list);
+            updateWrapper.and(wrapper->wrapper.eq("type",Constant.STAR).or().eq("type",Constant.COLLECT));
         }else if(type==2){
             updateWrapper.eq("type",Constant.WATCH);
         }else if(type==3){

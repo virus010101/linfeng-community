@@ -85,8 +85,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     public Integer findTopicPostCount(Integer topicId) {
         LambdaQueryWrapper<PostEntity> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.eq(PostEntity::getTopicId,topicId);
-        Integer num = baseMapper.selectCount(lambdaQueryWrapper);
-        return num;
+        return baseMapper.selectCount(lambdaQueryWrapper);
     }
 
     /**
@@ -96,24 +95,27 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
      */
     @Override
     public List<String> findThreeMedia(Integer id) {
-        QueryWrapper<PostEntity> queryWrapper=new QueryWrapper();
+        QueryWrapper<PostEntity> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("topic_id",id);
         queryWrapper.eq("type",1);
         queryWrapper.orderByDesc("read_count");
-        queryWrapper.last("limit 3");
+        queryWrapper.last("limit 10");
         List<PostEntity> postEntityList = baseMapper.selectList(queryWrapper);
         List<String> imageList=new ArrayList<>();
-        postEntityList.forEach(list->{
-            if(!list.getMedia().equals("")){
-                List<String> jsonToList = JsonUtils.JsonToList(list.getMedia());
+        for (int i = 0; i < postEntityList.size() ; i++) {
+            if(!postEntityList.get(i).getMedia().equals("")){
+                List<String> jsonToList = JsonUtils.JsonToList(postEntityList.get(i).getMedia());
                 if(jsonToList.size()>0){
-                    imageList.add(jsonToList.get(0));
+                    if(imageList.size()>2){
+                        break;
+                    }else{
+                        imageList.add(jsonToList.get(0));
+                    }
                 }
             }
-        });
+        }
         return imageList;
     }
-
 
 
     @Override

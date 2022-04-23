@@ -35,7 +35,7 @@ public class TopicServiceImpl extends ServiceImpl<TopicDao, TopicEntity> impleme
     public AppPageUtils queryByPage(Map<String, Object> params) {
         Integer classId = Integer.valueOf((String) params.get(Constant.CLASSID));
         QueryWrapper<TopicEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("cate_id", classId);
+        queryWrapper.lambda().eq(TopicEntity::getCateId, classId);
 
         IPage<TopicEntity> page = this.page(
                 new Query<TopicEntity>().getPage(params),
