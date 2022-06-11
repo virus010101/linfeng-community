@@ -14,13 +14,13 @@
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/showPic11.png"/>
 
-
-
 ![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic12.png)
 
-
-
 ![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic13.png)
+
+![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic14.png)
+
+![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic04.png)
 
 ##### 2.3后台管理端效果截图
 
