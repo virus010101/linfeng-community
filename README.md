@@ -66,7 +66,7 @@
 
 #### 5.版本更新记录
 
-
+<img src="https://github.com/virus010101/linfeng-community/blob/main/images/showPic26.png"/>
 
 ***当前版本V1.4***
 
