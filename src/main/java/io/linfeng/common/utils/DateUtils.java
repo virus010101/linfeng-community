@@ -132,6 +132,7 @@ public class DateUtils {
         return dateTime.plusWeeks(weeks).toDate();
     }
 
+
     /**
      * 对日期的【月】进行加/减
      *
@@ -139,9 +140,12 @@ public class DateUtils {
      * @param months 月数，负数为减
      * @return 加/减几月后的日期
      */
-    public static Date addDateMonths(Date date, int months) {
+    public static String addDateMonths(Date date, int months) {
+        String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
         DateTime dateTime = new DateTime(date);
-        return dateTime.plusMonths(months).toDate();
+        Date date1 = dateTime.plusMonths(months).toDate();
+        return simpleDateFormat.format(date1);
     }
 
     /**

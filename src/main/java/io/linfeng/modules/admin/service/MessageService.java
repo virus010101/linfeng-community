@@ -31,5 +31,6 @@ public interface MessageService extends IService<MessageEntity> {
 
     Boolean status(Integer type, Integer uid);
 
+    void deleteMessageByMonth(Integer integer);
 }
 

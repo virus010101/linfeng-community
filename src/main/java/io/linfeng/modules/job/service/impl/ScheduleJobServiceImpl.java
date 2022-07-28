@@ -88,7 +88,9 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	@Override
     public int updateBatch(Long[] jobIds, int status){
     	Map<String, Object> map = new HashMap<>(2);
-    	map.put("list", jobIds);
+		List<Long> list=new ArrayList<>();
+		Collections.addAll(list, jobIds);
+		map.put("list", list);
     	map.put("status", status);
     	return baseMapper.updateBatch(map);
     }

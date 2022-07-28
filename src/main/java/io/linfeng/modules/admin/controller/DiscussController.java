@@ -1,8 +1,12 @@
 package io.linfeng.modules.admin.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import io.linfeng.common.exception.LinfengException;
+import io.linfeng.modules.admin.entity.PostEntity;
+import io.linfeng.modules.admin.service.PostService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +32,12 @@ import io.linfeng.common.utils.R;
 @RestController
 @RequestMapping("admin/discuss")
 public class DiscussController {
+
     @Autowired
     private DiscussService discussService;
+    @Autowired
+    private PostService postService;
+
 
     /**
      * 列表
@@ -82,8 +90,14 @@ public class DiscussController {
     @RequestMapping("/delete")
     @RequiresPermissions("admin:discuss:delete")
     public R delete(@RequestBody Integer[] ids){
-		discussService.removeByIds(Arrays.asList(ids));
-
+        List<Integer> list = Arrays.asList(ids);
+        list.forEach(id->{
+            List<PostEntity> entityList = postService.lambdaQuery().eq(PostEntity::getDiscussId, id).list();
+            if(entityList.size()>0){
+                throw new LinfengException("请先删除该话题下的帖子");
+            }
+            discussService.removeById(id);
+        });
         return R.ok();
     }
 

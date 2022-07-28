@@ -82,8 +82,7 @@ public class CommentController {
     @RequestMapping("/delete")
     @RequiresPermissions("admin:comment:delete")
     public R delete(@RequestBody Long[] ids){
-		commentService.removeByIds(Arrays.asList(ids));
-
+        commentService.deleteByAdmin(Arrays.asList(ids));
         return R.ok();
     }
 

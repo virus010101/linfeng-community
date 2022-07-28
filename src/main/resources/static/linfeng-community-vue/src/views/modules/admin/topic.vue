@@ -99,7 +99,7 @@
           <img style="width: 80px; height: 50px" :src="scope.row.bgImage" />
         </template>
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="topType"
         header-align="center"
         align="center"
@@ -116,7 +116,7 @@
             <el-tag v-else type="danger">圈子推荐</el-tag>
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         prop="status"
         header-align="center"
@@ -130,13 +130,13 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="indexRecommend"
         header-align="center"
         align="center"
         label="首页推荐"
       >
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         prop="userNum"
         header-align="center"

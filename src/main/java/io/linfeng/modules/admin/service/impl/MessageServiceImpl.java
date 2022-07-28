@@ -1,19 +1,18 @@
 package io.linfeng.modules.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import io.linfeng.common.utils.Constant;
-import io.linfeng.common.utils.DateUtil;
+import io.linfeng.common.utils.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.linfeng.common.utils.PageUtils;
-import io.linfeng.common.utils.Query;
 
 import io.linfeng.modules.admin.dao.MessageDao;
 import io.linfeng.modules.admin.entity.MessageEntity;
@@ -104,5 +103,16 @@ public class MessageServiceImpl extends ServiceImpl<MessageDao, MessageEntity> i
         return update(updateWrapper);
     }
 
+    /**
+     * 清除几个月前的消息数据
+     * @param month
+     */
+    @Override
+    public void deleteMessageByMonth(Integer month) {
+        String s = DateUtils.addDateMonths(new Date(),-month);
+        LambdaQueryWrapper<MessageEntity> wrapper=new LambdaQueryWrapper<>();
+        wrapper.le(MessageEntity::getCreateTime,s);
+        this.remove(wrapper);
+    }
 
 }

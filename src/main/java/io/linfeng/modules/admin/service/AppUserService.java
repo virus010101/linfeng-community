@@ -34,5 +34,23 @@ public interface AppUserService extends IService<AppUserEntity> {
      * @return HomeRateResponse
      */
     HomeRateResponse indexDate();
+
+    Integer smsLogin(SmsLoginForm form, HttpServletRequest request);
+
+    String sendSmsCode(SendCodeForm param);
+
+    AppUserResponse getUserInfo(AppUserEntity user);
+
+    void updateAppUserInfo(AppUserUpdateForm appUserUpdateForm, AppUserEntity user);
+
+    void addFollow(AddFollowForm request, AppUserEntity user);
+
+    void cancelFollow(AddFollowForm request, AppUserEntity user);
+
+    AppPageUtils userFans(Integer page, Integer uid);
+
+    AppPageUtils follow(Integer page, AppUserEntity user);
+
+    AppUserInfoResponse findUserInfoById(Integer uid, AppUserEntity user);
 }
 

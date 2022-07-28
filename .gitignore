@@ -41,3 +41,6 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+node_modules/
+unpackage/

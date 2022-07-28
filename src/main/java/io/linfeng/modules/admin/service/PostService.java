@@ -23,10 +23,26 @@ public interface PostService extends IService<PostEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
-    Integer findTopicPostCount(Integer topicId);
-
-    List<String> findThreeMedia(Integer id);
-
     void deleteByAdmin(List<Integer> integers);
+
+    Integer getPostNumByUid(Integer uid);
+
+    AppPageUtils lastPost(Integer page);
+
+    AppPageUtils followUserPost(Integer page, AppUserEntity user);
+
+    void addCollection(AddCollectionForm request, AppUserEntity user);
+
+    AppPageUtils myPost(Integer page, AppUserEntity user);
+
+    AppPageUtils myCollectPost(Integer page,AppUserEntity user);
+
+    PostDetailResponse detail(Integer id);
+
+    void addComment(AddCommentForm request, AppUserEntity user);
+
+    Integer addPost(AddPostForm request, AppUserEntity user);
+
+    AppPageUtils queryPageList(PostListForm request, AppUserEntity user);
 }
 

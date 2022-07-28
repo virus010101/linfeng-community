@@ -5,20 +5,33 @@
       :model="dataForm"
       @keyup.enter.native="getDataList()"
     >
-      <!-- <el-form-item>
+      <el-form-item>
         <el-input
           v-model="dataForm.key"
-          placeholder="参数名"
+          placeholder="帖子内容或标题搜索"
           clearable
         ></el-input>
-      </el-form-item> -->
+      </el-form-item>
       <el-form-item>
-        <!-- <el-button @click="getDataList()">查询</el-button> -->
+      <!-- 选择框 -->
+      <el-select v-model="dataForm.status" clearable placeholder="请选择状态">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+     </el-select>
+
+      <el-button @click="getDataList()">查询</el-button>
+      <el-button @click="refresh()">重置</el-button>
+      
         <!-- <el-button
-          v-if="isAuth('admin:post:save')"
-          type="primary"
-          @click="addOrUpdateHandle()"
-          >新增</el-button
+          v-if="isAuth('admin:post:delete')"
+          type="danger"
+          @click="statusHandle()"
+          :disabled="dataListSelections.length <= 0"
+          >批量审核</el-button
         > -->
         <el-button
           v-if="isAuth('admin:post:delete')"
@@ -27,6 +40,7 @@
           :disabled="dataListSelections.length <= 0"
           >批量删除</el-button
         >
+
       </el-form-item>
     </el-form>
     <el-table
@@ -74,7 +88,7 @@
         prop="topicName"
         header-align="center"
         align="center"
-        label="圈子"
+        label="归属"
       >
       </el-table-column>
       <el-table-column
@@ -114,21 +128,8 @@
         label="文件"
       >
         <template slot-scope="scope">
-          <img
-            v-if="scope.row.type == 1 && scope.row.media[0]"
-            style="width: 80px; height: 50px"
-            :src="scope.row.media[0]"
-          />
-          <!-- <video
-            v-if="scope.row.type == 2"
-            class="myVideo"
-            id="myVideo"
-            :src="scope.row.media[0]"
-            enable-danmu
-            danmu-btn
-            controls
-          ></video> -->
           <el-button v-if="scope.row.type == 2" type="text" @click="openVideo(scope.row.media[0])">点击预览</el-button>
+          <el-button v-if="scope.row.type == 1 && scope.row.media[0]" type="text" @click="openPic(scope.row.media)">点击查看</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -172,20 +173,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="status"
-        header-align="center"
-        align="center"
-        label="状态"
-      >
-        <template slot-scope="scope">
-          <div>
-            <el-tag v-if="scope.row.status == 0" type="success">上架</el-tag>
-             <el-tag v-else-if="scope.row.status ==1" type="warning">待审核</el-tag>
-            <el-tag v-else type="danger">下架</el-tag>
-          </div>
-        </template>
-      </el-table-column>
+      
       <el-table-column
         prop="address"
         header-align="center"
@@ -209,6 +197,19 @@
         label="操作"
       >
         <template slot-scope="scope">
+          <el-button v-if="scope.row.status==1 || scope.row.status==2"
+            type="text"
+            size="small"
+            @click="statusHandle(scope.row.id)"
+            >上架</el-button
+          >
+          <el-button v-if="scope.row.status==0"
+            type="text"
+            size="small"
+            @click="statusDownHandle(scope.row.id)"
+            >下架</el-button
+          >
+
           <el-button
             type="text"
             size="small"
@@ -261,6 +262,33 @@
         >
       </span>
     </el-dialog>
+
+    <el-dialog
+      title="图片预览"
+      :visible.sync="dialogVisible2"
+      width="60%"
+      :before-close="handleClose"
+    >
+    
+    <div class="position">图片展示</div>
+    <div class="images">
+      <div v-for="(item, index) in media" :key="index" class="image-middle">  
+        <el-card shadow="hover" :body-style="{ padding: '10px' }" >     
+        <img :src="media[index]" class="image" @click="goPic(media[index])"/> 
+        <div style="text-align:center;padding-top:12px">
+        <span>图{{index}}</span>
+        </div>
+        </el-card>
+      </div>
+    </div>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible2 = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible2 = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -271,6 +299,7 @@ export default {
     return {
       dataForm: {
         key: "",
+        status:'',
       },
       dataList: [],
       pageIndex: 1,
@@ -280,7 +309,20 @@ export default {
       dataListSelections: [],
       addOrUpdateVisible: false,
       dialogVisible: false,
-      videoUrl:""
+      dialogVisible2: false,
+      videoUrl:"",
+      media: [],
+       options: [{
+          value: 0,
+          label: '正常'
+        }, {
+          value: 1,
+          label: '待审核'
+        }, {
+          value: 2,
+          label: '已下架'
+        }],
+        // value: ''
     };
   },
   components: {
@@ -290,6 +332,13 @@ export default {
     this.getDataList();
   },
   methods: {
+    refresh(){
+        this.dataForm.key='';
+        this.dataForm.status='';
+        this.pageIndex=1;
+        this.pageSize=10;
+        this.getDataList();
+    },
     // 获取数据列表
     getDataList() {
       this.dataListLoading = true;
@@ -300,6 +349,7 @@ export default {
           page: this.pageIndex,
           limit: this.pageSize,
           key: this.dataForm.key,
+          status:this.dataForm.status
         }),
       }).then(({ data }) => {
         if (data && data.code === 0) {
@@ -370,7 +420,77 @@ export default {
         });
       });
     },
-
+    statusDownHandle(id){
+            var ids = id
+        ? [id]
+        : this.dataListSelections.map((item) => {
+            return item.id;
+          });
+      this.$confirm(
+        `确定对[id=${ids.join(",")}]进行[${id ? "下架" : "批量下架"}]操作?`,
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).then(() => {
+        this.$http({
+          url: this.$http.adornUrl("/admin/post/down"),
+          method: "post",
+          data: this.$http.adornData(ids, false),
+        }).then(({ data }) => {
+          if (data && data.code === 0) {
+            this.$message({
+              message: "操作成功",
+              type: "success",
+              duration: 1500,
+              onClose: () => {
+                this.getDataList();
+              },
+            });
+          } else {
+            this.$message.error(data.msg);
+          }
+        });
+      });
+    },
+    // 审核
+    statusHandle(id) {
+      var ids = id
+        ? [id]
+        : this.dataListSelections.map((item) => {
+            return item.id;
+          });
+      this.$confirm(
+        `确定对[id=${ids.join(",")}]进行[${id ? "上架" : "批量上架"}]操作?`,
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).then(() => {
+        this.$http({
+          url: this.$http.adornUrl("/admin/post/up"),
+          method: "post",
+          data: this.$http.adornData(ids, false),
+        }).then(({ data }) => {
+          if (data && data.code === 0) {
+            this.$message({
+              message: "操作成功",
+              type: "success",
+              duration: 1500,
+              onClose: () => {
+                this.getDataList();
+              },
+            });
+          } else {
+            this.$message.error(data.msg);
+          }
+        });
+      });
+    },
     handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
@@ -381,13 +501,47 @@ export default {
     openVideo(url){
       this.dialogVisible=true;
       this.videoUrl=url;
+    },
+    openPic(media){
+      this.dialogVisible2=true;
+      this.media=media;
+    },
+    goPic(url){
+      console.log('==>',url);
+      window.open(url);
     }
+
+
   },
 };
 </script>
 <style lang="scss" scoped>
-     .video {
-       width: 100%;
-       margin-bottom: 10px;
-     }
+.video {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.position {
+  margin-left: 15px;
+  font-size: 30px;
+  font-weight: 600;
+}
+/* 图片总布局，样式 */
+.images{
+  display: flex;
+  margin-top: 20px;
+  margin-left: 21px;
+  margin-right: 20px;
+  flex-wrap: wrap;
+}
+/* 图片之间 */
+.image-middle{
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+/* 单张图片样式 */
+.image{
+  width:110px;
+  height: 110px;
+}
+
 </style>

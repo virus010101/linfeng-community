@@ -18,7 +18,6 @@ import io.linfeng.modules.admin.entity.TopicEntity;
 public class TopicServiceImpl extends ServiceImpl<TopicDao, TopicEntity> implements TopicService {
 
 
-
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<TopicEntity> page = this.page(
@@ -28,7 +27,6 @@ public class TopicServiceImpl extends ServiceImpl<TopicDao, TopicEntity> impleme
 
         return new PageUtils(page);
     }
-
 
 
     @Override
@@ -43,7 +41,6 @@ public class TopicServiceImpl extends ServiceImpl<TopicDao, TopicEntity> impleme
         );
         return new AppPageUtils(page);
     }
-
 
 
 }

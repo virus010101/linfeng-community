@@ -23,7 +23,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkDao, LinkEntity> implements
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<LinkEntity> page = this.page(
                 new Query<LinkEntity>().getPage(params),
-                new QueryWrapper<LinkEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);

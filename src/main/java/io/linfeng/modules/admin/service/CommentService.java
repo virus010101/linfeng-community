@@ -25,5 +25,10 @@ public interface CommentService extends IService<CommentEntity> {
 
     List<CommentEntity> getByPid(Long pid);
 
+    void deleteByAdmin(List<Long> longs);
+
+    Integer getCountByPostId(Integer id);
+
+    AppPageUtils queryCommentPage(Integer postId, Integer page);
 }
 

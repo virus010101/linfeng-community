@@ -42,6 +42,12 @@ public class Constant {
     public static final Integer HAS_READ = 1;
 
     /**
+     * 用户是否禁用
+     */
+    public static final Integer USER_NORMAL = 0;
+    public static final Integer USER_BANNER = 1;
+
+    /**
      * 圈子是否禁用
      */
     public static final Integer TOPIC_NORMAL = 0;
@@ -81,7 +87,15 @@ public class Constant {
     public static final String CONTENT_COMMENT_REPLY = "用户【{}】回复了你在动态[{}]下的评论:{}";
     public static final String CONTENT_POST_STAR = "用户【{}】点赞收藏了你的动态:{}";
     public static final String ADMIN_POST_DOWN = "你的动态【{}】由于违反社区规定已被删除";
-	/**
+
+
+    /**
+     * 手机验证码长度
+     */
+    public static final Integer SMS_SIZE = 6;
+    public static final String DEAULT_HEAD = "http://pic.linfeng.tech/test/20220126/4515fc2cbed74d0b9163d35a12bd4c3b.png";
+
+    /**
 	 * 菜单类型
 	 */
     public enum MenuType {

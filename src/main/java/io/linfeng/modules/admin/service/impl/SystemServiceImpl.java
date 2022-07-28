@@ -1,7 +1,5 @@
 package io.linfeng.modules.admin.service.impl;
 
-import io.linfeng.modules.admin.dao.AppUserDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

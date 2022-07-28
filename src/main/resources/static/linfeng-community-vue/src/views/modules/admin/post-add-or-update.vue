@@ -4,34 +4,7 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <!-- <el-form-item label="用户id" prop="uid">
-      <el-input v-model="dataForm.uid" placeholder="用户id"></el-input>
-    </el-form-item>
-    <el-form-item label="圈子id" prop="topicId">
-      <el-input v-model="dataForm.topicId" placeholder="圈子id"></el-input>
-    </el-form-item>
-    <el-form-item label="话题id" prop="discussId">
-      <el-input v-model="dataForm.discussId" placeholder="话题id"></el-input>
-    </el-form-item>
-    <el-form-item label="投票id" prop="voteId">
-      <el-input v-model="dataForm.voteId" placeholder="投票id"></el-input>
-    </el-form-item>
-    <el-form-item label="标题" prop="title">
-      <el-input v-model="dataForm.title" placeholder="标题"></el-input>
-    </el-form-item>
-    <el-form-item label="内容" prop="content">
-      <el-input v-model="dataForm.content" placeholder="内容"></el-input>
-    </el-form-item>
-    <el-form-item label="文件" prop="media">
-      <el-input v-model="dataForm.media" placeholder="文件"></el-input>
-    </el-form-item> -->
-    <el-form-item label="状态" prop="status">
-        <el-radio-group v-model="dataForm.status">
-          <el-radio :label="0">上架</el-radio>
-          <!-- <el-radio :label="1">待审核</el-radio> -->
-          <el-radio :label="2">下架</el-radio>
-        </el-radio-group>
-    </el-form-item>
+
     <el-form-item label="浏览量" prop="readCount">
       <el-input v-model="dataForm.readCount" placeholder="浏览量"></el-input>
     </el-form-item>
@@ -41,21 +14,7 @@
           <el-radio :label="1">是</el-radio>
         </el-radio-group>
     </el-form-item>
-    <!-- <el-form-item label="帖子类型：1 图文 ，2视频 ，3文章，4投票" prop="type">
-      <el-input v-model="dataForm.type" placeholder="帖子类型：1 图文 ，2视频 ，3文章，4投票"></el-input>
-    </el-form-item>
-    <el-form-item label="地址名称" prop="address">
-      <el-input v-model="dataForm.address" placeholder="地址名称"></el-input>
-    </el-form-item>
-    <el-form-item label="经度" prop="longitude">
-      <el-input v-model="dataForm.longitude" placeholder="经度"></el-input>
-    </el-form-item>
-    <el-form-item label="纬度" prop="latitude">
-      <el-input v-model="dataForm.latitude" placeholder="纬度"></el-input>
-    </el-form-item>
-    <el-form-item label="创建时间" prop="createTime">
-      <el-input v-model="dataForm.createTime" placeholder="创建时间"></el-input>
-    </el-form-item> -->
+    
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>

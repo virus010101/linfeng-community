@@ -20,13 +20,4 @@ public class AppUserUpdateForm {
     @ApiModelProperty(value = "头像")
     private String avatar;
 
-    @ApiModelProperty(value = "性别")
-    private Integer gender;
-
-    @ApiModelProperty(value = "标签")
-    private List<String> tagStr;
-
-    @ApiModelProperty(value = "个性签名")
-    @Length(max = 20, message = "个性签名不能超过20个字符")
-    private String intro;
 }

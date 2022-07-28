@@ -54,15 +54,23 @@
 
 2.**后台管理系统和后台管理系统后端API已经全部开源**。
 
-**用户端代码未开源**，需要源码联系客服（收费分为mini版本和标准版）。
+**用户端代码已开源**，在**\src\main\resources\static\linfeng-community-uniapp-ky**目录下！
+
+**需要商业版（即为上图演示站点项目）源码联系客服**。
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/mine.jpg" style="zoom: 25%;" />
 
 
 
-3. SQL文件开源的，在QQ群，开源不易，**请左上角star后备注gitee的用户名加QQ群（640700429）获取**
+3. SQL文件开源的，在QQ群，开源不易，**请左上角点个star后备注gitee的用户名加QQ群（640700429）获取**
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/qrcode.jpg" style="zoom:25%;" />
+
+4.版本区别
+
+<img src="https://github.com/virus010101/linfeng-community/blob/main/images/version.png" style="zoom: 25%;" />
+
+
 
 #### 5.版本更新记录
 

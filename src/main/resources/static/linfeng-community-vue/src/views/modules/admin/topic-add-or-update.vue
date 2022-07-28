@@ -58,17 +58,17 @@
         <p class="formInfo">建议尺寸：100*100像素，jpg、png图片类型</p>
       </el-form-item>
 
-      <el-form-item label="推荐类型" prop="topType">
+      <!-- <el-form-item label="推荐类型" prop="topType">
         <el-radio-group v-model="dataForm.topType">
           <el-radio :label="1">首页推荐</el-radio>
           <el-radio :label="0">不推荐</el-radio>
           <el-radio :label="2">圈子页推荐</el-radio>
         </el-radio-group>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="圈子状态" prop="status">
         <el-radio-group v-model="dataForm.status">
-          <el-radio :label="1">正常</el-radio>
-          <el-radio :label="0">禁用</el-radio>
+          <el-radio :label="0">正常</el-radio>
+          <el-radio :label="1">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
       <!-- <el-form-item label="是否首页推荐圈子内容" prop="indexRecommend">
