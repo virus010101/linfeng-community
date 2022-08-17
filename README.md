@@ -66,7 +66,13 @@
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/qrcode.jpg" style="zoom:25%;" />
 
-4.版本区别
+4.商业版和开源版的区别
+
+[http://pic.linfeng.tech/test/20220816/22d8a6fa4ae845e1b58914a96acec6b7.png](https://gitee.com/link?target=http%3A%2F%2Fpic.linfeng.tech%2Ftest%2F20220816%2F22d8a6fa4ae845e1b58914a96acec6b7.png)
+
+[http://pic.linfeng.tech/test/20220727/e472fbef0a8f412b912bea6fa5317acf.png](https://gitee.com/link?target=http%3A%2F%2Fpic.linfeng.tech%2Ftest%2F20220727%2Fe472fbef0a8f412b912bea6fa5317acf.png)
+
+
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/version.png" style="zoom: 25%;" />
 
@@ -74,9 +80,37 @@
 
 #### 5.版本更新记录
 
-<img src="https://github.com/virus010101/linfeng-community/blob/main/images/showPic26.png"/>
+<img src="https://github.com/virus010101/linfeng-community/blob/main/images/showPic27.png"/>
 
-***当前版本V1.4***
+***当前版本V1.4.1***
+
+###### ** V1.4.1发布**
+
+【新增】1.新增积分抽奖大转盘 [重磅]
+
+【新增】2.新增圈子内帖子置顶功能 与平台置顶区分 [重磅]
+
+【新增】3.新增客服页面 [重磅]
+
+【新增】4.新增邮箱验证码登录 可配置开关 [重磅]
+
+【新增】5.H5端新增注册页面 区分登录和注册 [重磅]
+
+【优化】6.圈子管理员h5端删帖优化
+
+【优化】7.h5端设置管理员页面样式兼容和用户列表图标
+
+【优化】8.帖子详情查询优化
+
+【优化】9.投票贴空选项优化
+
+【优化】10.fastjson升级
+
+【优化】11.后端swagger文档全注释
+
+【优化】12.用户缓存信息
+
+【优化】13.手机验证码登录
 
 **V1.4发布**
 2022.7.24
