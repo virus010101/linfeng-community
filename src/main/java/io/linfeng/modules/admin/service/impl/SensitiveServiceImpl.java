@@ -1,7 +1,17 @@
+/**
+ * -----------------------------------
+ * 林风社交论坛开源版本请务必保留此注释头信息
+ * 开源地址: https://gitee.com/virus010101/linfeng-community
+ * 商业版演示站点: https://www.linfeng.tech
+ * 商业版购买联系技术客服
+ * QQ:  3582996245
+ * 可正常分享和学习源码，不得专卖或非法牟利！
+ * Copyright (c) 2021-2023 linfeng all rights reserved.
+ * 版权所有 ，侵权必究！
+ * -----------------------------------
+ */
 package io.linfeng.modules.admin.service.impl;
 
-import io.linfeng.common.exception.LinfengException;
-import io.linfeng.common.utils.Constant;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -30,48 +40,6 @@ public class SensitiveServiceImpl extends ServiceImpl<SensitiveDao, SensitiveEnt
         return new PageUtils(page);
     }
 
-    @Override
-    public Boolean checkContent(String content) {
-        SensitiveEntity sensitive = this.getById(1);
-        if (sensitive == null || sensitive.getSensitiveWord().isEmpty()) {
-            return false;
-        }
-        if (sensitive.getState().equals(Constant.SENSITIVE_CLOSE)) {
-            return false;
-        }
-        //校验是否存在敏感词
-        String[] split = sensitive.getSensitiveWord().split(",");
-        for (String word : split) {
-            if (content.contains(word)) {
-                //如果存在敏感词
-                if (Constant.DEAL_BANNER.equals(sensitive.getHandleMeasures())) {
-                    throw new LinfengException("内容违规禁止发布");
-                } else {
-                    //设置评论敏感词状态为需审核
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
-    @Override
-    public void checkPostContent(String content) {
-        SensitiveEntity sensitive = this.getById(1);
-        if (sensitive == null || sensitive.getSensitiveWord().isEmpty()) {
-            return;
-        }
-        if (sensitive.getState().equals(Constant.SENSITIVE_CLOSE)) {
-            return;
-        }
-        //校验是否存在敏感词
-        String[] split = sensitive.getSensitiveWord().split(",");
-        for (String word : split) {
-            if (content.contains(word)) {
-                //如果存在敏感词 直接打回
-                throw new LinfengException("内容含敏感词禁止发布");
-            }
-        }
-    }
 
 }

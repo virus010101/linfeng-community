@@ -1,4 +1,14 @@
-
+/**
+ * -----------------------------------
+ * 林风社交论坛开源版本请务必保留此注释头信息
+ * 开源地址: https://gitee.com/virus010101/linfeng-community
+ * 商业版演示站点: https://www.linfeng.tech
+ * 商业版购买联系技术客服QQ:  3582996245
+ * 可正常分享和学习源码，不得转卖或非法牟利！
+ * Copyright (c) 2021-2023 linfeng all rights reserved.
+ * 版权所有 ，侵权必究！
+ * -----------------------------------
+ */
 package io.linfeng.config;
 
 import org.springframework.context.annotation.Bean;
@@ -27,7 +37,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("io.linfeng"))
-//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(securityContexts())
@@ -37,7 +46,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 .title("林风社交论坛项目接口文档")
-                .description("林风社交论坛项目接口文档")
+                .description("林风社交论坛项目开源版接口文档 演示地址 https://www.linfeng.tech")
                 .contact(new Contact("linfeng","http:localhost:8080/doc.html","3582996245@qq.com"))
                 .version("1.0")
                 .build();

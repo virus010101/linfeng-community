@@ -1,15 +1,20 @@
+/**
+ * -----------------------------------
+ * 林风社交论坛开源版本请务必保留此注释头信息
+ * 开源地址: https://gitee.com/virus010101/linfeng-community
+ * 商业版演示站点: https://www.linfeng.tech
+ * 商业版购买联系技术客服
+ * QQ:  3582996245
+ * 可正常分享和学习源码，不得专卖或非法牟利！
+ * Copyright (c) 2021-2023 linfeng all rights reserved.
+ * 版权所有 ，侵权必究！
+ * -----------------------------------
+ */
 package io.linfeng.modules.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import io.linfeng.common.utils.*;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -17,7 +22,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.linfeng.modules.admin.dao.MessageDao;
 import io.linfeng.modules.admin.entity.MessageEntity;
 import io.linfeng.modules.admin.service.MessageService;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("messageService")
@@ -34,85 +38,6 @@ public class MessageServiceImpl extends ServiceImpl<MessageDao, MessageEntity> i
         return new PageUtils(page);
     }
 
-    /**
-     * 消息异步发送
-     * @param fromUid 发送者uid
-     * @param toUid  接收者uid
-     * @param postId 帖子id
-     * @param type 1为点赞，2为评论  3为收藏 4为关注  5为推送文章 6私聊
-     * @param content  发送内容
-     * @param title 发送标题
-     */
-    public void sendMessage(Integer fromUid,Integer toUid,Integer postId,Integer type,String content,String title){
-        if(fromUid.equals(toUid)){
-            return;
-        }
-        MessageEntity message=new MessageEntity();
-        message.setContent(content);
-        message.setPostId(postId);
-        message.setFromUid(fromUid);
-        message.setTitle(title);
-        message.setCreateTime(DateUtil.nowDateTime());
-        message.setToUid(toUid);
-        message.setType(type);
-        this.save(message);
-    }
 
-    /**
-     * 消息同步发送 用于用户消息私聊
-     * @param fromUid 发送者uid
-     * @param toUid  接收者uid
-     * @param postId 帖子id
-     * @param type 1为点赞，2为评论  3为收藏 4为关注  5为推送文章 6私聊
-     * @param content  发送内容
-     * @param title 发送标题
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void sendMessageNotAsync(Integer fromUid,Integer toUid,Integer postId,Integer type,String content,String title){
-        if(fromUid.equals(toUid)){
-            return;
-        }
-        MessageEntity message=new MessageEntity();
-        message.setContent(content);
-        message.setPostId(postId);
-        message.setFromUid(fromUid);
-        message.setTitle(title);
-        message.setCreateTime(DateUtil.nowDateTime());
-        message.setToUid(toUid);
-        message.setType(type);
-        this.save(message);
-    }
-
-    @Override
-    public Boolean status(Integer type, Integer uid) {
-
-        UpdateWrapper<MessageEntity> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("status",1);
-        updateWrapper.eq("to_uid",uid);
-        if(type==1){
-            updateWrapper.and(wrapper->wrapper.eq("type",Constant.STAR).or().eq("type",Constant.COLLECT));
-        }else if(type==2){
-            updateWrapper.eq("type",Constant.WATCH);
-        }else if(type==3){
-            updateWrapper.eq("type",Constant.COMMENT);
-        }else if(type==5){
-            updateWrapper.eq("type",Constant.PUSHARTICLE);
-        }else if(type==6){
-            updateWrapper.eq("type",Constant.CHAT);
-        }
-        return update(updateWrapper);
-    }
-
-    /**
-     * 清除几个月前的消息数据
-     * @param month
-     */
-    @Override
-    public void deleteMessageByMonth(Integer month) {
-        String s = DateUtils.addDateMonths(new Date(),-month);
-        LambdaQueryWrapper<MessageEntity> wrapper=new LambdaQueryWrapper<>();
-        wrapper.le(MessageEntity::getCreateTime,s);
-        this.remove(wrapper);
-    }
 
 }
