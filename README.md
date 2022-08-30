@@ -2,7 +2,7 @@
 
 #### 1.介绍
 
-社交论坛uniapp小程序/H5版本基于SpringBoot2+MybatisPlus+Shiro+jwt+Redis+Vue+Uniapp的前后端分离的社交论坛问答发帖/BBS项目 项目分为Uniapp用户端（兼容H5和微信小程序版本）和Vue后台管理端（包括完整的权限处理）， 基于以下技术栈开发：SpringBoot2、MybatisPlus、Shiro、jwt、Redis、Vue、Uniapp、MySQL5.7。
+社交论坛uniapp小程序/H5/App版本基于SpringBoot2+MybatisPlus+Shiro+jwt+Redis+Vue+Uniapp的前后端分离的社交论坛问答发帖/BBS项目 项目分为Uniapp用户端（兼容H5、微信小程序以及App）和Vue后台管理端（包括完整的权限处理）， 基于以下技术栈开发：SpringBoot2、MybatisPlus、Shiro、jwt、Redis、Vue、Uniapp、MySQL5.7。
 
 #### 2.软件演示
 
@@ -46,7 +46,8 @@
 
 1.  配置数据库和redis。先启动redis，再启动后端api服务
 2.  数据库请使用MySQL5.7，其他版本可能会有问题
-3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可
+3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可。移动端同样，先npm install，再启动。
+4.  github下载速度慢可以访问国内码云gitee链接：https://gitee.com/virus010101/linfeng-community
 
 #### 4.必看说明
 
