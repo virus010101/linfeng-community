@@ -47,7 +47,7 @@
 1.  配置数据库和redis。先启动redis，再启动后端api服务
 2.  数据库请使用MySQL5.7，其他版本可能会有问题
 3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可。移动端同样，先npm install，再启动。
-4.  github下载速度慢可以访问国内码云gitee链接：https://gitee.com/virus010101/linfeng-community
+4.  github下载速度慢可以访问国内码云gitee链接（优先更新gitee）：https://gitee.com/virus010101/linfeng-community
 
 #### 4.必看说明
 
@@ -81,9 +81,25 @@
 
 #### 5.版本更新记录
 
-<img src="https://github.com/virus010101/linfeng-community/blob/main/images/showPic27.png"/>
+
 
 ***当前版本V1.4.1***
+
+######  V1.4.2发布
+
+2022.9.6
+
+【新增】1.新增举报模块 [重磅]
+
+【新增】2.重构升级用户主页和个人页UI [重磅]
+
+【新增】3.APP端适配  [重磅]
+
+【新增】4.帖子列表操作栏动态处理 
+
+【优化】5.帖子列表查询优化及移动端结构调整
+
+【优化】6.增加个人页背景图公共配置项
 
 ######  V1.4.1发布
 
