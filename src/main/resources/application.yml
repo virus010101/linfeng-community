@@ -90,3 +90,7 @@ qiniu:
   max-size: 30
   admin-max-size: 5
 
+# 是否开启短信验证码
+sms:
+  open: false
+

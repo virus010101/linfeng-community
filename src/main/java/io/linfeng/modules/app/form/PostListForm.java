@@ -34,4 +34,8 @@ public class PostListForm {
     @ApiModelProperty(value = "disId")
     private Integer disId;
 
+    @ApiModelProperty(value = "分类id")
+    private Integer classId;
+
+
 }

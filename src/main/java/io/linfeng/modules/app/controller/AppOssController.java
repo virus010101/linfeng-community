@@ -41,9 +41,6 @@ public class AppOssController {
 	@Value("${qiniu.max-size}")
 	private Long maxSize;
 
-	@Autowired
-	private SysOssService sysOssService;
-
 
 	@ApiOperation("上传文件")
 	@PostMapping("/upload")
@@ -55,12 +52,6 @@ public class AppOssController {
 		//上传文件
 		String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		String url = OSSFactory.build().uploadSuffix(file.getBytes(), suffix);
-
-		//保存文件信息
-		SysOssEntity ossEntity = new SysOssEntity();
-		ossEntity.setUrl(url);
-		ossEntity.setCreateDate(new Date());
-		sysOssService.save(ossEntity);
 
 		return R.ok().put("result", url);
 	}

@@ -43,7 +43,7 @@
 					}
 				],
 				current: 1,
-				
+
 			};
 		},
 		computed: {
@@ -97,15 +97,15 @@
 			},
 			tabChange(index) {
 				this.current = index;
-				this.followUserPost=[];
-				this.lastPost=[];
-				
-				if(index===0){
+				this.followUserPost = [];
+				this.lastPost = [];
+
+				if (index === 0) {
 					this.page1 = 1;
 					this.getFollowUserPost();
 					this.getMsgNum();
 				}
-				if(index===1){
+				if (index === 1) {
 					this.page2 = 1;
 					this.getLastPost();
 				}
@@ -123,17 +123,17 @@
 						page: this.page1
 					})
 					.then(res => {
-						if(res.code==0&&res.result){
+						if (res.code == 0 && res.result) {
 							this.followUserPost = this.followUserPost.concat(res.result.data);
 							if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
 								this.loadStatus1 = 'nomore';
 							} else {
 								this.loadStatus1 = 'loadmore';
 							}
-						}else{
+						} else {
 							this.loadStatus1 = 'nomore';
 						}
-						
+
 					});
 			},
 			//获取最新帖子

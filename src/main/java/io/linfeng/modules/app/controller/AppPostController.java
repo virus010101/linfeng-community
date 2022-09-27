@@ -138,7 +138,7 @@ public class AppPostController {
         ValidatorUtils.validateEntity(request);
         Integer id=postService.addPost(request,user);
         if(id==0){
-            return R.error();
+            return R.error("发帖失败");
         }
         return R.ok().put("result",id);
     }

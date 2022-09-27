@@ -23,9 +23,6 @@ import javax.validation.constraints.NotBlank;
  *                  code: loginCode,
  * 					username: userInfo.nickName,
  * 					avatar: userInfo.avatarUrl,
- * 					province: userInfo.province,
- * 					city: userInfo.city,
- * 					gender: userInfo.gender
  */
 @Data
 @ApiModel(value = "微信登录表单")
@@ -42,14 +39,5 @@ public class WxLoginForm {
     @ApiModelProperty(value = "头像",required = true)
     @NotBlank(message="头像不能为空")
     private String avatar;
-
-    @ApiModelProperty(value = "省份")
-    private String province;
-
-    @ApiModelProperty(value = "城市")
-    private String city;
-
-    @ApiModelProperty(value = "性别")
-    private Integer gender;
 
 }

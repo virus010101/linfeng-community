@@ -64,5 +64,7 @@ public interface AppUserService extends IService<AppUserEntity> {
     AppPageUtils follow(Integer page, AppUserEntity user);
 
     AppUserInfoResponse findUserInfoById(Integer uid, AppUserEntity user);
+
+    Integer miniWxLogin(WxLoginForm form);
 }
 

@@ -55,7 +55,7 @@
 							</image>
 						</view>
 					</block>
-					
+
 				</block>
 			</view>
 
@@ -108,7 +108,7 @@
 						<text class="time">{{ item.createTime  }}</text>
 					</view>
 				</view>
-				</view>
+			</view>
 			<!-- 加载状态 -->
 			<block v-if="commentList.length > 0">
 				<view style="margin: 30rpx;">
@@ -251,9 +251,9 @@
 					success: function() {
 						uni.hideToast();
 						uni.showToast({
-						  title: '复制成功快分享给好友叭~' ,
-						  icon: 'success',
-						  duration: 2000,
+							title: '复制成功快分享给好友叭~',
+							icon: 'success',
+							duration: 2000,
 						})
 						that.showShare = false;
 					}

@@ -71,5 +71,10 @@ public class AddPostForm implements Serializable {
      */
     private Double latitude;
 
+    /**
+     * 分类id
+     */
+    private Integer cut;
+
 
 }

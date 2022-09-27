@@ -66,13 +66,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
                 .eq(CommentEntity::getPostId, id));
     }
 
-    @Override
-    public List<CommentEntity> getByPid(Long pid) {
-        return baseMapper.selectList(
-                new LambdaQueryWrapper<CommentEntity>()
-                        .eq(CommentEntity::getPid, pid));
-    }
-
 
     /**
      * 管理端批量删除评论

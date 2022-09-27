@@ -82,11 +82,6 @@ public class AppUserInfoResponse implements Serializable {
 	private Date updateTime;
 
 	/**
-	 * 创建的圈子
-	 */
-	private List<TopicListResponse> createTopicList;
-
-	/**
 	 * 关注
 	 */
 	private Integer follow;

@@ -3,24 +3,25 @@
 		<block v-for="(item, index) in list" :key="item.id">
 			<view @click="jump(item)">
 				<view class="post-item">
-				<view class="post-list-item">
-					<view @click.stop="toUser(item.uid)">
-						<u-avatar class="avatar" :src="item.userInfo.avatar" :show-level='item.userInfo.type == 1' level-bg-color="#000000"></u-avatar>
-					</view>
-					<view class="center">
-						<view style="display: flex;align-items: center;">
-							<text v-if="item.userInfo.type == 1" class="official">官方</text>
-							<text class="username">{{ item.userInfo.username.substring(0, 10) }}</text>
-							<text v-if="item.postTop>0" class="officials">置顶</text>
-							<text v-if="item.status==1" class="officials">审核中</text>
-							<text v-if="item.status==2" class="officials">已下架</text>
+					<view class="post-list-item">
+						<view @click.stop="toUser(item.uid)">
+							<u-avatar class="avatar" :src="item.userInfo.avatar" :show-level='item.userInfo.type == 1'
+								level-bg-color="#000000"></u-avatar>
 						</view>
-						<view>
-							<text class="time">{{ item.createTime}}</text>
+						<view class="center">
+							<view style="display: flex;align-items: center;">
+								<text v-if="item.userInfo.type == 1" class="official">官方</text>
+								<text class="username">{{ item.userInfo.username.substring(0, 10) }}</text>
+								<text v-if="item.postTop>0" class="officials">置顶</text>
+								<text v-if="item.status==1" class="officials">审核中</text>
+								<text v-if="item.status==2" class="officials">已下架</text>
+							</view>
+							<view>
+								<text class="time">{{ item.createTime}}</text>
+							</view>
 						</view>
 					</view>
-				</view>
-					
+
 					<view class="post-content">
 						<rich-text class="post-text" :nodes="item.content"></rich-text>
 						<!-- 帖子类型 -->
@@ -56,9 +57,9 @@
 							</block>
 
 						</block>
-						
+
 					</view>
-					
+
 					<!-- 位置 -->
 					<view class="address" v-if="item.address">
 						<u-icon class="icon" name="map-fill"></u-icon>
@@ -78,17 +79,17 @@
 							<u-icon name="heart"></u-icon>
 							<text class="count">{{ item.collectionCount }}</text>
 						</view>
-						
+
 						<view class="p-item margin50">
 							<text class="iconfont icon-pinglun"></text>
 							<text class="count">{{ item.commentCount }}</text>
 						</view>
-						
+
 					</view>
 				</view>
 			</view>
 		</block>
-		
+
 		<!-- 加载状态 -->
 		<block v-if="list.length === 0 && loadStatus == 'nomore'">
 			<u-empty margin-top="100" text="暂无内容" mode="favor"></u-empty>
@@ -128,7 +129,7 @@
 		},
 
 		methods: {
-			
+
 			cancelCollection(id, index) {
 				this.$H
 					.post('post/cancelCollection', {
@@ -160,7 +161,7 @@
 					urls: urls // 需要预览的图片http链接列表
 				});
 			},
-			
+
 			jump(e) {
 				let url;
 
@@ -173,7 +174,7 @@
 					url: url
 				});
 			},
-			
+
 			toUser(uid) {
 				uni.navigateTo({
 					url: '/pages/user/home?uid=' + uid
@@ -198,7 +199,7 @@
 				height: 600rpx;
 				border-radius: 5px;
 				overflow: hidden;
-				
+
 			}
 
 			.img-style-2 {
@@ -206,7 +207,7 @@
 
 				image {
 					margin: 5rpx;
-					
+
 					width: 100%;
 					height: 305rpx;
 				}
@@ -220,19 +221,19 @@
 					width: 31.3%;
 					height: 200rpx;
 					margin: 0.6%;
-					
+
 				}
 			}
-			
+
 			.img-style-4 {
 				display: flex;
 				flex-wrap: wrap;
-			
+
 				image {
 					width: 48%;
 					height: 320rpx;
 					margin: 0.5%;
-					
+
 				}
 			}
 		}
@@ -255,26 +256,28 @@
 	.post-list-item {
 		display: flex;
 		align-items: center;
+
 		.avatar {
 			width: 85rpx;
 			height: 85rpx;
 			border-radius: 50%;
 			margin-right: 20rpx;
 		}
-		
-		.center{
+
+		.center {
 			flex: 1;
 			display: flex;
 			flex-direction: column;
 			font-size: 24rpx;
 			color: #999;
-			.username{
+
+			.username {
 				font-size: 32rpx;
 				font-weight: 600;
 				color: #616161;
 			}
-			
-			.official{
+
+			.official {
 				display: inline-block;
 				font-size: 20rpx;
 				color: #ffffff;
@@ -283,7 +286,8 @@
 				border-radius: 10rpx;
 				margin-right: 10rpx;
 			}
-			.officials{
+
+			.officials {
 				display: inline-block;
 				font-size: 25rpx;
 				color: #ffffff;
@@ -293,11 +297,13 @@
 				margin-left: 30rpx;
 			}
 		}
-		.right{
+
+		.right {
 			height: 85rpx;
-			.arrow-down{
+
+			.arrow-down {
 				color: #999;
-			}	
+			}
 		}
 	}
 
@@ -330,9 +336,4 @@
 			display: none !important;
 		}
 	}
-
-
-
-
-
 </style>

@@ -11,15 +11,15 @@ export default {
 				if (response.statusCode == 200 || response.statusCode == 0) {
 					if (response.data.code == 401 || response.data.code == 420) {
 						// #ifdef MP-WEIXIN
-							uni.navigateTo({
-								url: "/pages/login/weixin"
-							})
+						uni.navigateTo({
+							url: "/pages/login/weixin"
+						})
 						// #endif
-						
+
 						// #ifdef H5
-							uni.navigateTo({
-								url: "/pages/login/login"
-							})
+						uni.navigateTo({
+							url: "/pages/login/login"
+						})
 						// #endif
 					}
 

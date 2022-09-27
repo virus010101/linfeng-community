@@ -55,8 +55,9 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
 
     @Override
     public Integer getThumbsCount(Long id) {
-        Integer count = this.lambdaQuery().eq(CommentThumbsEntity::getCId, id).count();
-        return count;
+        return this.lambdaQuery()
+                .eq(CommentThumbsEntity::getCId, id)
+                .count();
     }
 
     @Override

@@ -97,6 +97,25 @@
                 "enablePullDownRefresh": false
             }
             
+        },
+		{
+			"path" : "pages/square/square",
+			"style" :
+			{
+			    
+			    "enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}
+        
+        ,{
+            "path" : "pages/post/category",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
 	"globalStyle": {
@@ -117,10 +136,10 @@
 				"text": "主页"
 			},
 			{
-				"pagePath": "pages/message/message",
+				"pagePath": "pages/square/square",
 				"iconPath": "static/tabbar/msg-1.png",
 				"selectedIconPath": "static/tabbar/msg.png",
-				"text": "消息"
+				"text": "广场"
 			},
 			{
 				"pagePath": "pages/user/user",

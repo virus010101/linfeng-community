@@ -23,49 +23,47 @@
 			this.getSysInfo();
 		},
 		methods: {
-			goBack(){
+			goBack() {
 				uni.reLaunch({
 					url: '/pages/index/index'
 				});
 			},
 			getSysInfo() {
 				this.$H.get("system/miniConfig").then(res => {
-					this.logo = res.result.intro;
+					this.logo = res.logo;
 				})
 			},
+
 			async login() {
 				uni.showLoading({
 					mask: true,
-					title: '登录中'
+					title: '正在登陆'
 				});
-
-				let that = this;
-
+				var that = this;
 				let userInfo = await this.getUserProfile();
-				let loginCode = await this.getLoginCode();
-				// console.log('========>', JSON.stringify(userInfo))
-				that.$H.post('user/miniWxLogin', {
-					code: loginCode,
+				let code = await this.getLoginCode();
+				that.$H.post('user/miniWxlogin', {
+					code: code,
 					username: userInfo.nickName,
 					avatar: userInfo.avatarUrl,
-					province: userInfo.province,
-					city: userInfo.city,
-					gender: userInfo.gender
-				}).then(res2 => {
-					if (res2.code === 0) {
+				}).then(res => {
+
+					if (res.code === 0) {
 						uni.setStorageSync("hasLogin", true);
-						uni.setStorageSync("token", res2.token);
+						uni.setStorageSync("token", res.token);
 						uni.switchTab({
 							url: '/pages/index/index'
 						});
 						that.getUserInfo();
-
-						uni.hideLoading();
-
 					}
 					uni.hideLoading();
 				})
+
+
+
 			},
+
+
 			getUserInfo() {
 				this.$H.get("user/userInfo").then(res => {
 					uni.setStorageSync("userInfo", res.result)
@@ -118,10 +116,10 @@
 		color: #999;
 		margin-bottom: 50rpx;
 	}
+
 	.login .txt3 {
 		color: #8c8c8c;
-		margin-bottom: 90rpx;
+		margin-top: 30rpx;
 		text-align: center;
 	}
-
 </style>

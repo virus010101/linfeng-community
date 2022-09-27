@@ -53,52 +53,50 @@
 			},
 			getCode() {
 				let phoneCodeVerification = /^[1][3-9][0-9]{9}$/;
-				if(this.form.mobile==''){
+				if (this.form.mobile == '') {
 					this.$u.toast('请输入手机号');
-				}else if(!phoneCodeVerification.test(this.form.mobile)){
+				} else if (!phoneCodeVerification.test(this.form.mobile)) {
 					this.$u.toast('请输入规范的手机号');
-				}else{
-
-				if (this.$refs.uCode.canGetCode) {
-					
-					// 模拟向后端请求验证码
-					uni.showLoading({
-						title: '正在获取验证码'
-					})
-
-					this.$H.post("user/sendSmsCode", {
-						mobile: this.form.mobile
-					}).then(res => {
-						if (res.code == 0) {
-							uni.hideLoading();
-							this.$refs.uCode.start();
-							this.$u.toast(res.msg);
-							
-						}
-					})
 				} else {
-					this.$u.toast('倒计时结束后再发送');
-				}
+
+					if (this.$refs.uCode.canGetCode) {
+
+						// 模拟向后端请求验证码
+						uni.showLoading({
+							title: '正在获取验证码'
+						})
+
+						this.$H.post("user/sendSmsCode", {
+							mobile: this.form.mobile
+						}).then(res => {
+							if (res.code == 0) {
+								uni.hideLoading();
+								this.$refs.uCode.start();
+								this.$u.toast(res.msg);
+
+							}
+						})
+					} else {
+						this.$u.toast('倒计时结束后再发送');
+					}
 				}
 			},
-			end() {
-			},
-			start() {
-			}
+			end() {},
+			start() {}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.login-register{
+	.login-register {
 		padding: 20rpx 50rpx;
 	}
-	
-	.button-login{
+
+	.button-login {
 		margin-top: 100rpx;
 	}
-	
-	.title{
+
+	.title {
 		font-size: 40rpx;
 		font-weight: 600;
 		margin-bottom: 50rpx;

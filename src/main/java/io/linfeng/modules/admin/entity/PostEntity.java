@@ -94,4 +94,8 @@ public class PostEntity implements Serializable {
 	 */
 	private Date createTime;
 
+	/**
+	 * 分类id
+	 */
+	private Integer cut;
 }
