@@ -66,16 +66,7 @@ public class SensitiveController {
         return R.ok().put("sensitive", sensitive);
     }
 
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    @RequiresPermissions("admin:sensitive:save")
-    public R save(@RequestBody SensitiveEntity sensitive){
-		sensitiveService.save(sensitive);
 
-        return R.ok();
-    }
 
     /**
      * 修改
@@ -88,15 +79,6 @@ public class SensitiveController {
         return R.ok();
     }
 
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
-    @RequiresPermissions("admin:sensitive:delete")
-    public R delete(@RequestBody Long[] ids){
-		sensitiveService.removeByIds(Arrays.asList(ids));
 
-        return R.ok();
-    }
 
 }

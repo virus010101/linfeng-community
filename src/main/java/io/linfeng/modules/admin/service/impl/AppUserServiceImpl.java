@@ -12,6 +12,7 @@
  */
 package io.linfeng.modules.admin.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
@@ -34,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -42,6 +44,9 @@ import io.linfeng.modules.admin.dao.AppUserDao;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static java.util.Map.Entry.comparingByValue;
+import static java.util.stream.Collectors.toMap;
 
 
 @Service
@@ -320,6 +325,31 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             AppUserEntity users = this.lambdaQuery().eq(AppUserEntity::getOpenid, openId).one();
             return users.getUid();
         }
+    }
+
+    @Override
+    public List<AppUserRankResponse> userRank() {
+        DateTime month = cn.hutool.core.date.DateUtil.beginOfMonth(new Date());
+
+        List<PostEntity> postList = postService.lambdaQuery().gt(PostEntity::getCreateTime, month).list();
+        if(postList.isEmpty()){
+            return new ArrayList<>();
+        }
+        Map<Integer, Long> collect = postList.stream().collect(Collectors.groupingBy(PostEntity::getUid, Collectors.counting()));
+        Map<Integer, Long> sorted = collect
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(comparingByValue()))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                                LinkedHashMap::new));
+        List<AppUserRankResponse> list=new ArrayList<>();
+        sorted.forEach((k,v)->{
+            AppUserRankResponse response=new AppUserRankResponse();
+            BeanUtils.copyProperties(this.getById(k),response);
+            response.setPostNumber(v.intValue());
+            list.add(response);
+        });
+        return list;
     }
 
 

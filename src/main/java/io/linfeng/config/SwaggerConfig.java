@@ -47,7 +47,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new ApiInfoBuilder()
                 .title("林风社交论坛项目接口文档")
                 .description("林风社交论坛项目开源版接口文档 演示地址 https://www.linfeng.tech")
-                .contact(new Contact("linfeng","http:localhost:8080/doc.html","3582996245@qq.com"))
+                .contact(new Contact("linfeng","http:localhost:8080/doc.html","linfengtech001@163.com"))
                 .version("1.0")
                 .build();
 

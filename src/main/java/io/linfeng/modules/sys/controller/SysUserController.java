@@ -69,6 +69,7 @@ public class SysUserController extends AbstractController {
 	@ApiOperation("修改密码")
 	@SysLog("修改密码")
 	@PostMapping("/password")
+	@RequiresPermissions("sys:user:update")
 	public R password(@RequestBody PasswordForm form){
 		Assert.isBlank(form.getNewPassword(), "新密码不为能空");
 		

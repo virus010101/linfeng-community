@@ -14,6 +14,7 @@ package io.linfeng.modules.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.linfeng.common.response.AppUserInfoResponse;
+import io.linfeng.common.response.AppUserRankResponse;
 import io.linfeng.common.response.AppUserResponse;
 import io.linfeng.common.response.HomeRateResponse;
 import io.linfeng.common.utils.AppPageUtils;
@@ -66,5 +67,7 @@ public interface AppUserService extends IService<AppUserEntity> {
     AppUserInfoResponse findUserInfoById(Integer uid, AppUserEntity user);
 
     Integer miniWxLogin(WxLoginForm form);
+
+    List<AppUserRankResponse> userRank();
 }
 

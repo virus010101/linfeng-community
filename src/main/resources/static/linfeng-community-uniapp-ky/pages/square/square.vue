@@ -23,7 +23,28 @@
 		</view>
 		<!-- 发帖达人 -->
 		<view v-show="pageCurrent == 1">
-			发帖达人
+			<navigator :url="'/pages/user/home?uid=' + item.uid" class="user-item" hover-class="none"
+				v-for="(item, index) in userList" :key="index">
+				<view v-if="index < 10" class="user-index-hot">{{ index + 1 }}</view>
+				<view v-else class="user-index">{{ index + 1 }}</view>
+				<image class="avatar" mode="aspectFill" :src="item.avatar"></image>
+				<view class="right">
+					<text class="username">{{ item.username }}</text>
+					<view class="tag-wrap">
+						<text class="tag" :key="index2">{{ item.intro }}</text>
+						<text class="tag" :key="index2">+{{ item.postNumber }}</text>
+					</view>
+				</view>
+			</navigator>
+			<!-- 加载状态 -->
+			<block v-if="userList.length === 0 && loadStatus == 'nomore'">
+				<u-empty margin-top="100" text="暂无内容" mode="favor"></u-empty>
+			</block>
+			<block v-else>
+				<view style="margin: 30rpx 0;">
+					<u-loadmore :status="loadStatus" />
+				</view>
+			</block>
 		</view>
 
 
@@ -55,12 +76,14 @@
 				loadPostStatus: 'loadmore',
 				classId: 0,
 				page: 1,
+				userList: [],
 			}
 		},
 		onLoad() {
 			this.getBannerList();
 			this.getPostList();
 			this.getClassList();
+			this.getUserRanking();
 		},
 		onReachBottom() {
 			if (this.pageCurrent == 0) {
@@ -68,7 +91,8 @@
 				this.getPostList()
 			}
 			if (this.pageCurrent == 1) {
-
+				this.userList = [];
+				this.getUserRanking();
 			}
 		},
 		onPullDownRefresh() {
@@ -78,7 +102,8 @@
 				this.getPostList()
 			}
 			if (this.pageCurrent == 1) {
-
+				this.userList = [];
+				this.getUserRanking();
 			}
 		},
 		methods: {
@@ -95,7 +120,6 @@
 				})
 			},
 			pageTabChange(index) {
-				// console.log(index)
 				this.pageCurrent = index
 			},
 			tabChange(index) {
@@ -110,6 +134,13 @@
 					console.log(res.result)
 					this.classList = this.classList.concat(res.result)
 				})
+			},
+			getUserRanking() {
+				this.$H
+					.post('user/userRank')
+					.then(res => {
+						this.userList = res.result;
+					});
 			},
 			// 根据分页和分类展示帖子列表
 			getPostList() {
@@ -158,7 +189,7 @@
 		.user-index-hot {
 			margin-right: 20rpx;
 			color: #fff;
-			background-image: linear-gradient(#7979b6, #aaaaff);
+			background-image: linear-gradient(#e64340, #ffaac3);
 			width: 55rpx;
 			height: 55rpx;
 			border-radius: 50%;
@@ -198,19 +229,12 @@
 					border-radius: 10rpx;
 					margin-right: 20rpx;
 					margin-bottom: 20rpx;
-					background-color: #99ccff;
+					background-color: #7da9bd;
 
 					&:nth-child(2n) {
 						background-color: #ccb3ff;
 					}
 
-					&:nth-child(3n) {
-						background-color: #ffe7b3;
-					}
-
-					&:nth-child(5n) {
-						background-color: #b3e0ff;
-					}
 				}
 			}
 		}
