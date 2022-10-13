@@ -14,6 +14,8 @@
 
 #### 2.软件演示
 
+官网：https://net.linfeng.tech
+
 ##### 2.1移动端H5演示版本（手机扫码浏览/输入手机号登录）https://www.linfeng.tech
 
 ![移动端H5二维码](https://github.com/virus010101/linfeng-community/blob/main/images/er.png)
@@ -91,7 +93,7 @@ https://www.linfeng.tech/#/pages/post/detail?id=140
 
 [http://pic.linfeng.tech/test/20220727/e472fbef0a8f412b912bea6fa5317acf.png](https://gitee.com/link?target=http%3A%2F%2Fpic.linfeng.tech%2Ftest%2F20220727%2Fe472fbef0a8f412b912bea6fa5317acf.png)
 
-
+详情查看官网：https://net.linfeng.tech
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/version.png" style="zoom: 25%;" />
 
