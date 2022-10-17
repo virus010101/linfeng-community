@@ -97,9 +97,15 @@ https://www.linfeng.tech/#/pages/post/detail?id=140
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/version.png" style="zoom: 25%;" />
 
+#### 5.开源须知
 
+1.开源版仅允许用于个人学习研究使用!
 
-#### 5.版本更新记录
+2.禁止将本开源的代码和资源进行任何形式任何名义的改造或出售!
+
+3.限制商用，如果需要商业使用请联系我们或查看官网https://net.linfeng.tech了解商用详情。qq:3582996245。
+
+#### 6.版本更新记录
 
 
 
