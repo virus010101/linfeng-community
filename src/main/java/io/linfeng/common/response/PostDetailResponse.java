@@ -109,10 +109,6 @@ public class PostDetailResponse implements Serializable {
 	private Boolean isThumb;
 
 	/**
-	 * 圈子信息
-	 */
-	private TopicDetailResponse topicInfo;
-	/**
 	 * 用户信息
 	 */
 	private AppUserEntity userInfo;

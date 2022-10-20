@@ -61,17 +61,13 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
         queryWrapper.eq(FollowEntity::getUid,uid);
         queryWrapper.eq(FollowEntity::getFollowUid,id);
         Integer num = baseMapper.selectCount(queryWrapper);
-        if(num==0){
-            return false;
-        }
-        return true;
+        return num!=0;
     }
 
     @Override
     public List<Integer> getFollowUid(AppUserEntity user) {
         List<FollowEntity> list = this.lambdaQuery().eq(FollowEntity::getUid, user.getUid()).list();
-        List<Integer> collect = list.stream().map(FollowEntity::getFollowUid).collect(Collectors.toList());
-        return collect;
+        return list.stream().map(FollowEntity::getFollowUid).collect(Collectors.toList());
     }
 
     @Override
@@ -102,15 +98,13 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
         if(list.isEmpty()){
             return new ArrayList<>();
         }
-        List<Integer> collect = list.stream().map(FollowEntity::getUid).collect(Collectors.toList());
-        return collect;
+        return list.stream().map(FollowEntity::getUid).collect(Collectors.toList());
     }
 
     @Override
     public List<Integer> getFollowUids(AppUserEntity user) {
         List<FollowEntity> list = this.lambdaQuery().eq(FollowEntity::getUid, user.getUid()).list();
-        List<Integer> collect = list.stream().map(FollowEntity::getFollowUid).collect(Collectors.toList());
-        return collect;
+        return list.stream().map(FollowEntity::getFollowUid).collect(Collectors.toList());
     }
 
 

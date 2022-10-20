@@ -20,7 +20,6 @@ import io.linfeng.common.response.HomeRateResponse;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.PageUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
-import io.linfeng.modules.admin.entity.MessageEntity;
 import io.linfeng.modules.app.form.*;
 
 import javax.servlet.http.HttpServletRequest;

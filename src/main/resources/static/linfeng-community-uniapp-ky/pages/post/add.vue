@@ -11,13 +11,7 @@
 		<!-- 分类 -->
 		<view @click="chooseClass" class="choose-item">
 			<u-icon class="icon add-icon" name="file-text-fill" color="#999" size="40"></u-icon>
-			<text class="txt">{{ cateName || '选择分类' }}</text>
-			<u-icon class="u-icon" name="arrow-right"></u-icon>
-		</view>
-		<!-- 所在位置 -->
-		<view @click="chooseLocation" class="choose-item">
-			<u-icon class="icon add-icon" name="map" color="#999" size="40"></u-icon>
-			<text class="txt">{{ form.address || '所在位置' }}</text>
+			<text class="txt">{{ cateName || '选择帖子分类' }}</text>
 			<u-icon class="u-icon" name="arrow-right"></u-icon>
 		</view>
 		<view class="button-style">
@@ -56,8 +50,7 @@
 			};
 		},
 		onLoad(options) {
-			this.form.longitude = location.longitude;
-			this.form.latitude = location.latitude;
+
 		},
 		methods: {
 			chooseClass() {
@@ -82,16 +75,7 @@
 				});
 				this.$refs.uUpload.upload();
 			},
-			chooseLocation() {
-				let that = this;
-				uni.chooseLocation({
-					success: function(res) {
-						that.form.address = res.name;
-						that.form.latitude = res.latitude;
-						that.form.longitude = res.longitude;
-					}
-				});
-			},
+
 			submit(e) {
 				uni.showLoading({
 					mask: true,

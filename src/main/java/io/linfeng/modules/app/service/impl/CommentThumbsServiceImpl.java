@@ -19,6 +19,8 @@ import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.app.form.AddThumbsForm;
 import org.springframework.stereotype.Service;
 import java.util.Map;
+import java.util.Optional;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -50,7 +52,7 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
                 .eq(CommentThumbsEntity::getCId, id)
                 .eq(CommentThumbsEntity::getUid, uid));
 
-        return one!=null;
+        return Optional.ofNullable(one).isPresent();
     }
 
     @Override

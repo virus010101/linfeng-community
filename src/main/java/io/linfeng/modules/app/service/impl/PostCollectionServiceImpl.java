@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -57,7 +58,7 @@ public class PostCollectionServiceImpl extends ServiceImpl<PostCollectionDao, Po
                 new LambdaQueryWrapper<PostCollectionEntity>()
                 .eq(PostCollectionEntity::getPostId, postId)
                 .eq(PostCollectionEntity::getUid, uid));
-        return entity != null;
+        return Optional.ofNullable(entity).isPresent();
     }
 
     @Override

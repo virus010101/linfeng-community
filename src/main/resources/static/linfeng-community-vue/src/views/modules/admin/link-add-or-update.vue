@@ -7,12 +7,6 @@
     <el-form-item label="标题" prop="title">
       <el-input v-model="dataForm.title" placeholder="标题"></el-input>
     </el-form-item>
-    <!-- <el-form-item label="路径" prop="url">
-      <el-input v-model="dataForm.url" placeholder="路径"></el-input>
-    </el-form-item> -->
-    <!-- <el-form-item label="图片" prop="img">
-      <el-input v-model="dataForm.img" placeholder="图片"></el-input>
-    </el-form-item> -->
       <el-form-item label="图片" prop="coverImage">
         <el-upload
           class="avatar-uploader"
@@ -29,12 +23,6 @@
         </el-upload>
         <p class="formInfo">建议尺寸：500*250像素，jpg、png图片类型</p>
       </el-form-item>
-    <!-- <el-form-item label="3圈子页轮播图" prop="type">
-      <el-input v-model="dataForm.type" placeholder="3圈子页轮播图"></el-input>
-    </el-form-item> -->
-    <!-- <el-form-item label="创建时间" prop="createTime">
-      <el-input v-model="dataForm.createTime" placeholder="创建时间"></el-input>
-    </el-form-item> -->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>

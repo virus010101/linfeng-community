@@ -52,8 +52,6 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Autowired
     private CommentService commentService;
     @Autowired
-    private DiscussService discussService;
-    @Autowired
     private LocalUser localUser;
     @Autowired
     private FollowService followService;
@@ -84,12 +82,6 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         data.forEach(l->{
             PostListResponse response=new PostListResponse();
             BeanUtils.copyProperties(l,response);
-            if(ObjectUtil.isNotNull(response.getDiscussId())&&response.getDiscussId()>0){
-                DiscussEntity discussEntity = discussService.getById(response.getDiscussId());
-                if(ObjectUtil.isNotNull(discussEntity)){
-                    response.setDiscussTitle(discussEntity.getTitle());
-                }
-            }
             response.setCollectionCount(postCollectionService.collectCount(response.getId()));
             response.setCommentCount(commentService.getCountByTopicId(response.getId()));
             response.setUserInfo(appUserService.getById(response.getUid()));

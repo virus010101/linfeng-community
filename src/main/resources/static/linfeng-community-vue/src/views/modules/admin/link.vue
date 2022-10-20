@@ -1,11 +1,7 @@
 <template>
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
-      <!-- <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
-      </el-form-item> -->
       <el-form-item>
-        <!-- <el-button @click="getDataList()">查询</el-button> -->
         <el-button v-if="isAuth('admin:link:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
         <el-button v-if="isAuth('admin:link:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
@@ -34,12 +30,6 @@
         align="center"
         label="标题">
       </el-table-column>
-      <!-- <el-table-column
-        prop="url"
-        header-align="center"
-        align="center"
-        label="路径">
-      </el-table-column> -->
       <el-table-column
         prop="img"
         header-align="center"
@@ -49,12 +39,6 @@
               <img style="width: 40px; height: 40px" :src="scope.row.img" />
         </template>
       </el-table-column>
-      <!-- <el-table-column
-        prop="type"
-        header-align="center"
-        align="center"
-        label="3圈子页轮播图">
-      </el-table-column> -->
       <el-table-column
         prop="createTime"
         header-align="center"
