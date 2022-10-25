@@ -32,7 +32,7 @@ https://www.linfeng.tech/#/pages/post/detail?id=140
 
 **注意:演示版为标准商业版**
 
-
+开源版具体的功能清单请查看：https://net.linfeng.tech/version/version.html
 
 ##### 2.2移动端效果截图
 
@@ -89,21 +89,18 @@ https://www.linfeng.tech/#/pages/post/detail?id=140
 
 4.**商业版和开源版的区别**
 
-[http://pic.linfeng.tech/test/20220816/22d8a6fa4ae845e1b58914a96acec6b7.png](https://gitee.com/link?target=http%3A%2F%2Fpic.linfeng.tech%2Ftest%2F20220816%2F22d8a6fa4ae845e1b58914a96acec6b7.png)
-
-[http://pic.linfeng.tech/test/20220727/e472fbef0a8f412b912bea6fa5317acf.png](https://gitee.com/link?target=http%3A%2F%2Fpic.linfeng.tech%2Ftest%2F20220727%2Fe472fbef0a8f412b912bea6fa5317acf.png)
+https://net.linfeng.tech/version/version.html
 
 详情查看官网：https://net.linfeng.tech
 
-<img src="https://github.com/virus010101/linfeng-community/blob/main/images/version.png" style="zoom: 25%;" />
-
 #### 5.开源须知
 
-1.开源版仅允许用于个人学习研究使用!
+- 开源版仅允许用于个人学习研究使用!
 
-2.禁止将本开源的代码和资源进行任何形式任何名义的改造或出售!
+- 禁止将本开源的代码和资源进行任何形式任何名义的改造或出售!
 
-3.限制商用，如果需要商业使用请联系我们或查看官网了解商用详情。qq:3582996245。
+- 限制商用，如果需要商业使用请联系我们或查看官网了解商用详情。qq:3582996245。
+
 
 #### 6.版本更新记录
 
