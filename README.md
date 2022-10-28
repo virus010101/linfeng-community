@@ -60,8 +60,6 @@ https://www.linfeng.tech/#/pages/post/detail?id=140
 
 ![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic10.png)
 
-![](https://github.com/virus010101/linfeng-community/blob/main/images/.png)
-
 #### 3.安装教程 
 
 1.  配置数据库和redis。先启动redis，再启动后端api服务
