@@ -16,17 +16,19 @@
 
 官网：https://net.linfeng.tech
 
-##### 2.1移动端H5演示版本（手机扫码浏览/输入手机号登录）https://www.linfeng.tech
+##### 2.1移动端演示
 
-![移动端H5二维码](https://github.com/virus010101/linfeng-community/blob/main/images/er.png)
+![移动端二维码](https://github.com/virus010101/linfeng-community/blob/main/images/er.jpg)
+
+或者：
+
+H5端：https://www.linfeng.tech
+
+微信小程序：搜索”林风bbs“
 
 后台管理系统演示地址：https://dev.linfeng.tech
 
 账号 ： test         密码：  123456
-
-小程序端和App安卓端体验版二维码请查看本链接：
-
-https://www.linfeng.tech/#/pages/post/detail?id=140
 
 
 
@@ -104,7 +106,7 @@ https://net.linfeng.tech/version/version.html
 
 
 
-***当前版本V1.5.0***
+***当前版本V1.6.0***
 
 
 
