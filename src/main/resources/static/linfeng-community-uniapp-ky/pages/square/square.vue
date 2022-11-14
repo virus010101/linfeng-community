@@ -77,6 +77,7 @@
 				classId: 0,
 				page: 1,
 				userList: [],
+				loadStatus: 'nomore'
 			}
 		},
 		onLoad() {
@@ -100,8 +101,7 @@
 				this.page = 1
 				this.pageList = []
 				this.getPostList()
-			}
-			if (this.pageCurrent == 1) {
+			}else if (this.pageCurrent == 1) {
 				this.userList = [];
 				this.getUserRanking();
 			}
@@ -115,8 +115,9 @@
 				})
 			},
 			toSearch() {
-				uni.navigateTo({
-					url: '/pages/search/search'
+				uni.showToast({
+					icon:'none',
+					title:'暂无搜索'
 				})
 			},
 			pageTabChange(index) {
@@ -131,7 +132,6 @@
 			},
 			getClassList() {
 				this.$H.get('topic/classList').then(res => {
-					console.log(res.result)
 					this.classList = this.classList.concat(res.result)
 				})
 			},

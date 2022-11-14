@@ -13,8 +13,6 @@ public  class JsonUtils {
 
 
     public static List<String> JsonToList(String jsonString){
-
-        List<String> list = JSON.parseArray(jsonString, String.class);
-        return list;
+        return JSON.parseArray(jsonString, String.class);
     }
 }

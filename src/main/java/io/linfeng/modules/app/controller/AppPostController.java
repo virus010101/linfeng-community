@@ -26,6 +26,8 @@ import io.linfeng.modules.app.form.AddPostForm;
 import io.linfeng.modules.app.form.PostListForm;
 import io.linfeng.modules.app.service.PostCollectionService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +50,9 @@ public class AppPostController {
 
     @GetMapping("/lastPost")
     @ApiOperation("最新动态列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+    })
     public R lastPost(@RequestParam Integer page){
 
         AppPageUtils pages =postService.lastPost(page);
@@ -58,6 +63,9 @@ public class AppPostController {
     @Login
     @GetMapping("/followUserPost")
     @ApiOperation("获取关注用户帖子")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+    })
     public R followUserPost(@RequestParam Integer page, @LoginUser AppUserEntity user){
 
         AppPageUtils pages =postService.followUserPost(page,user);
@@ -95,6 +103,9 @@ public class AppPostController {
     @Login
     @GetMapping("/myPost")
     @ApiOperation("我的帖子")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+    })
     public R myPost(@RequestParam("page") Integer page, @LoginUser AppUserEntity user){
 
         AppPageUtils pages =postService.myPost(page,user);
@@ -105,6 +116,9 @@ public class AppPostController {
     @Login
     @GetMapping("/myCollectPost")
     @ApiOperation("我点赞收藏的帖子")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+    })
     public R myCollectPost(@RequestParam("page") Integer page, @LoginUser AppUserEntity user){
 
         AppPageUtils pages =postService.myCollectPost(page,user);
@@ -114,6 +128,9 @@ public class AppPostController {
 
     @GetMapping("/detail")
     @ApiOperation("获取帖子详情")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "帖子id",paramType = "query", dataType = "Integer", required = true)
+    })
     public R detail(@RequestParam Integer id){
 
         PostDetailResponse response=postService.detail(id);

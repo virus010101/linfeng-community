@@ -40,12 +40,12 @@
 					title: '正在登陆'
 				});
 				var that = this;
-				let userInfo = await this.getUserProfile();
+				// let userInfo = await this.getUserProfile();
 				let code = await this.getLoginCode();
 				that.$H.post('user/miniWxlogin', {
 					code: code,
-					username: userInfo.nickName,
-					avatar: userInfo.avatarUrl,
+					// username: userInfo.nickName,
+					// avatar: userInfo.avatarUrl,
 				}).then(res => {
 
 					if (res.code === 0) {
@@ -79,17 +79,17 @@
 					});
 				});
 			},
-			getUserProfile() {
-				return new Promise((resolve, reject) => {
-					wx.getUserProfile({
-						lang: 'zh_CN',
-						desc: '用于完善会员资料',
-						success: res => {
-							resolve(res.userInfo);
-						}
-					});
-				});
-			}
+			// getUserProfile() {
+			// 	return new Promise((resolve, reject) => {
+			// 		wx.getUserProfile({
+			// 			lang: 'zh_CN',
+			// 			desc: '用于完善会员资料',
+			// 			success: res => {
+			// 				resolve(res.userInfo);
+			// 			}
+			// 		});
+			// 	});
+			// }
 
 		}
 	}

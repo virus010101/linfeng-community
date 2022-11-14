@@ -27,7 +27,7 @@
 							shape="circle" size="mini">
 							<text>已关注</text>
 						</u-button>
-						<u-button @click="jump('/pages/chat/chat?user='+userJson)" :custom-style="btnStyle2"
+						<u-button @click="" :custom-style="btnStyle2"
 							shape="circle" size="mini">
 							<text style="margin: 0 15rpx;">私信</text>
 						</u-button>
@@ -40,11 +40,15 @@
 			</view>
 		</view>
 		
+		<!-- 发贴入口 -->
+		<add-post-tag></add-post-tag>
+		
 	</view>
 </template>
 
 <script>
 	import postList from '../../components/post-list/post-list.vue';
+	import addPostTag from '../../components/add-post-tag/add-post-tag.vue';
 	export default {
 		components: {
 			postList

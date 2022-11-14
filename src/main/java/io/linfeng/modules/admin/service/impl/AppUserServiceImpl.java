@@ -42,6 +42,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.linfeng.modules.admin.dao.AppUserDao;
 import io.linfeng.modules.admin.entity.AppUserEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -78,9 +79,10 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         QueryWrapper<AppUserEntity> queryWrapper = new QueryWrapper<>();
         //模糊查询
         String key = (String) params.get("key");
-        if (!WechatUtil.isEmpty(key)) {
-            params.put("page", "1");//如果是查询分页重置为第一页
-            queryWrapper.like("username", key).or().like("mobile", key);
+        if (!ObjectUtil.isEmpty(key)) {
+            queryWrapper.like("username", key)
+                    .or()
+                    .like("mobile", key);
         }
         queryWrapper.lambda().orderByDesc(AppUserEntity::getUid);
         IPage<AppUserEntity> page = this.page(
@@ -104,15 +106,19 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void openBan(Integer id) {
         Integer status = this.lambdaQuery().eq(AppUserEntity::getUid, id).one().getStatus();
         if (status.equals(Constant.USER_NORMAL)) {
             throw new LinfengException("该用户已解除禁用");
         }
-        this.lambdaUpdate()
+        boolean update = this.lambdaUpdate()
                 .set(AppUserEntity::getStatus, 0)
                 .eq(AppUserEntity::getUid, id)
                 .update();
+        if(!update){
+            throw new LinfengException("解除失败");
+        }
     }
 
     @Override
@@ -192,8 +198,11 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
     @Override
     public void updateAppUserInfo(AppUserUpdateForm appUserUpdateForm, AppUserEntity user) {
-        if (!WechatUtil.isEmpty(appUserUpdateForm.getAvatar())) {
+        if (!ObjectUtil.isEmpty(appUserUpdateForm.getAvatar())) {
             user.setAvatar(appUserUpdateForm.getAvatar());
+        }
+        if(!ObjectUtil.isEmpty(appUserUpdateForm.getGender())){
+            user.setGender(appUserUpdateForm.getGender());
         }
         baseMapper.updateById(user);
         redisUtils.delete("userId:" + user.getUid());
@@ -313,8 +322,8 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             //新注册用户
             AppUserEntity appUser = new AppUserEntity();
             appUser.setGender(0);
-            appUser.setAvatar(form.getAvatar());
-            appUser.setUsername(form.getUsername());
+            appUser.setAvatar(Constant.DEAULT_HEAD);
+            appUser.setUsername("LF_wx" + RandomUtil.randomNumbers(8));
             appUser.setCreateTime(DateUtil.nowDateTime());
             appUser.setUpdateTime(DateUtil.nowDateTime());
             appUser.setOpenid(openId);

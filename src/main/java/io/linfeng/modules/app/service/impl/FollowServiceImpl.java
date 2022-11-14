@@ -46,13 +46,17 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
 
     @Override
     public Integer getFollowCount(Integer uid) {
-        return this.lambdaQuery().eq(FollowEntity::getUid, uid).count();
+        return this.lambdaQuery()
+                .eq(FollowEntity::getUid, uid)
+                .count();
     }
 
     @Override
     public Integer getFans(Integer uid) {
 
-        return this.lambdaQuery().eq(FollowEntity::getFollowUid,uid).count();
+        return this.lambdaQuery()
+                .eq(FollowEntity::getFollowUid,uid)
+                .count();
     }
 
     @Override
@@ -83,10 +87,7 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
         lambdaQueryWrapper2.eq(FollowEntity::getUid, followUid);
         lambdaQueryWrapper2.eq(FollowEntity::getFollowUid, uid);
         Integer num2 = baseMapper.selectCount(lambdaQueryWrapper2);
-        if(num2==0){
-            return 2;
-        }
-        return 1;
+        return num2==0?2:1;
     }
 
     @Override

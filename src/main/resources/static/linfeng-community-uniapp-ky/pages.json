@@ -17,13 +17,6 @@
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
-		},
-		{
-			"path": "pages/message/message",
-			"style": {
-				"enablePullDownRefresh": true,
-				"navigationBarTitleText": "消息"
-			}
 		}
 	    ,{
             "path" : "pages/post/post",

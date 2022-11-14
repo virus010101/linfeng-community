@@ -10,17 +10,16 @@
 						:disabled="true" input-align="right" />
 				</u-form-item>
 				<u-form-item label="性别" right-icon="arrow-right">
-					<u-input @click="showGender = true" :placeholder="userInfo.gender"
-						:disabled="true" input-align="right" />
+					<u-input @click="showGender = true" :placeholder="userInfo.gender" :disabled="true"
+						input-align="right" />
 				</u-form-item>
 				<u-form-item label="个性签名" right-icon="arrow-right">
 					<u-input @click="jump(userInfo.intro,'intro')" :placeholder="userInfo.intro" :disabled="true"
 						input-align="right" />
 				</u-form-item>
-				
 			</u-form>
 		</view>
-		<view>
+		<view class="out-btn">
 			<u-button :custom-style="btnStyle" @click="outlogin">退出登录</u-button>
 		</view>
 		<!-- 性别选择 -->
@@ -38,19 +37,18 @@
 				},
 				form: {},
 				userInfo: {},
-				showGender:false,
-				gender:[
-					{
-						value:1,
-						lable:"男"
+				showGender: false,
+				gender: [{
+						value: 1,
+						label: "男"
 					},
 					{
-						value:2,
-						lable:"女"
+						value: 2,
+						label: "女"
 					},
 					{
-						value:0,
-						lable:"保密"
+						value: 0,
+						label: "保密"
 					}
 				]
 			};
@@ -60,29 +58,28 @@
 		},
 		methods: {
 			// 修改性别
-			saveGender(index){				
-				let gender = this.gender[index[0]].value;
-	
+			saveGender(index) {
+				let gender = index[0].value;
 				this.$H.post("user/userInfoEdit", {
-					gender:gender
+					gender: gender
 				}).then(res => {
-					if(res.code == 0){
-						this.userInfo.gender = this.gender[index[0]].lable
+					if (res.code == 0) {
+						this.userInfo.gender = index[0].label
 					}
 				})
 			},
 			getUserInfo() {
 				this.$H.get("user/userInfo").then(res => {
 					this.userInfo = res.result
-					if(res.result.gender===1){
-						this.userInfo.gender='男'
-					}else if(res.result.gender===2){
-						this.userInfo.gender='女'
-					}else{
-						this.userInfo.gender='保密'
+					if (res.result.gender === 1) {
+						this.userInfo.gender = '男'
+					} else if (res.result.gender === 2) {
+						this.userInfo.gender = '女'
+					} else {
+						this.userInfo.gender = '保密'
 					}
-					
-					
+
+
 				})
 			},
 			jump(value, type) {
@@ -106,8 +103,8 @@
 					sourceType: ['album'],
 					success: function(res) {
 						uni.showLoading({
-							mask:true,
-							title:"上传头像中"
+							mask: true,
+							title: "上传头像中"
 						})
 						uni.uploadFile({
 							url: that.$c.domain + 'common/upload',
@@ -128,9 +125,9 @@
 				});
 
 			},
-			updateAvatar(avatar){
+			updateAvatar(avatar) {
 				this.$H.post("user/userInfoEdit", {
-					avatar:avatar
+					avatar: avatar
 				}).then(res => {
 					if (res.code == 0) {
 						this.userInfo.avatar = avatar;
@@ -146,5 +143,7 @@
 		background-color: #FFFFFF;
 	}
 
-	
+	.out-btn {
+		margin: 40rpx 30rpx;
+	}
 </style>

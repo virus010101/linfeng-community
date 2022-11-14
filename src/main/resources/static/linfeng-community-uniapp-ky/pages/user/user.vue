@@ -67,7 +67,7 @@
 				<!-- #ifdef MP-WEIXIN -->
 				<u-grid-item>
 					<button open-type="contact" class="u-reset-button">
-						<image class="gn-icon" style="margin-bottom: unset;" src="/static/m_8.png"></image>
+						<image class="gn-icon" style="margin-bottom: unset;" src="/static/img/kefu.png"></image>
 						<view class="grid-text">客服</view>
 					</button>
 				</u-grid-item>
@@ -111,7 +111,6 @@
 			} else {
 				this.hasLogin = false;
 			}
-			// this.getMsgNum();
 		},
 		onShareAppMessage(res) {
 			let imgURL = 'http://pic.linfeng.tech/logo.png';
