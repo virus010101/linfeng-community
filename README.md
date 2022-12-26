@@ -30,8 +30,6 @@ H5端：https://www.linfeng.tech
 
 账号 ： test         密码：  123456
 
-(账号test2或者test3也可以)
-
 **注意:演示版为标准商业版**
 
 开源版具体的功能清单请查看：https://net.linfeng.tech/version/version.html
