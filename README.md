@@ -104,7 +104,7 @@ https://net.linfeng.tech/version/version.html
 
 
 
-***当前版本V1.7.0***
+***当前版本标准版V1.7.0***
 
 ######  V1.7.0发布
 
