@@ -4,7 +4,7 @@
 
 社交论坛uniapp小程序/H5/App版本基于SpringBoot+MybatisPlus+Shiro+jwt+Redis+Vue+Uniapp的前后端分离的社交论坛问答发帖/BBS项目 项目分为Uniapp用户端（兼容H5、微信小程序以及App）和Vue后台管理端（包括完整的权限处理）， 基于以下技术栈开发：SpringBoot、MybatisPlus、Websocket、Shiro、jwt、Redis、Vue、Uniapp、MySQL5.7。
 
-功能：图文帖，短视频，圈子，私聊，微信支付（小程序/H5/app），付费贴，积分签到，钱包充值，积分余额兑换，话题标签，抽奖大转盘，手机号邮箱登录，人机发帖等完整功能，直接看演示更直观↓↓↓↓↓↓
+功能：图文帖，短视频，圈子，私聊，微信支付（小程序/H5/app），付费贴，积分签到，钱包充值，积分余额兑换，话题标签，抽奖大转盘，手机号邮箱登录，人机发帖等完整功能，即时通讯IM，好友模块等，直接看演示更直观↓↓↓↓↓↓
 
 ***后台前端的代码在 src\main\resources\static\linfeng-community-vue目录下！***
 
@@ -30,7 +30,7 @@ H5端：https://www.linfeng.tech
 
 账号 ： test         密码：  123456
 
-**注意:演示版为标准商业版**
+**注意:演示站点为标准商业版**
 
 开源版具体的功能清单请查看：https://net.linfeng.tech/version/version.html
 
