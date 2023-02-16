@@ -75,7 +75,7 @@ H5端：https://www.linfeng.tech
 
 **用户端代码已开源**，在**\src\main\resources\static\linfeng-community-uniapp-ky**目录下！
 
-**需要商业版（即为上图演示站点项目）源码联系客服**。
+**需要商业版（即为上图演示站点项目）源码联系客服或前往项目官网了解详情**。
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/mine.jpg" style="zoom: 25%;" />
 
@@ -97,7 +97,7 @@ https://net.linfeng.tech/version/version.html
 
 - 禁止将本开源的代码和资源进行任何形式任何名义的改造或出售!
 
-- 限制商用，如果需要商业使用请联系我们或查看官网了解商用详情。qq:3582996245。
+- 限制商用，如果需要商业使用请联系我们或查看官网了解商用详情！
 
 
 #### 6.版本更新记录
