@@ -28,7 +28,11 @@ H5端：https://www.linfeng.tech
 
 后台管理系统演示地址：https://dev.linfeng.tech
 
-账号 ： test         密码：  123456
+账号1 ： test           密码：  123456
+
+账号2 ： test2         密码：  123456
+
+账号3 ： test3         密码：  123456
 
 **注意:演示站点为标准商业版**
 
