@@ -68,10 +68,10 @@ H5端：https://www.linfeng.tech
 
 #### 3.安装教程 
 
-1.  配置数据库和redis。先启动redis，再启动后端api服务
-2.  数据库请使用MySQL5.7，或高于5.7的版本
+1.  配置数据库和redis。先启动redis，再启动后端api服务。
+2.  数据库请使用MySQL5.7，或高于5.7的版本。
 3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可。移动端同样，先npm install，再启动。
-4.  优先更新gitee：https://gitee.com/virus010101/linfeng-community
+4.  优先更新Gitee：https://gitee.com/virus010101/linfeng-community
 
 #### 4.必看说明
 
