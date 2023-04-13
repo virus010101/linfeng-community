@@ -6,7 +6,7 @@
 					<u-avatar @click="onAvatar" mode="square" slot="right" :src="userInfo.avatar" size="100"></u-avatar>
 				</u-form-item>
 				<u-form-item label="昵称" right-icon="arrow-right">
-					<u-input @click="jump(userInfo.username,'username')" :placeholder="userInfo.username"
+					<u-input  :placeholder="userInfo.username"
 						:disabled="true" input-align="right" />
 				</u-form-item>
 				<u-form-item label="性别" right-icon="arrow-right">
@@ -14,7 +14,7 @@
 						input-align="right" />
 				</u-form-item>
 				<u-form-item label="个性签名" right-icon="arrow-right">
-					<u-input @click="jump(userInfo.intro,'intro')" :placeholder="userInfo.intro" :disabled="true"
+					<u-input  :placeholder="userInfo.intro" :disabled="true"
 						input-align="right" />
 				</u-form-item>
 			</u-form>
@@ -80,11 +80,6 @@
 					}
 
 
-				})
-			},
-			jump(value, type) {
-				uni.navigateTo({
-					url: "submit?value=" + JSON.stringify(value) + "&type=" + type
 				})
 			},
 			outlogin() {

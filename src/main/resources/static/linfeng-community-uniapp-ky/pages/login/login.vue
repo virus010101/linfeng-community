@@ -60,21 +60,18 @@
 				} else {
 
 					if (this.$refs.uCode.canGetCode) {
-
-						// 模拟向后端请求验证码
 						uni.showLoading({
 							title: '正在获取验证码'
 						})
-
+						//模拟发送
 						this.$H.post("user/sendSmsCode", {
 							mobile: this.form.mobile
 						}).then(res => {
 							if (res.code == 0) {
-								uni.hideLoading();
 								this.$refs.uCode.start();
-								this.$u.toast(res.msg);
-
 							}
+							this.$u.toast(res.msg);
+							uni.hideLoading();
 						})
 					} else {
 						this.$u.toast('倒计时结束后再发送');

@@ -9,12 +9,17 @@
 								level-bg-color="#000000"></u-avatar>
 						</view>
 						<view class="center">
-							<view style="display: flex;align-items: center;">
-								<text v-if="item.userInfo.type == 1" class="official">官方</text>
-								<text class="username">{{ item.userInfo.username.substring(0, 10) }}</text>
-								<text v-if="item.postTop>0" class="officials">置顶</text>
-								<text v-if="item.status==1" class="officials">审核中</text>
-								<text v-if="item.status==2" class="officials">已下架</text>
+							<view style="display: flex;align-items: center;justify-content: space-between;">
+								<view style="display: flex;align-items: center;">
+									<text v-if="item.userInfo.type == 1" class="official">官方</text>
+									<text class="username">{{ item.userInfo.username.substring(0, 10) }}</text>
+								</view>
+								<view class="">
+									<text v-if="item.postTop>0" class="officials">置顶</text>
+									<text v-if="item.status==1" class="officials">审核中</text>
+									<text v-if="item.status==2" class="officials">已下架</text>
+								</view>
+								
 							</view>
 							<view>
 								<text class="time">{{ item.createTime}}</text>
@@ -55,9 +60,7 @@
 										:src="mediaItem"></image>
 								</view>
 							</block>
-
 						</block>
-
 					</view>
 
 					<!-- 位置 -->
@@ -79,7 +82,6 @@
 							<u-icon name="heart"></u-icon>
 							<text class="count">{{ item.collectionCount }}</text>
 						</view>
-
 						<view class="p-item margin50">
 							<text class="iconfont icon-pinglun"></text>
 							<text class="count">{{ item.commentCount }}</text>
@@ -108,19 +110,7 @@
 		props: {
 			list: Array,
 			loadStatus: String,
-			handle: {
-				default: false,
-				type: Boolean
-			},
-			showTopic: {
-				default: true,
-				type: Boolean
-			},
 			uid: Number,
-			admin: {
-				default: false,
-				type: Boolean
-			}
 		},
 		data() {
 			return {
@@ -279,11 +269,16 @@
 
 			.official {
 				display: inline-block;
+				width: 65rpx;
+				height: 35rpx;
 				font-size: 20rpx;
+				font-weight: bold;
+				text-align: center;
+				line-height: 35rpx;
 				color: #ffffff;
-				background-color: #333333;
-				padding: 5rpx 10rpx;
-				border-radius: 10rpx;
+				background-color: #000000;
+				
+				border-radius: 30rpx;
 				margin-right: 10rpx;
 			}
 
@@ -291,8 +286,8 @@
 				display: inline-block;
 				font-size: 25rpx;
 				color: #ffffff;
-				background-color: #ff0000;
-				padding: 5rpx 10rpx;
+				background-color: #c0392b;
+				padding: 2rpx 8rpx;
 				border-radius: 10rpx;
 				margin-left: 30rpx;
 			}

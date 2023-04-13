@@ -27,8 +27,7 @@
 							shape="circle" size="mini">
 							<text>已关注</text>
 						</u-button>
-						<u-button @click="" :custom-style="btnStyle2"
-							shape="circle" size="mini">
+						<u-button :custom-style="btnStyle2" @click="chat" shape="circle" size="mini">
 							<text style="margin: 0 15rpx;">私信</text>
 						</u-button>
 					</view>
@@ -36,13 +35,14 @@
 			</view>
 			<!-- 帖子 -->
 			<view>
+				<view class="title-desc">发布的动态</view>
 				<post-list :list="postList" :loadStatus="loadStatus"></post-list>
 			</view>
 		</view>
-		
+
 		<!-- 发贴入口 -->
 		<add-post-tag></add-post-tag>
-		
+
 	</view>
 </template>
 
@@ -117,7 +117,7 @@
 					}
 				})
 			},
-			
+
 			getPostList() {
 				this.loadStatus = "loading";
 				this.$H.post('post/list', {
@@ -132,29 +132,41 @@
 					}
 				})
 			},
-			
+			chat() {
+				this.$u.toast('开源版暂未开放')
+			},
 			getUserInfo() {
 				this.$H.post('user/userInfoById', {
 					uid: this.uid
 				}).then(res => {
-					this.userInfo = res.result;
-					if (res.result.gender === 1) {
-						this.userInfo.gender = '男'
-					} else if (res.result.gender === 2) {
-						this.userInfo.gender = '女'
+					if (res.code == 0) {
+						this.userInfo = res.result;
+						if (res.result.gender === 1) {
+							this.userInfo.gender = '男'
+						} else if (res.result.gender === 2) {
+							this.userInfo.gender = '女'
+						} else {
+							this.userInfo.gender = '保密'
+						}
+
+						let user = {
+							uid: res.result.uid,
+							username: res.result.username,
+							avatar: res.result.avatar,
+						}
+						this.userJson = JSON.stringify(user)
+						uni.setNavigationBarTitle({
+							title: this.userInfo.username
+						});
 					} else {
-						this.userInfo.gender = '保密'
+						this.$u.toast(res.msg)
+						setTimeout(function() {
+							uni.switchTab({
+								url: '/pages/index/index'
+							});
+						}, 1500);
 					}
 
-					let user = {
-						uid: res.result.uid,
-						username: res.result.username,
-						avatar: res.result.avatar,
-					}
-					this.userJson = JSON.stringify(user)
-					uni.setNavigationBarTitle({
-						title: this.userInfo.username
-					});
 
 					this.loading = false;
 				})
@@ -168,8 +180,6 @@
 	}
 </style>
 <style lang="scss" scoped>
-
-
 	.container {
 		padding: 30rpx;
 		position: relative;
@@ -181,8 +191,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		position: relative;
-		height: 500rpx;
 	}
 
 	.avatar {
@@ -276,5 +284,11 @@
 		}
 	}
 
-
+	.title-desc {
+		// margin-left: 30rpx;
+		margin: auto;
+		font-size: 32rpx;
+		color: #565656;
+		font-weight: 500;
+	}
 </style>

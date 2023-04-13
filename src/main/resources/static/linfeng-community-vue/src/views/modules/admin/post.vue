@@ -13,26 +13,19 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-      <!-- 选择框 -->
-      <el-select v-model="dataForm.status" clearable placeholder="请选择状态">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-     </el-select>
+        <!-- 选择框 -->
+        <el-select v-model="dataForm.status" clearable placeholder="请选择状态">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
 
-      <el-button @click="getDataList()">查询</el-button>
-      <el-button @click="refresh()">重置</el-button>
-      
-        <!-- <el-button
-          v-if="isAuth('admin:post:delete')"
-          type="danger"
-          @click="statusHandle()"
-          :disabled="dataListSelections.length <= 0"
-          >批量审核</el-button
-        > -->
+        <el-button @click="getDataList()">查询</el-button>
+        <el-button @click="refresh()">重置</el-button>
         <el-button
           v-if="isAuth('admin:post:delete')"
           type="danger"
@@ -40,7 +33,6 @@
           :disabled="dataListSelections.length <= 0"
           >批量删除</el-button
         >
-
       </el-form-item>
     </el-form>
     <el-table
@@ -115,9 +107,7 @@
         <template slot-scope="scope">
           <div>
             <el-tag v-if="scope.row.type == 1" type="success">图文</el-tag>
-            <el-tag v-else-if="scope.row.type == 2" type="warning">视频</el-tag>
-            <el-tag v-else-if="scope.row.type == 3" type="info">文章</el-tag>
-            <el-tag v-else type="danger">投票</el-tag>
+            <el-tag v-else type="danger">未知</el-tag>
           </div>
         </template>
       </el-table-column>
@@ -128,8 +118,18 @@
         label="文件"
       >
         <template slot-scope="scope">
-          <el-button v-if="scope.row.type == 2" type="text" @click="openVideo(scope.row.media[0])">点击预览</el-button>
-          <el-button v-if="scope.row.type == 1 && scope.row.media[0]" type="text" @click="openPic(scope.row.media)">点击查看</el-button>
+          <el-button
+            v-if="scope.row.type == 2"
+            type="text"
+            @click="openVideo(scope.row.media[0])"
+            >点击预览</el-button
+          >
+          <el-button
+            v-if="scope.row.type == 1 && scope.row.media[0]"
+            type="text"
+            @click="openPic(scope.row.media)"
+            >点击查看</el-button
+          >
         </template>
       </el-table-column>
       <el-table-column
@@ -173,7 +173,7 @@
           </div>
         </template>
       </el-table-column>
-      
+
       <el-table-column
         prop="address"
         header-align="center"
@@ -197,13 +197,15 @@
         label="操作"
       >
         <template slot-scope="scope">
-          <el-button v-if="scope.row.status==1 || scope.row.status==2"
+          <el-button
+            v-if="scope.row.status == 1 || scope.row.status == 2"
             type="text"
             size="small"
             @click="statusHandle(scope.row.id)"
             >上架</el-button
           >
-          <el-button v-if="scope.row.status==0"
+          <el-button
+            v-if="scope.row.status == 0"
             type="text"
             size="small"
             @click="statusDownHandle(scope.row.id)"
@@ -248,13 +250,13 @@
       width="30%"
       :before-close="handleClose"
     >
-          <video
-            class="video"
-            :src="this.videoUrl"
-            enable-danmu
-            danmu-btn
-            controls
-          ></video>
+      <video
+        class="video"
+        :src="this.videoUrl"
+        enable-danmu
+        danmu-btn
+        controls
+      ></video>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false"
@@ -262,25 +264,26 @@
         >
       </span>
     </el-dialog>
-
     <el-dialog
-      title="图片预览"
+      title="图片预览(点击查看)"
       :visible.sync="dialogVisible2"
       width="60%"
       :before-close="handleClose"
     >
-    
-    <div class="position">图片展示</div>
-    <div class="images">
-      <div v-for="(item, index) in media" :key="index" class="image-middle">  
-        <el-card shadow="hover" :body-style="{ padding: '10px' }" >     
-        <img :src="media[index]" class="image" @click="goPic(media[index])"/> 
-        <div style="text-align:center;padding-top:12px">
-        <span>图{{index}}</span>
+      <div class="images">
+        <div v-for="(item, index) in media" :key="index" class="image-middle">
+          <el-card shadow="hover" :body-style="{ padding: '10px' }">
+            <img
+              :src="media[index]"
+              class="image"
+              @click="goPic(media[index])"
+            />
+            <div style="text-align: center; padding-top: 12px">
+              <span>图{{ index + 1 }}</span>
+            </div>
+          </el-card>
         </div>
-        </el-card>
       </div>
-    </div>
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible2 = false">取 消</el-button>
@@ -299,7 +302,7 @@ export default {
     return {
       dataForm: {
         key: "",
-        status:'',
+        status: "",
       },
       dataList: [],
       pageIndex: 1,
@@ -310,19 +313,23 @@ export default {
       addOrUpdateVisible: false,
       dialogVisible: false,
       dialogVisible2: false,
-      videoUrl:"",
+      videoUrl: "",
       media: [],
-       options: [{
+      options: [
+        {
           value: 0,
-          label: '正常'
-        }, {
+          label: "正常",
+        },
+        {
           value: 1,
-          label: '待审核'
-        }, {
+          label: "待审核",
+        },
+        {
           value: 2,
-          label: '已下架'
-        }],
-        // value: ''
+          label: "已下架",
+        },
+      ],
+      // value: ''
     };
   },
   components: {
@@ -332,12 +339,12 @@ export default {
     this.getDataList();
   },
   methods: {
-    refresh(){
-        this.dataForm.key='';
-        this.dataForm.status='';
-        this.pageIndex=1;
-        this.pageSize=10;
-        this.getDataList();
+    refresh() {
+      this.dataForm.key = "";
+      this.dataForm.status = "";
+      this.pageIndex = 1;
+      this.pageSize = 10;
+      this.getDataList();
     },
     // 获取数据列表
     getDataList() {
@@ -349,7 +356,7 @@ export default {
           page: this.pageIndex,
           limit: this.pageSize,
           key: this.dataForm.key,
-          status:this.dataForm.status
+          status: this.dataForm.status,
         }),
       }).then(({ data }) => {
         if (data && data.code === 0) {
@@ -420,8 +427,8 @@ export default {
         });
       });
     },
-    statusDownHandle(id){
-            var ids = id
+    statusDownHandle(id) {
+      var ids = id
         ? [id]
         : this.dataListSelections.map((item) => {
             return item.id;
@@ -492,26 +499,24 @@ export default {
       });
     },
     handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
+      this.$confirm("确认关闭？")
+        .then((_) => {
+          done();
+        })
+        .catch((_) => {});
     },
-    openVideo(url){
-      this.dialogVisible=true;
-      this.videoUrl=url;
+    openVideo(url) {
+      this.dialogVisible = true;
+      this.videoUrl = url;
     },
-    openPic(media){
-      this.dialogVisible2=true;
-      this.media=media;
+    openPic(media) {
+      this.dialogVisible2 = true;
+      this.media = media;
     },
-    goPic(url){
-      console.log('==>',url);
+    goPic(url) {
+      console.log("==>", url);
       window.open(url);
-    }
-
-
+    },
   },
 };
 </script>
@@ -526,7 +531,7 @@ export default {
   font-weight: 600;
 }
 /* 图片总布局，样式 */
-.images{
+.images {
   display: flex;
   margin-top: 20px;
   margin-left: 21px;
@@ -534,14 +539,13 @@ export default {
   flex-wrap: wrap;
 }
 /* 图片之间 */
-.image-middle{
+.image-middle {
   margin-right: 15px;
   margin-bottom: 15px;
 }
 /* 单张图片样式 */
-.image{
-  width:110px;
+.image {
+  width: 110px;
   height: 110px;
 }
-
 </style>

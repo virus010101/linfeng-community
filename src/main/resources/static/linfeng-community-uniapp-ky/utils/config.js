@@ -8,7 +8,9 @@ const domain = 'http://' + baseUrl + "/app/";
 
 //线上环境配置
 // const baseUrl = "";
-// const domain = 'https://' + baseUrl + "/app/"; 
+// const domain = 'https://' + baseUrl + "/app/";
+
+
 
 
 export default {

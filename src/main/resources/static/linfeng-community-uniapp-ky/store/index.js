@@ -7,7 +7,6 @@ const store = new Vuex.Store({
 	state: {
 		hasLogin: uni.getStorageSync("hasLogin"),
 		sessionKey: uni.getStorageSync("sessionKey"),
-		messegeNum:[],
 	},
 	mutations: {
 		login(state, userInfo) {			

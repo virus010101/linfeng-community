@@ -83,6 +83,7 @@
 				</view>
 			</view>
 		</view>
+		<u-line color="#d8d8d8"></u-line>
 		<view class="comment-box">
 			<view class="title">评论（{{ postDetail.commentCount }}）</view>
 			<view style="margin-bottom: 40rpx;" v-for="(item, index) in commentList" :key="index">

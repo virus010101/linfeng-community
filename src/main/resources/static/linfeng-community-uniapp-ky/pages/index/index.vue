@@ -27,12 +27,11 @@
 		},
 		data() {
 			return {
-				sessionUid: uni.getStorageSync('userInfo').uid,
 				loadStatus1: 'loadmore',
 				loadStatus2: 'loadmore',
 				page1: 1,
 				page2: 1,
-				shareCover: '',
+				shareCover: '',//分享封面
 				followUserPost: [],
 				lastPost: [],
 				tabList: [{
@@ -81,7 +80,7 @@
 			uni.stopPullDownRefresh();
 		},
 		methods: {
-			
+
 			tabChange(index) {
 				this.current = index;
 				this.followUserPost = [];
@@ -90,7 +89,7 @@
 				if (index === 0) {
 					this.page1 = 1;
 					this.getFollowUserPost();
-					
+
 				}
 				if (index === 1) {
 					this.page2 = 1;

@@ -2,9 +2,8 @@
 	<view>
 		<!-- navbar -->
 		<u-navbar :is-back="false" :border-bottom="false">
-			<u-icon name="search" :size="40" class="search-wrap" @click="toSearch"></u-icon>
+			<u-icon name="plus-circle" :size="40" class="add-icon" @click="goPostAdd"></u-icon>
 			<u-tabs :list="pageTab" :current="pageCurrent" @change="pageTabChange"></u-tabs>
-
 		</u-navbar>
 		<!-- 创作广场 -->
 		<view v-show="pageCurrent == 0">
@@ -41,7 +40,7 @@
 				<u-empty margin-top="100" text="暂无内容" mode="favor"></u-empty>
 			</block>
 			<block v-else>
-				<view style="margin: 30rpx 0;">
+				<view class="no-info">
 					<u-loadmore :status="loadStatus" />
 				</view>
 			</block>
@@ -101,7 +100,7 @@
 				this.page = 1
 				this.pageList = []
 				this.getPostList()
-			}else if (this.pageCurrent == 1) {
+			} else if (this.pageCurrent == 1) {
 				this.userList = [];
 				this.getUserRanking();
 			}
@@ -116,8 +115,13 @@
 			},
 			toSearch() {
 				uni.showToast({
-					icon:'none',
-					title:'暂无搜索'
+					icon: 'none',
+					title: '暂无搜索'
+				})
+			},
+			goPostAdd() {
+				uni.navigateTo({
+					url: '/pages/post/add'
 				})
 			},
 			pageTabChange(index) {
@@ -165,7 +169,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.search-wrap {
+	.add-icon {
 		margin-left: 20rpx;
 		margin-right: 30%;
 	}
@@ -237,6 +241,10 @@
 
 				}
 			}
+		}
+
+		.no-info {
+			margin: 30rpx 0;
 		}
 	}
 </style>

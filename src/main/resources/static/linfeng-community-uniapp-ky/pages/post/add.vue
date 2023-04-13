@@ -50,7 +50,9 @@
 			};
 		},
 		onLoad(options) {
-
+			if (!uni.getStorageSync("hasLogin")) {
+				this.$u.toast('请先登录哦');
+			}
 		},
 		methods: {
 			chooseClass() {
@@ -120,8 +122,8 @@
 		align-items: center;
 		padding: 20rpx;
 		border-bottom: 1px solid #F5F5F5;
-	
-	&:last-child {
+
+		&:last-child {
 			border: 0;
 		}
 

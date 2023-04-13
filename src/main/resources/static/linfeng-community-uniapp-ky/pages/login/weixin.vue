@@ -16,7 +16,7 @@
 					color: "#fff",
 					backgroundColor: '#333333'
 				},
-				logo: ""
+				logo: "",
 			};
 		},
 		onLoad() {
@@ -30,7 +30,9 @@
 			},
 			getSysInfo() {
 				this.$H.get("system/miniConfig").then(res => {
-					this.logo = res.logo;
+					if(res.code==0){
+						this.logo = res.logo;
+					}
 				})
 			},
 
@@ -40,12 +42,9 @@
 					title: '正在登陆'
 				});
 				var that = this;
-				// let userInfo = await this.getUserProfile();
 				let code = await this.getLoginCode();
 				that.$H.post('user/miniWxlogin', {
-					code: code,
-					// username: userInfo.nickName,
-					// avatar: userInfo.avatarUrl,
+					code: code
 				}).then(res => {
 
 					if (res.code === 0) {
@@ -79,17 +78,7 @@
 					});
 				});
 			},
-			// getUserProfile() {
-			// 	return new Promise((resolve, reject) => {
-			// 		wx.getUserProfile({
-			// 			lang: 'zh_CN',
-			// 			desc: '用于完善会员资料',
-			// 			success: res => {
-			// 				resolve(res.userInfo);
-			// 			}
-			// 		});
-			// 	});
-			// }
+
 
 		}
 	}

@@ -78,7 +78,6 @@ linfeng:
     open: false
   shiro:
     redis: false
-  # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
   jwt:
     # 加密秘钥
     secret: f4e2e52034348f86b67cde581c0f9eb5
@@ -86,8 +85,8 @@ linfeng:
     expire: 604800
     header: token
 
-#七牛云文件大小限制
-qiniu:
+#文件大小限制
+oss:
   # 文件大小用户端和后台管理端 单位M
   max-size: 30
   admin-max-size: 5

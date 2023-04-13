@@ -52,7 +52,7 @@
 					})
 					.then(res => {
 						if (res.code == 0) {
-							this.userList[index].hasFollow = 1;
+							this.userList[index].hasFollow = 2;
 						}
 					});
 			},

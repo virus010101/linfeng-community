@@ -4,29 +4,8 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <el-form-item label="父级id" prop="pid">
-      <el-input v-model="dataForm.pid" placeholder="父级id"></el-input>
-    </el-form-item>
-    <!-- <el-form-item label="评论类型:1帖子" prop="type">
-      <el-input v-model="dataForm.type" placeholder="评论类型:1帖子"></el-input>
-    </el-form-item> -->
-    <el-form-item label="评论作者ID" prop="uid">
-      <el-input v-model="dataForm.uid" placeholder="评论作者ID"></el-input>
-    </el-form-item>
-    <el-form-item label="被回复用户ID" prop="toUid">
-      <el-input v-model="dataForm.toUid" placeholder="被回复用户ID"></el-input>
-    </el-form-item>
-    <el-form-item label="评论帖子ID" prop="postId">
-      <el-input v-model="dataForm.postId" placeholder="评论帖子ID"></el-input>
-    </el-form-item>
     <el-form-item label="评论内容" prop="content">
       <el-input v-model="dataForm.content" placeholder="评论内容"></el-input>
-    </el-form-item>
-    <el-form-item label="评论状态" prop="status">
-      <el-input v-model="dataForm.status" placeholder="评论状态"></el-input>
-    </el-form-item>
-    <el-form-item label="创建时间" prop="createTime">
-      <el-input v-model="dataForm.createTime" placeholder="创建时间"></el-input>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -56,9 +35,6 @@
           pid: [
             { required: true, message: '父级id不能为空', trigger: 'blur' }
           ],
-          // type: [
-          //   { required: true, message: '评论类型:1帖子不能为空', trigger: 'blur' }
-          // ],
           uid: [
             { required: true, message: '评论作者ID不能为空', trigger: 'blur' }
           ],

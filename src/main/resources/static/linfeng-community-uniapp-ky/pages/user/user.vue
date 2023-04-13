@@ -91,11 +91,6 @@
 				hasLogin: false
 			};
 		},
-		computed: {
-			msgCount() {
-				return this.$store.state.messegeNum
-			}
-		},
 		onLoad() {
 			//#ifdef MP-WEIXIN
 			wx.showShareMenu({
@@ -121,11 +116,6 @@
 			};
 		},
 		methods: {
-			getMsgNum() {
-				this.$H.post('message/num').then(res => {
-					this.$store.state.messegeNum = [0, 0, 0, res.result.allCount, 0];
-				});
-			},
 			phoneLogin() {
 				uni.navigateTo({
 					url: '/pages/login/login'
@@ -164,8 +154,8 @@
 	.head {
 		padding: 20rpx;
 		background-color: #fff;
-	
-	.sub-txt {
+
+		.sub-txt {
 			font-size: 24rpx;
 			color: #616161;
 			display: block;
