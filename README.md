@@ -22,7 +22,7 @@
 
 或者：
 
-H5端：https://www.linfeng.tech
+H5端：https://h5.linfeng.tech
 
 微信小程序：搜索”林风bbs“
 
