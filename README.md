@@ -6,6 +6,8 @@
 
 功能：图文帖，长文贴，短视频，圈子，私聊，微信支付（小程序/H5/app），付费贴，积分签到，钱包充值，积分余额兑换，话题标签，抽奖大转盘，手机号邮箱登录，人机发帖等完整功能，即时通讯IM，好友模块等，直接看演示更直观↓↓↓↓↓↓
 
+优先更新国内码云Gitee：https://gitee.com/virus010101/linfeng-community
+
 ***后台前端的代码在 src\main\resources\static\linfeng-community-vue目录下！***
 
 ***用户端的前端代码在 src\main\resources\static\linfeng-community-uniapp-ky 目录下！***
