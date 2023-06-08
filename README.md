@@ -77,11 +77,11 @@ H5端：https://h5.linfeng.tech
 
 #### 4.必看说明
 
-1.**后台前端的代码**在**\src\main\resources\static\linfeng-community-vue**目录下！
+1.**后台前端的代码**在\src\main\resources\static\linfeng-community-vue目录下！
 
 2.**后台管理系统和后台管理系统后端API已经全部开源**。
 
-**用户端代码已开源**，在**\src\main\resources\static\linfeng-community-uniapp-ky**目录下！
+**用户端代码已开源**，在\src\main\resources\static\linfeng-community-uniapp-ky目录下！
 
 **需要商业版（即为上图演示站点项目）源码联系客服或前往项目官网了解详情**。
 
