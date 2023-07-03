@@ -45,15 +45,13 @@
 				</view>
 			</block>
 		</view>
-
-
 		<!-- 发帖入口 -->
 		<add-post-tag></add-post-tag>
 	</view>
 </template>
 
 <script>
-	import addPostTag from '../../components/add-post-tag/add-post-tag.vue'
+	import addPostTag from '@/components/add-post-tag/add-post-tag.vue'
 	export default {
 		data() {
 			return {
@@ -89,8 +87,7 @@
 			if (this.pageCurrent == 0) {
 				this.page++;
 				this.getPostList()
-			}
-			if (this.pageCurrent == 1) {
+			} else if (this.pageCurrent == 1) {
 				this.userList = [];
 				this.getUserRanking();
 			}
@@ -148,7 +145,6 @@
 			},
 			// 根据分页和分类展示帖子列表
 			getPostList() {
-				console.log('classId:', this.classId)
 				this.loadPostStatus = 'loading';
 				this.$H
 					.post('post/list', {
@@ -163,7 +159,7 @@
 							this.loadPostStatus = 'loadmore';
 						}
 					});
-			},
+			}
 		}
 	}
 </script>

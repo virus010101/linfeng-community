@@ -32,26 +32,8 @@
           createTime: ''
         },
         dataRule: {
-          pid: [
-            { required: true, message: '父级id不能为空', trigger: 'blur' }
-          ],
-          uid: [
-            { required: true, message: '评论作者ID不能为空', trigger: 'blur' }
-          ],
-          toUid: [
-            { required: true, message: '被回复用户ID不能为空', trigger: 'blur' }
-          ],
-          postId: [
-            { required: true, message: '评论帖子ID不能为空', trigger: 'blur' }
-          ],
-          content: [
-            { required: true, message: '评论内容不能为空', trigger: 'blur' }
-          ],
           status: [
-            { required: true, message: '评论状态不能为空', trigger: 'blur' }
-          ],
-          createTime: [
-            { required: true, message: '创建时间不能为空', trigger: 'blur' }
+            { required: true, message: '评论状态未选择', trigger: 'blur' }
           ]
         }
       }

@@ -32,7 +32,7 @@ public class LinfengExceptionHandler {
 	 * 处理自定义异常
 	 */
 	@ExceptionHandler(LinfengException.class)
-	public R handleRRException(LinfengException e){
+	public R handleException(LinfengException e){
 		R r = new R();
 		r.put("code", e.getCode());
 		r.put("msg", e.getMessage());
@@ -43,7 +43,7 @@ public class LinfengExceptionHandler {
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public R handlerNoFoundException(Exception e) {
 		logger.error(e.getMessage(), e);
-		return R.error(404, "路径不存在，请检查路径是否正确");
+		return R.error(404, "路径不存在请查看路径是否正确");
 	}
 
 	@ExceptionHandler(DuplicateKeyException.class)
@@ -55,7 +55,7 @@ public class LinfengExceptionHandler {
 	@ExceptionHandler(AuthorizationException.class)
 	public R handleAuthorizationException(AuthorizationException e){
 		logger.error(e.getMessage(), e);
-		return R.error("没有权限，请联系管理员授权");
+		return R.error("你没有该操作权限哦");
 	}
 
 	@ExceptionHandler(Exception.class)

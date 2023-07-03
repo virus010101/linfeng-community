@@ -1,7 +1,7 @@
 {
   "name": "linfeng-community-vue",
-  "version": "1.2.2",
-  "description": "林风社交论坛后台管理前端",
+  "version": "1.2.3",
+  "description": "林风社交论坛开源版后台管理前端",
   "author": "linfeng",
   "private": true,
   "scripts": {

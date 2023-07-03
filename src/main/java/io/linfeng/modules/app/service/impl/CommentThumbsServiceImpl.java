@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.linfeng.common.exception.LinfengException;
 import io.linfeng.common.utils.DateUtil;
 import io.linfeng.modules.admin.entity.AppUserEntity;
-import io.linfeng.modules.app.form.AddThumbsForm;
+import io.linfeng.modules.app.param.AddThumbsForm;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Optional;
@@ -46,6 +46,12 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
         return new PageUtils(page);
     }
 
+    /**
+     * 是否点赞
+     * @param uid
+     * @param id
+     * @return
+     */
     @Override
     public Boolean isThumbs(Integer uid, Long id) {
         CommentThumbsEntity one = baseMapper.selectOne(new LambdaQueryWrapper<CommentThumbsEntity>()
@@ -62,6 +68,11 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
                 .count();
     }
 
+    /**
+     * 点赞
+     * @param request
+     * @param user
+     */
     @Override
     public void addThumbs(AddThumbsForm request, AppUserEntity user) {
         CommentThumbsEntity one=baseMapper.selectOne(new LambdaQueryWrapper<CommentThumbsEntity>()
@@ -74,9 +85,17 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
         ct.setUid(user.getUid());
         ct.setCId(request.getId());
         ct.setCreateTime(DateUtil.nowDateTime());
-        this.save(ct);
+        boolean save = this.save(ct);
+        if(!save){
+            throw new LinfengException("点赞失败");
+        }
     }
 
+    /**
+     * 取消点赞
+     * @param request
+     * @param user
+     */
     @Override
     public void cancelThumbs(AddThumbsForm request, AppUserEntity user) {
         baseMapper.delete(new LambdaQueryWrapper<CommentThumbsEntity>()

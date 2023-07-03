@@ -11,17 +11,16 @@
  */
 package io.linfeng.modules.app.controller;
 
-import io.linfeng.common.response.AppUserInfoResponse;
-import io.linfeng.common.response.AppUserRankResponse;
-import io.linfeng.common.response.AppUserResponse;
+import io.linfeng.common.vo.AppUserInfoResponse;
+import io.linfeng.common.vo.AppUserRankResponse;
+import io.linfeng.common.vo.AppUserResponse;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.R;
-import io.linfeng.common.validator.ValidatorUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.service.AppUserService;
 import io.linfeng.modules.app.annotation.Login;
 import io.linfeng.modules.app.annotation.LoginUser;
-import io.linfeng.modules.app.form.*;
+import io.linfeng.modules.app.param.*;
 import io.linfeng.modules.app.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

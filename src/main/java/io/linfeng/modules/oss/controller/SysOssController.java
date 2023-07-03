@@ -34,7 +34,7 @@ import java.util.Map;
 @Api(tags = "文件上传")
 public class SysOssController {
 
-	@Value("${qiniu.admin-max-size}")
+	@Value("${oss.admin-max-size}")
 	private Long maxSize;
 
 	@Autowired

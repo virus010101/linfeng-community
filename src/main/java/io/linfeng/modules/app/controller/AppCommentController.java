@@ -18,7 +18,7 @@ import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.service.CommentService;
 import io.linfeng.modules.app.annotation.Login;
 import io.linfeng.modules.app.annotation.LoginUser;
-import io.linfeng.modules.app.form.AddThumbsForm;
+import io.linfeng.modules.app.param.AddThumbsForm;
 import io.linfeng.modules.app.service.CommentThumbsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

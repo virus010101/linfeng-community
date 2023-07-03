@@ -15,9 +15,7 @@ package io.linfeng.modules.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.PageUtils;
-import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.entity.CommentEntity;
-import io.linfeng.modules.app.form.DelCommentForm;
 
 import java.util.List;
 import java.util.Map;
@@ -40,5 +38,9 @@ public interface CommentService extends IService<CommentEntity> {
     Integer getCountByPostId(Integer id);
 
     AppPageUtils queryCommentPage(Integer postId, Integer page);
+
+    Integer getYesterdayCount();
+
+    Integer getAllCount();
 }
 

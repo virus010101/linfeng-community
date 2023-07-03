@@ -18,8 +18,8 @@
 </template>
 
 <script>
-	import postList from '../../components/post-list/post-list.vue';
-	import addPostTag from '../../components/add-post-tag/add-post-tag.vue';
+	import postList from '@/components/post-list/post-list.vue';
+	import addPostTag from '@/components/add-post-tag/add-post-tag.vue';
 	export default {
 		components: {
 			postList,
@@ -31,7 +31,7 @@
 				loadStatus2: 'loadmore',
 				page1: 1,
 				page2: 1,
-				shareCover: '',//分享封面
+				shareCover: '', //分享封面
 				followUserPost: [],
 				lastPost: [],
 				tabList: [{
@@ -59,9 +59,7 @@
 			if (this.current === 0) {
 				this.page1++;
 				this.getFollowUserPost();
-			}
-
-			if (this.current === 1) {
+			} else if (this.current === 1) {
 				this.page2++;
 				this.getLastPost();
 			}
@@ -71,8 +69,7 @@
 				this.page1 = 1;
 				this.followUserPost = [];
 				this.getFollowUserPost();
-			}
-			if (this.current === 1) {
+			} else if (this.current === 1) {
 				this.page2 = 1;
 				this.lastPost = [];
 				this.getLastPost();
@@ -85,13 +82,10 @@
 				this.current = index;
 				this.followUserPost = [];
 				this.lastPost = [];
-
 				if (index === 0) {
 					this.page1 = 1;
 					this.getFollowUserPost();
-
-				}
-				if (index === 1) {
+				}else if (index === 1) {
 					this.page2 = 1;
 					this.getLastPost();
 				}
@@ -137,7 +131,7 @@
 							this.loadStatus2 = 'loadmore';
 						}
 					});
-			},
+			}
 		}
 	};
 </script>

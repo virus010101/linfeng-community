@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.linfeng.common.utils.PageUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.app.entity.CommentThumbsEntity;
-import io.linfeng.modules.app.form.AddThumbsForm;
+import io.linfeng.modules.app.param.AddThumbsForm;
 
 import java.util.Map;
 

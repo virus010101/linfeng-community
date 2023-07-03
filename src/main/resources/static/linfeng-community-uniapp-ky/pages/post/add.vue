@@ -1,13 +1,16 @@
 <template>
 	<view class="container">
+		<u-line></u-line>
 		<input v-model="form.title" class="title-input" placeholder="标题" />
 		<textarea placeholder="说些什么叭..." :auto-height="true" maxlength="-1" v-model="form.content"
 			class="content-display"></textarea>
+		<u-line></u-line>
 		<!-- 上传图片 -->
 		<block v-if="form.type == 1">
 			<u-upload ref="uUpload" :size-type="['original']" name="Image" :max-count="4" :header="header"
 				:action="uploadImgUrl" @on-uploaded="submit" :auto-upload="false"></u-upload>
 		</block>
+		<u-line></u-line>
 		<!-- 分类 -->
 		<view @click="chooseClass" class="choose-item">
 			<u-icon class="icon add-icon" name="file-text-fill" color="#999" size="40"></u-icon>
@@ -105,6 +108,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.container{
+		padding: 30rpx;
+	}
 	.title-input {
 		border-bottom: 1px solid #F5F5F5;
 		margin: 20rpx 0;

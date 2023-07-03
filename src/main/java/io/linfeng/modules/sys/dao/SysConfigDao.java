@@ -23,5 +23,5 @@ public interface SysConfigDao extends BaseMapper<SysConfigEntity> {
 	 * 根据key，更新value
 	 */
 	int updateValueByKey(@Param("paramKey") String paramKey, @Param("paramValue") String paramValue);
-	
+	 
 }

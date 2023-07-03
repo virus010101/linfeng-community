@@ -19,7 +19,7 @@
 									<text v-if="item.status==1" class="officials">审核中</text>
 									<text v-if="item.status==2" class="officials">已下架</text>
 								</view>
-								
+
 							</view>
 							<view>
 								<text class="time">{{ item.createTime}}</text>
@@ -86,12 +86,10 @@
 							<text class="iconfont icon-pinglun"></text>
 							<text class="count">{{ item.commentCount }}</text>
 						</view>
-
 					</view>
 				</view>
 			</view>
 		</block>
-
 		<!-- 加载状态 -->
 		<block v-if="list.length === 0 && loadStatus == 'nomore'">
 			<u-empty margin-top="100" text="暂无内容" mode="favor"></u-empty>
@@ -277,7 +275,7 @@
 				line-height: 35rpx;
 				color: #ffffff;
 				background-color: #000000;
-				
+
 				border-radius: 30rpx;
 				margin-right: 10rpx;
 			}

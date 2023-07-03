@@ -41,6 +41,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.container{
+		padding: 30rpx;
+	}
 	.title {
 		margin-bottom: 30rpx;
 	}

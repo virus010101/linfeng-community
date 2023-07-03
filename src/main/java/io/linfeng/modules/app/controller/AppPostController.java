@@ -12,7 +12,7 @@
 package io.linfeng.modules.app.controller;
 
 import cn.hutool.core.util.ObjectUtil;
-import io.linfeng.common.response.PostDetailResponse;
+import io.linfeng.common.vo.PostDetailResponse;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.R;
 import io.linfeng.common.validator.ValidatorUtils;
@@ -20,10 +20,10 @@ import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.service.PostService;
 import io.linfeng.modules.app.annotation.Login;
 import io.linfeng.modules.app.annotation.LoginUser;
-import io.linfeng.modules.app.form.AddCollectionForm;
-import io.linfeng.modules.app.form.AddCommentForm;
-import io.linfeng.modules.app.form.AddPostForm;
-import io.linfeng.modules.app.form.PostListForm;
+import io.linfeng.modules.app.param.AddCollectionForm;
+import io.linfeng.modules.app.param.AddCommentForm;
+import io.linfeng.modules.app.param.AddPostForm;
+import io.linfeng.modules.app.param.PostListForm;
 import io.linfeng.modules.app.service.PostCollectionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -69,7 +69,7 @@ public class AppPostController {
     public R followUserPost(@RequestParam Integer page, @LoginUser AppUserEntity user){
 
         AppPageUtils pages =postService.followUserPost(page,user);
-        if(ObjectUtil.isNull(page)){
+        if(ObjectUtil.isNull(pages)){
             return R.error("您没有关注的用户");
         }
         return R.ok().put("result", pages);

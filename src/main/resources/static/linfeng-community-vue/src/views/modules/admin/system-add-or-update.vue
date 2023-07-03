@@ -33,15 +33,7 @@
           intro: ''
         },
         dataRule: {
-          // value: [
-          //   { required: true, message: '不能为空', trigger: 'blur' }
-          // ],
-          // extend: [
-          //   { required: true, message: '不能为空', trigger: 'blur' }
-          // ],
-          // intro: [
-          //   { required: true, message: '不能为空', trigger: 'blur' }
-          // ]
+          
         }
       }
     },

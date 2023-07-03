@@ -50,14 +50,8 @@ export default {
       },
       dataRule: {
         title: [{ required: true, message: "标题不能为空", trigger: "blur" }],
-        url: [{ required: true, message: "路径不能为空", trigger: "blur" }],
-        img: [{ required: true, message: "图片不能为空", trigger: "blur" }],
-        type: [
-          { required: true, message: "3圈子页轮播图不能为空", trigger: "blur" },
-        ],
-        createTime: [
-          { required: true, message: "创建时间不能为空", trigger: "blur" },
-        ],
+        url: [{ required: true, message: "跳转路径不能为空", trigger: "blur" }],
+        img: [{ required: true, message: "图片不能为空", trigger: "blur" }] 
       },
     };
   },

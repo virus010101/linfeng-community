@@ -64,8 +64,7 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
         LambdaQueryWrapper<FollowEntity> queryWrapper= Wrappers.lambdaQuery();
         queryWrapper.eq(FollowEntity::getUid,uid);
         queryWrapper.eq(FollowEntity::getFollowUid,id);
-        Integer num = baseMapper.selectCount(queryWrapper);
-        return num!=0;
+        return baseMapper.selectCount(queryWrapper) != 0;
     }
 
     @Override
@@ -79,15 +78,13 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
         LambdaQueryWrapper<FollowEntity> lambdaQueryWrapper = Wrappers.lambdaQuery();
         lambdaQueryWrapper.eq(FollowEntity::getUid, uid);
         lambdaQueryWrapper.eq(FollowEntity::getFollowUid, followUid);
-        Integer num = baseMapper.selectCount(lambdaQueryWrapper);
-        if(num == 0){
+        if(baseMapper.selectCount(lambdaQueryWrapper) == 0){
             return 0;
         }
-        LambdaQueryWrapper<FollowEntity> lambdaQueryWrapper2 = Wrappers.lambdaQuery();
-        lambdaQueryWrapper2.eq(FollowEntity::getUid, followUid);
-        lambdaQueryWrapper2.eq(FollowEntity::getFollowUid, uid);
-        Integer num2 = baseMapper.selectCount(lambdaQueryWrapper2);
-        return num2==0?2:1;
+        LambdaQueryWrapper<FollowEntity> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(FollowEntity::getUid, followUid);
+        wrapper.eq(FollowEntity::getFollowUid, uid);
+        return baseMapper.selectCount(wrapper) == 0 ? 2 : 1;
     }
 
     @Override
@@ -104,7 +101,9 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
 
     @Override
     public List<Integer> getFollowUids(AppUserEntity user) {
-        List<FollowEntity> list = this.lambdaQuery().eq(FollowEntity::getUid, user.getUid()).list();
+        List<FollowEntity> list = this.lambdaQuery()
+                .eq(FollowEntity::getUid, user.getUid())
+                .list();
         return list.stream().map(FollowEntity::getFollowUid).collect(Collectors.toList());
     }
 

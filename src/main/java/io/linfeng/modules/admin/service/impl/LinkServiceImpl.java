@@ -13,6 +13,8 @@
 package io.linfeng.modules.admin.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -36,6 +38,12 @@ public class LinkServiceImpl extends ServiceImpl<LinkDao, LinkEntity> implements
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<LinkEntity> getList() {
+        List<LinkEntity> list = this.list();
+        return list;
     }
 
 }

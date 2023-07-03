@@ -26,6 +26,6 @@ public class AppLinkController {
     @ApiOperation("轮播图列表")
     public R getList(){
 
-        return R.ok().put("result",linkService.list());
+        return R.ok().put("result",linkService.getList());
     }
 }

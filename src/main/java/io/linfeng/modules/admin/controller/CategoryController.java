@@ -14,6 +14,8 @@ package io.linfeng.modules.admin.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,7 @@ import io.linfeng.common.utils.R;
  * @email 2445465217@qq.com
  * @date 2022-01-21 14:32:52
  */
+@Api(tags = "管理端——分类管理")
 @RestController
 @RequestMapping("admin/category")
 public class CategoryController {
@@ -39,11 +42,10 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    /**
-     * 列表
-     */
+
     @GetMapping("/list")
     @RequiresPermissions("admin:category:list")
+    @ApiOperation("分类列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = categoryService.queryPage(params);
 
@@ -51,22 +53,20 @@ public class CategoryController {
     }
 
 
-    /**
-     * 信息
-     */
+
     @GetMapping("/info/{cateId}")
     @RequiresPermissions("admin:category:info")
+    @ApiOperation("分类详情")
     public R info(@PathVariable("cateId") Integer cateId){
 		CategoryEntity category = categoryService.getById(cateId);
 
         return R.ok().put("category", category);
     }
 
-    /**
-     * 保存
-     */
+
     @PostMapping("/save")
     @RequiresPermissions("admin:category:save")
+    @ApiOperation("分类保存")
     public R save(@RequestBody CategoryEntity category){
 
 		categoryService.saveCategory(category);
@@ -74,22 +74,20 @@ public class CategoryController {
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
+
     @PostMapping("/update")
     @RequiresPermissions("admin:category:update")
+    @ApiOperation("分类修改")
     public R update(@RequestBody CategoryEntity category){
 		categoryService.updateById(category);
 
         return R.ok();
     }
 
-    /**
-     * 删除
-     */
+
     @PostMapping("/delete")
     @RequiresPermissions("admin:category:delete")
+    @ApiOperation("分类删除")
     public R delete(@RequestBody Integer[] cateIds){
 		categoryService.deleteByIdList(Arrays.asList(cateIds));
 

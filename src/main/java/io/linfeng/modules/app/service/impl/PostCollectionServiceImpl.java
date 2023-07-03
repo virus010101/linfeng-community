@@ -13,7 +13,7 @@ package io.linfeng.modules.app.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.linfeng.modules.admin.entity.AppUserEntity;
-import io.linfeng.modules.app.form.AddCollectionForm;
+import io.linfeng.modules.app.param.AddCollectionForm;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,8 +48,9 @@ public class PostCollectionServiceImpl extends ServiceImpl<PostCollectionDao, Po
     @Override
     public Integer collectCount(Integer postId) {
 
-        return baseMapper.selectCount(new LambdaQueryWrapper<PostCollectionEntity>()
-                .eq(PostCollectionEntity::getPostId, postId));
+        return this.lambdaQuery()
+                .eq(PostCollectionEntity::getPostId,postId)
+                .count();
     }
 
     @Override

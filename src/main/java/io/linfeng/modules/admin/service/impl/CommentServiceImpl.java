@@ -12,9 +12,12 @@
  */
 package io.linfeng.modules.admin.service.impl;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.linfeng.common.response.AppCommentResponse;
+import io.linfeng.common.utils.Constant;
+import io.linfeng.common.vo.AppCommentResponse;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.service.AppUserService;
@@ -51,9 +54,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        QueryWrapper<CommentEntity> queryWrapper=new QueryWrapper<>();
+        queryWrapper.lambda().orderByDesc(CommentEntity::getId);
         IPage<CommentEntity> page = this.page(
                 new Query<CommentEntity>().getPage(params),
-                new QueryWrapper<>()
+                queryWrapper
         );
 
         return new PageUtils(page);
@@ -62,7 +67,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
     @Override
     public Integer getCountByTopicId(Integer id) {
         return baseMapper.selectCount(new LambdaQueryWrapper<CommentEntity>()
-                .eq(CommentEntity::getStatus,1)
+                .eq(CommentEntity::getStatus, Constant.COMMENT_NORMAL)
                 .eq(CommentEntity::getPostId, id));
     }
 
@@ -78,7 +83,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
             this.removeById(id);
             //子评论更改展示状态为屏蔽
             this.lambdaUpdate()
-                    .set(CommentEntity::getStatus, 0)
+                    .set(CommentEntity::getStatus,  Constant.COMMENT_DOWN)
                     .eq(CommentEntity::getPid, id)
                     .update();
         });
@@ -87,10 +92,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
 
     @Override
     public Integer getCountByPostId(Integer id) {
-        return baseMapper.selectCount(
-                new LambdaQueryWrapper<CommentEntity>()
-                        .eq(CommentEntity::getStatus, 1)
-                        .eq(CommentEntity::getPostId, id));
+        return this.lambdaQuery()
+                .eq(CommentEntity::getStatus,  Constant.COMMENT_NORMAL)
+                .eq(CommentEntity::getPostId, id).count();
     }
 
     @Override
@@ -98,7 +102,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
         Page<CommentEntity> commentPage = new Page<>(page,10);
         QueryWrapper<CommentEntity> queryWrapper=new QueryWrapper<>();
         queryWrapper.lambda().eq(CommentEntity::getPostId,postId);
-        queryWrapper.lambda().eq(CommentEntity::getStatus,1);
+        queryWrapper.lambda().eq(CommentEntity::getStatus, Constant.COMMENT_NORMAL);
         Page<CommentEntity> pages = baseMapper.selectPage(commentPage,queryWrapper);
         AppPageUtils appPage=new AppPageUtils(pages);
         List<CommentEntity> data = (List<CommentEntity>) appPage.getData();
@@ -122,4 +126,25 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
         appPage.setData(responseList);
         return appPage;
     }
+
+    /**
+     * 获取昨天评论数
+     * @return
+     */
+    @Override
+    public Integer getYesterdayCount() {
+        DateTime yesterday = DateUtil.yesterday();
+        return this.lambdaQuery()
+                .ge(CommentEntity::getCreateTime,yesterday)
+                .eq(CommentEntity::getStatus,  Constant.COMMENT_NORMAL)
+                .count();
+    }
+
+    @Override
+    public Integer getAllCount() {
+        return this.lambdaQuery()
+                .eq(CommentEntity::getStatus, Constant.COMMENT_NORMAL)
+                .count();
+    }
+
 }

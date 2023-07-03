@@ -258,7 +258,7 @@ public final class HTMLFilter {
     private String balanceHTML(String s) {
         if (alwaysMakeTags) {
             //
-            // try and form html
+            // try and param html
             //
             s = regexReplace(P_END_ARROW, "", s);
             s = regexReplace(P_BODY_TO_END, "<$1>", s);

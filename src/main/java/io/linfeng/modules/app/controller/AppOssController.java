@@ -38,7 +38,7 @@ import java.util.Date;
 @Api(tags = "App文件上传")
 public class AppOssController {
 
-	@Value("${qiniu.max-size}")
+	@Value("${oss.max-size}")
 	private Long maxSize;
 
 

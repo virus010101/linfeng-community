@@ -2,7 +2,7 @@
 	<view class="login">
 		<image class="logo" :src="logo"></image>
 		<text class="txt1">申请获取以下权限</text>
-		<text class="txt2">获取你的公开信息（昵称、头像等）</text>
+		<text class="txt2">获取你的登录信息</text>
 		<u-button @click="login" :custom-style="btnStyle">授权登录</u-button>
 		<text class="txt3" @click="goBack">暂不登录</text>
 	</view>

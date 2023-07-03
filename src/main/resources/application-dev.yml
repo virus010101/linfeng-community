@@ -20,6 +20,8 @@ spring:
             stat-view-servlet:
                 enabled: true
                 url-pattern: /druid/*
+#                login-username: admin
+#                login-password: admin
             filter:
                 stat:
                     log-slow-sql: true

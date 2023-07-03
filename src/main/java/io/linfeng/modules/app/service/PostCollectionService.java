@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.linfeng.common.utils.PageUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.app.entity.PostCollectionEntity;
-import io.linfeng.modules.app.form.AddCollectionForm;
+import io.linfeng.modules.app.param.AddCollectionForm;
 
 import java.util.List;
 import java.util.Map;

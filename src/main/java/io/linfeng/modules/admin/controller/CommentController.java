@@ -15,13 +15,11 @@ package io.linfeng.modules.admin.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.linfeng.modules.admin.entity.CommentEntity;
 import io.linfeng.modules.admin.service.CommentService;
@@ -32,22 +30,23 @@ import io.linfeng.common.utils.R;
 
 /**
  * 
- *评论管理
+ * 评论管理
  * @author linfeng
  * @email 2445465217@qq.com
  * @date 2022-01-24 21:29:22
  */
+@Api(tags = "管理端——评论管理")
 @RestController
 @RequestMapping("admin/comment")
 public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    /**
-     * 列表
-     */
-    @RequestMapping("/list")
+
+
+    @GetMapping("/list")
     @RequiresPermissions("admin:comment:list")
+    @ApiOperation("评论列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = commentService.queryPage(params);
 
@@ -55,44 +54,31 @@ public class CommentController {
     }
 
 
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{id}")
+
+    @GetMapping("/info/{id}")
     @RequiresPermissions("admin:comment:info")
+    @ApiOperation("评论详情")
     public R info(@PathVariable("id") Long id){
 		CommentEntity comment = commentService.getById(id);
 
         return R.ok().put("comment", comment);
     }
 
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    @RequiresPermissions("admin:comment:save")
-    public R save(@RequestBody CommentEntity comment){
-		commentService.save(comment);
 
-        return R.ok();
-    }
 
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     @RequiresPermissions("admin:comment:update")
+    @ApiOperation("评论修改")
     public R update(@RequestBody CommentEntity comment){
 		commentService.updateById(comment);
 
         return R.ok();
     }
 
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
+
+    @PostMapping("/delete")
     @RequiresPermissions("admin:comment:delete")
+    @ApiOperation("评论删除")
     public R delete(@RequestBody Long[] ids){
         commentService.deleteByAdmin(Arrays.asList(ids));
         return R.ok();

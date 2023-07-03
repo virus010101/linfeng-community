@@ -13,14 +13,14 @@
 package io.linfeng.modules.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import io.linfeng.common.response.AppUserInfoResponse;
-import io.linfeng.common.response.AppUserRankResponse;
-import io.linfeng.common.response.AppUserResponse;
-import io.linfeng.common.response.HomeRateResponse;
+import io.linfeng.common.vo.AppUserInfoResponse;
+import io.linfeng.common.vo.AppUserRankResponse;
+import io.linfeng.common.vo.AppUserResponse;
+import io.linfeng.common.vo.HomeRateResponse;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.PageUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
-import io.linfeng.modules.app.form.*;
+import io.linfeng.modules.app.param.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

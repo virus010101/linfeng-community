@@ -63,7 +63,7 @@
         prop="city"
         header-align="center"
         align="center"
-        label="城市"
+        label="城市IP"
       >
       </el-table-column>
       <el-table-column
@@ -71,14 +71,6 @@
         header-align="center"
         align="center"
         label="手机号"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="openid"
-        header-align="center"
-        align="center"
-        width="150"
-        label="小程序openid"
       >
       </el-table-column>
       <el-table-column
@@ -104,13 +96,6 @@
       >
       </el-table-column>
       <el-table-column
-        prop="tagStr"
-        header-align="center"
-        align="center"
-        label="用户标签"
-      >
-      </el-table-column>
-      <el-table-column
         prop="type"
         header-align="center"
         align="center"
@@ -123,6 +108,14 @@
             <el-tag v-else type="danger">虚拟用户</el-tag>
           </div>
         </template>
+      </el-table-column>
+      <el-table-column
+        prop="openId"
+        header-align="center"
+        align="center"
+        width="150"
+        label="小程序openId"
+      >
       </el-table-column>
       <el-table-column
         prop="updateTime"

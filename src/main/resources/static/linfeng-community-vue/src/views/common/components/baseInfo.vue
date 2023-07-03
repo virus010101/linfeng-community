@@ -10,11 +10,11 @@
             <el-tag type="primary">近一天</el-tag>
           </div>
           <div class="content" v-if="viewData">
-            <span class="content-number spBlock my15">{{viewData.yesterdayCommentCount}}</span>
+            <span class="content-number spBlock my15">{{ viewData.yesterdayCommentCount }}</span>
             <el-divider></el-divider>
             <div class="acea-row row-between-wrapper">
               <span class="content-time">总评论</span>
-              <span class="content-time">{{viewData.commentCount}}条</span>
+              <span class="content-time">{{ viewData.commentCount }}条</span>
             </div>
           </div>
         </el-card>
@@ -54,9 +54,7 @@
             <el-divider></el-divider>
             <div class="acea-row row-between-wrapper">
               <span class="content-time">待审核</span>
-              <span class="content-time"
-                >{{ viewData.totalPostOfReview }}条</span
-              >
+              <span class="content-time">{{ viewData.totalPostOfReview }}条</span>
             </div>
           </div>
         </el-card>
@@ -76,9 +74,7 @@
             <el-divider></el-divider>
             <div class="acea-row row-between-wrapper">
               <span class="content-time">昨日数据</span>
-              <span class="content-time"
-                >{{ viewData.yesterdayNewUserNum }} 人</span
-              >
+              <span class="content-time">{{ viewData.yesterdayNewUserNum }} 人</span>
             </div>
           </div>
         </el-card>
@@ -118,6 +114,7 @@ export default {
 .ivu-mb {
   margin-bottom: 20px;
 }
+
 .up,
 .el-icon-caret-top {
   color: #f5222d;
@@ -130,16 +127,19 @@ export default {
   color: #39c15b;
   font-size: 12px;
 }
+
 .main_tit {
   color: #333;
   font-size: 14px;
   font-weight: 500;
 }
+
 .content-time {
   font-size: 14px;
   color: #333;
   font-weight: 500;
 }
+
 .main_badge {
   width: 30px;
   height: 30px;
@@ -151,12 +151,15 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .my15 {
   margin: 15px 0 15px;
 }
+
 .align-center {
   align-items: center;
 }
+
 .baseInfo {
   /deep/ .el-card__header {
     padding: 15px 20px !important;
@@ -170,6 +173,7 @@ export default {
     font-family: PingFangSC-Semibold, PingFang SC;
     color: #333;
   }
+
   &-time {
     font-size: 14px;
     color: #333333;

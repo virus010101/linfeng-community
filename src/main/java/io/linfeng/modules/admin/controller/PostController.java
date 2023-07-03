@@ -15,6 +15,8 @@ package io.linfeng.modules.admin.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,22 +30,22 @@ import io.linfeng.common.utils.R;
 
 /**
  * 
- *帖子管理
+ * 帖子管理
  * @author linfeng
  * @email 2445465217@qq.com
  * @date 2022-01-23 20:49:55
  */
+@Api(tags = "管理端——帖子管理")
 @RestController
 @RequestMapping("admin/post")
 public class PostController {
     @Autowired
     private PostService postService;
 
-    /**
-     * 列表
-     */
-    @RequestMapping("/list")
+
+    @GetMapping("/list")
     @RequiresPermissions("admin:post:list")
+    @ApiOperation("帖子列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = postService.queryPage(params);
 
@@ -51,44 +53,40 @@ public class PostController {
     }
 
 
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{id}")
+
+    @GetMapping("/info/{id}")
     @RequiresPermissions("admin:post:info")
+    @ApiOperation("帖子信息")
     public R info(@PathVariable("id") Integer id){
 		PostEntity post = postService.getById(id);
 
         return R.ok().put("post", post);
     }
 
-    /**
-     * 保存
-     */
+
     @PostMapping("/save")
     @RequiresPermissions("admin:post:save")
+    @ApiOperation("帖子保存")
     public R save(@RequestBody PostEntity post){
 		postService.save(post);
 
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
+
     @PostMapping("/update")
     @RequiresPermissions("admin:post:update")
+    @ApiOperation("帖子修改")
     public R update(@RequestBody PostEntity post){
 		postService.updateById(post);
 
         return R.ok();
     }
 
-    /**
-     * 删除
-     */
+
     @PostMapping("/delete")
     @RequiresPermissions("admin:post:delete")
+    @ApiOperation("帖子删除")
     public R delete(@RequestBody Integer[] ids){
         postService.deleteByAdmin(Arrays.asList(ids));
         return R.ok();

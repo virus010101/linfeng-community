@@ -16,13 +16,13 @@ import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.linfeng.common.exception.LinfengException;
-import io.linfeng.common.response.PostDetailResponse;
-import io.linfeng.common.response.PostListResponse;
+import io.linfeng.common.vo.PostDetailResponse;
+import io.linfeng.common.vo.PostListResponse;
 import io.linfeng.common.utils.*;
 import io.linfeng.modules.admin.entity.*;
 import io.linfeng.modules.admin.service.*;
 import io.linfeng.modules.app.entity.PostCollectionEntity;
-import io.linfeng.modules.app.form.*;
+import io.linfeng.modules.app.param.*;
 import io.linfeng.modules.app.service.*;
 import io.linfeng.modules.app.utils.LocalUser;
 import org.springframework.beans.BeanUtils;
@@ -60,12 +60,8 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         QueryWrapper<PostEntity> queryWrapper=new QueryWrapper<>();
-        //条件查询
         String key = (String)params.get("key");
         String status = (String)params.get("status");
-//        if(!ObjectUtil.isEmpty(key)){
-//            queryWrapper.like("content", key).or().like("title",key);
-//        }
         queryWrapper
                 .like(!ObjectUtil.isEmpty(status),"content", key)
                 .or()
@@ -93,8 +89,6 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     }
 
 
-
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteByAdmin(List<Integer> ids) {
@@ -108,7 +102,8 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     public Integer getPostNumByUid(Integer uid) {
 
-        return this.lambdaQuery().eq(PostEntity::getUid,uid)
+        return this.lambdaQuery()
+                .eq(PostEntity::getUid,uid)
                 .count();
     }
 

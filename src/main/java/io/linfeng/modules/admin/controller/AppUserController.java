@@ -8,18 +8,17 @@
  * Copyright (c) 2021-2023 linfeng all rights reserved.
  * 版权所有 ，侵权必究！
  * -----------------------------------
- */package io.linfeng.modules.admin.controller;
+ */
+package io.linfeng.modules.admin.controller;
 
 import java.util.Arrays;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.service.AppUserService;
@@ -30,22 +29,22 @@ import io.linfeng.common.utils.R;
 
 /**
  * 
- *
+ * 管理端——会员管理
  * @author linfeng
  * @email 2445465217@qq.com
  * @date 2022-01-20 12:10:43
  */
+@Api(tags = "管理端——会员管理")
 @RestController
 @RequestMapping("admin/user")
 public class AppUserController {
     @Autowired
     private AppUserService appUserService;
 
-    /**
-     * 列表
-     */
-    @RequestMapping("/list")
+
+    @GetMapping("/list")
     @RequiresPermissions("admin:user:list")
+    @ApiOperation("用户列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = appUserService.queryPage(params);
 
@@ -53,65 +52,60 @@ public class AppUserController {
     }
 
 
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{uid}")
+
+    @GetMapping("/info/{uid}")
     @RequiresPermissions("admin:user:info")
+    @ApiOperation("用户详情")
     public R info(@PathVariable("uid") Integer uid){
 		AppUserEntity user = appUserService.getById(uid);
 
         return R.ok().put("user", user);
     }
 
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
+
+    @PostMapping("/save")
     @RequiresPermissions("admin:user:save")
+    @ApiOperation("用户保存")
     public R save(@RequestBody AppUserEntity user){
 		appUserService.save(user);
 
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
+
+    @PostMapping("/update")
     @RequiresPermissions("admin:user:update")
+    @ApiOperation("用户修改")
     public R update(@RequestBody AppUserEntity user){
 		appUserService.updateById(user);
 
         return R.ok();
     }
 
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
+
+    @PostMapping("/delete")
     @RequiresPermissions("admin:user:delete")
+    @ApiOperation("用户修改")
     public R delete(@RequestBody Integer[] uids){
 		appUserService.removeByIds(Arrays.asList(uids));
 
         return R.ok();
     }
 
-    /**
-     * 用户禁用
-     */
-    @RequestMapping("/ban/{id}")
-    @RequiresPermissions("admin:user:delete")
+
+    @GetMapping("/ban/{id}")
+    @RequiresPermissions("admin:user:update")
+    @ApiOperation("用户禁用")
     public R ban(@PathVariable("id") Integer id){
 		appUserService.ban(id);
 
         return R.ok();
     }
-    /**
-     * 用户解除禁用
-     */
-    @RequestMapping("/openBan/{id}")
-    @RequiresPermissions("admin:user:delete")
+
+
+    @GetMapping("/openBan/{id}")
+    @RequiresPermissions("admin:user:update")
+    @ApiOperation("用户解除禁用")
     public R openBan(@PathVariable("id") Integer id){
 		appUserService.openBan(id);
 

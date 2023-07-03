@@ -37,24 +37,10 @@
       >
       </el-table-column>
       <el-table-column
-        prop="pid"
-        header-align="center"
-        align="center"
-        label="父级id"
-      >
-      </el-table-column>
-      <el-table-column
         prop="uid"
         header-align="center"
         align="center"
         label="评论作者ID"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="toUid"
-        header-align="center"
-        align="center"
-        label="被回复用户ID"
       >
       </el-table-column>
       <el-table-column
@@ -69,13 +55,6 @@
         header-align="center"
         align="center"
         label="评论内容"
-      >
-      </el-table-column>
-      <el-table-column
-        prop="status"
-        header-align="center"
-        align="center"
-        label="评论状态"
       >
       </el-table-column>
       <el-table-column

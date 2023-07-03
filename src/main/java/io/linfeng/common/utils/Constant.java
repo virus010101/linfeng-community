@@ -38,8 +38,7 @@ public class Constant {
 
     public static final String ORDER_DESC_READCOUNT = "read_count desc";
 
-    public static final Integer NOT_READ = 0;
-    public static final Integer HAS_READ = 1;
+
 
     /**
      * 用户是否禁用
@@ -47,46 +46,13 @@ public class Constant {
     public static final Integer USER_NORMAL = 0;
     public static final Integer USER_BANNER = 1;
 
-    /**
-     * 圈子是否禁用
-     */
-    public static final Integer TOPIC_NORMAL = 0;
-    public static final Integer TOPIC_BANNER = 1;
-    /**
-     * 敏感词是否开启审核
-     */
-    public static final Integer SENSITIVE_CLOSE = 0;
-    public static final Integer SENSITIVE_OPEN = 1;
-    /**
-     * 敏感词处理措施 1-禁止发布 2-需审核
-     */
-    public static final Integer DEAL_BANNER = 1;
-    public static final Integer DEAL_EXAMINE = 2;
 
     /**
-     * 1为点赞，2为评论  3为收藏 4为关注  5为推送通知 6私聊
+     * 评论状态
+     * 0 下架  1正常
      */
-    public static final Integer STAR = 1;
-    public static final Integer COMMENT = 2;
-    public static final Integer COLLECT = 3;
-    public static final Integer WATCH = 4;
-    public static final Integer PUSHARTICLE = 5;
-    public static final Integer CHAT = 6;
-
-    public static final String TITLE_WATCH = "关注通知";
-    public static final String TITLE_COMMENT = "评论通知";
-    public static final String TITLE_STAR = "点赞通知";
-    public static final String TITLE_COLLECT = "点赞收藏通知";
-    public static final String TITLE_CHAT = "私聊通知";
-    public static final String TITLE_VIOLATION = "违规通知";
-
-
-    public static final String CONTENT_WATCH = "用户【{}】关注了你";
-    public static final String CONTENT_STAR = "用户【{}】点赞了你的评论:{}";
-    public static final String CONTENT_COMMENT = "用户【{}】评论了你的动态[{}]:{}";
-    public static final String CONTENT_COMMENT_REPLY = "用户【{}】回复了你在动态[{}]下的评论:{}";
-    public static final String CONTENT_POST_STAR = "用户【{}】点赞收藏了你的动态:{}";
-    public static final String ADMIN_POST_DOWN = "你的动态【{}】由于违反社区规定已被删除";
+    public static final Integer COMMENT_DOWN = 0;
+    public static final Integer COMMENT_NORMAL = 1;
 
 
     /**

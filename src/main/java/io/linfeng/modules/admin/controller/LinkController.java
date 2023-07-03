@@ -15,13 +15,11 @@ package io.linfeng.modules.admin.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.linfeng.modules.admin.entity.LinkEntity;
 import io.linfeng.modules.admin.service.LinkService;
@@ -31,23 +29,23 @@ import io.linfeng.common.utils.R;
 
 
 /**
- * 
+ * 管理端——轮播图管理
  *
  * @author linfeng
  * @email 2445465217@qq.com
  * @date 2022-01-26 14:05:38
  */
+@Api(tags = "管理端——轮播图管理")
 @RestController
 @RequestMapping("admin/link")
 public class LinkController {
     @Autowired
     private LinkService linkService;
 
-    /**
-     * 列表
-     */
-    @RequestMapping("/list")
+
+    @GetMapping("/list")
     @RequiresPermissions("admin:link:list")
+    @ApiOperation("轮播图列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = linkService.queryPage(params);
 
@@ -55,44 +53,40 @@ public class LinkController {
     }
 
 
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{id}")
+
+    @GetMapping("/info/{id}")
     @RequiresPermissions("admin:link:info")
+    @ApiOperation("轮播图信息")
     public R info(@PathVariable("id") Integer id){
 		LinkEntity link = linkService.getById(id);
 
         return R.ok().put("link", link);
     }
 
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
+
+    @PostMapping("/save")
     @RequiresPermissions("admin:link:save")
+    @ApiOperation("轮播图保存")
     public R save(@RequestBody LinkEntity link){
 		linkService.save(link);
 
         return R.ok();
     }
 
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
+
+    @PostMapping("/update")
     @RequiresPermissions("admin:link:update")
+    @ApiOperation("轮播图修改")
     public R update(@RequestBody LinkEntity link){
 		linkService.updateById(link);
 
         return R.ok();
     }
 
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
+
+    @PostMapping("/delete")
     @RequiresPermissions("admin:link:delete")
+    @ApiOperation("轮播图删除")
     public R delete(@RequestBody Integer[] ids){
 		linkService.removeByIds(Arrays.asList(ids));
 

@@ -1,32 +1,13 @@
 <template>
-  <el-dialog
-    :title="!dataForm.cateId ? '新增' : '修改'"
-    :close-on-click-modal="false"
-    :visible.sync="visible"
-  >
-    <el-form
-      :model="dataForm"
-      :rules="dataRule"
-      ref="dataForm"
-      @keyup.enter.native="dataFormSubmit()"
-      label-width="80px"
-    >
+  <el-dialog :title="!dataForm.cateId ? '新增' : '修改'" :close-on-click-modal="false" :visible.sync="visible">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
       <el-form-item label="分类名称" prop="cateName">
         <el-input v-model="dataForm.cateName" placeholder="分类名称"></el-input>
       </el-form-item>
 
       <el-form-item label="分类图片" prop="coverImage">
-        <el-upload
-          class="avatar-uploader"
-          :action="url"
-          :show-file-list="false"
-          :on-success="handleIconSuccess"
-        >
-          <img
-            v-if="dataForm.coverImage"
-            :src="dataForm.coverImage"
-            class="avatar"
-          />
+        <el-upload class="avatar-uploader" :action="url" :show-file-list="false" :on-success="handleIconSuccess">
+          <img v-if="dataForm.coverImage" :src="dataForm.coverImage" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon" />
         </el-upload>
         <p class="formInfo">建议尺寸：100*100像素，jpg、png图片类型</p>
@@ -58,7 +39,7 @@ export default {
         ],
         coverImage: [
           { required: true, message: "图片不能为空", trigger: "blur" },
-        ],
+        ]
       },
     };
   },
@@ -133,6 +114,7 @@ export default {
   line-height: 0px;
   color: #999999;
 }
+
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
@@ -140,9 +122,11 @@ export default {
   position: relative;
   overflow: hidden;
 }
+
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -151,6 +135,7 @@ export default {
   line-height: 100px;
   text-align: center;
 }
+
 .avatar {
   width: 100px;
   height: 100px;

@@ -72,6 +72,10 @@
 					</button>
 				</u-grid-item>
 				<!-- #endif -->
+				<u-grid-item @click="commercialLink">
+					<image class="gn-icon" src="/static/img/commercial-licensing.png"></image>
+					<view style="color: #e50000;font-size: 12px;margin-bottom: 20rpx;">商业版</view>
+				</u-grid-item>
 			</u-grid>
 		</view>
 		<!-- 发贴入口 -->
@@ -80,7 +84,7 @@
 </template>
 
 <script>
-	import addPostTag from '../../components/add-post-tag/add-post-tag.vue';
+	import addPostTag from '@/components/add-post-tag/add-post-tag.vue';
 	export default {
 		components: {
 			addPostTag
@@ -88,7 +92,8 @@
 		data() {
 			return {
 				userInfo: '',
-				hasLogin: false
+				hasLogin: false,
+				shareCover: 'http://pic.linfeng.tech/logo.png'
 			};
 		},
 		onLoad() {
@@ -98,6 +103,7 @@
 				menus: ['shareAppMessage', 'shareTimeline']
 			});
 			//#endif
+			this.getSysInfo()
 		},
 		onShow() {
 			if (uni.getStorageSync('hasLogin')) {
@@ -108,11 +114,10 @@
 			}
 		},
 		onShareAppMessage(res) {
-			let imgURL = 'http://pic.linfeng.tech/logo.png';
 			return {
 				title: this.$c.miniappName,
 				path: '/pages/index/index',
-				imageUrl: imgURL
+				imageUrl: this.shareCover
 			};
 		},
 		methods: {
@@ -140,6 +145,28 @@
 				uni.navigateTo({
 					url: url
 				});
+			},
+			getSysInfo() {
+				this.$H.get('system/miniConfig').then(res => {
+					this.shareCover = res.result.intro;
+				});
+			},
+			commercialLink() {
+				// #ifdef H5
+				window.open("https://h5.linfeng.tech")
+				// #endif
+				// #ifdef MP-WEIXIN
+				uni.navigateToMiniProgram({
+					appId: 'wx1d4a8967c92bda9b',
+					path: 'pages/index/index',
+					success: res => {
+						console.log("打开成功", res);
+					},
+					fail: err => {
+						console.log(err);
+					}
+				})
+				// #endif
 			}
 		}
 	};

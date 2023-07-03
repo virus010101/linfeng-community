@@ -62,6 +62,7 @@ public class CommentEntity implements Serializable {
 	private String content;
 	/**
 	 * 评论状态
+	 * 0 下架  1正常
 	 */
 	private Integer status;
 	/**
