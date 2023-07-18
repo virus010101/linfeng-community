@@ -26,6 +26,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *
@@ -52,7 +53,8 @@ public class AppCommentController {
             @ApiImplicitParam(name = "postId", value = "帖子id", paramType = "query",dataType = "Integer", required = true),
             @ApiImplicitParam(name = "page", value = "分页页码",paramType = "query", dataType = "Integer", required = true)
     })
-    public R list(@RequestParam("postId")Integer postId,@RequestParam("page")Integer page){
+    public R list(@RequestParam("postId")Integer postId,
+                  @RequestParam("page")Integer page){
         AppPageUtils pages =commentService.queryCommentPage(postId,page);
 
         return R.ok().put("result", pages);
@@ -65,7 +67,8 @@ public class AppCommentController {
     @Login
     @PostMapping("/thumbs")
     @ApiOperation("评论区的点赞")
-    public R thumbs(@RequestBody AddThumbsForm request, @LoginUser AppUserEntity user){
+    public R thumbs(@RequestBody AddThumbsForm request,
+                    @ApiIgnore @LoginUser AppUserEntity user){
 
         commentThumbsService.addThumbs(request,user);
         return R.ok();
@@ -77,7 +80,8 @@ public class AppCommentController {
     @Login
     @PostMapping("/cancelThumbs")
     @ApiOperation("取消评论区的点赞")
-    public R cancelThumbs(@RequestBody AddThumbsForm request,@LoginUser AppUserEntity user){
+    public R cancelThumbs(@RequestBody AddThumbsForm request,
+                          @ApiIgnore @LoginUser AppUserEntity user){
 
         commentThumbsService.cancelThumbs(request,user);
         return R.ok();

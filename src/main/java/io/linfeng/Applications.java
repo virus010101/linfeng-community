@@ -2,7 +2,7 @@
  * -----------------------------------
  * 林风社交论坛开源版本请务必保留此注释头信息
  * 开源地址: https://gitee.com/virus010101/linfeng-community
- * 商业版演示站点: https://www.linfeng.tech
+ * 商业版详情查看: https://www.linfeng.tech
  * 商业版购买联系技术客服
  * QQ:  3582996245
  * 可正常分享和学习源码，不得转卖或非法牟利！
@@ -35,7 +35,8 @@ public class Applications {
 		log.info("\n----------------------------------------------------------------\n\t" +
 						"林风社交论坛开源版 '{}' 运行成功! 访问连接:\n\t" +
 						"Swagger文档: \t\thttp://{}:{}/doc.html\n\t" +
-						"数据库监控: \t\thttp://{}:{}/druid\n" +
+						"数据库监控: \t\thttp://{}:{}/druid\n\t" +
+						"此开源版禁止商业使用,详情查看: \thttps://net.linfeng.tech/version/version.html\n" +
 						"----------------------------------------------------------------",
 				env.getProperty("spring.application.name"),
 				InetAddress.getLocalHost().getHostAddress(),

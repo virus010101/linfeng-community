@@ -62,7 +62,7 @@ public class AppUserInfoController {
             //TODO
             //send Aliyun Sms code
         }
-        return R.ok("测试阶段验证码:" + code);
+        return R.ok("测试验证码:" + code);
     }
 
 

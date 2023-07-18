@@ -31,6 +31,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author linfeng
@@ -66,7 +67,8 @@ public class AppPostController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
     })
-    public R followUserPost(@RequestParam Integer page, @LoginUser AppUserEntity user){
+    public R followUserPost(@RequestParam Integer page,
+                            @ApiIgnore @LoginUser AppUserEntity user){
 
         AppPageUtils pages =postService.followUserPost(page,user);
         if(ObjectUtil.isNull(pages)){
@@ -83,7 +85,8 @@ public class AppPostController {
     @Login
     @PostMapping("/addCollection")
     @ApiOperation("帖子点赞收藏")
-    public R addCollection(@RequestBody AddCollectionForm request, @LoginUser AppUserEntity user){
+    public R addCollection(@RequestBody AddCollectionForm request,
+                           @ApiIgnore @LoginUser AppUserEntity user){
         postService.addCollection(request,user);
 
         return R.ok();
@@ -95,7 +98,8 @@ public class AppPostController {
     @Login
     @PostMapping("/cancelCollection")
     @ApiOperation("帖子取消点赞收藏")
-    public R cancelCollection(@RequestBody AddCollectionForm request, @LoginUser AppUserEntity user){
+    public R cancelCollection(@RequestBody AddCollectionForm request,
+                              @ApiIgnore @LoginUser AppUserEntity user){
         postCollectionService.cancelCollection(request,user);
         return R.ok();
     }
@@ -106,7 +110,8 @@ public class AppPostController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
     })
-    public R myPost(@RequestParam("page") Integer page, @LoginUser AppUserEntity user){
+    public R myPost(@RequestParam("page") Integer page,
+                    @ApiIgnore @LoginUser AppUserEntity user){
 
         AppPageUtils pages =postService.myPost(page,user);
         return R.ok().put("result", pages);
@@ -119,7 +124,8 @@ public class AppPostController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
     })
-    public R myCollectPost(@RequestParam("page") Integer page, @LoginUser AppUserEntity user){
+    public R myCollectPost(@RequestParam("page") Integer page,
+                           @ApiIgnore @LoginUser AppUserEntity user){
 
         AppPageUtils pages =postService.myCollectPost(page,user);
         return R.ok().put("result", pages);
@@ -151,7 +157,8 @@ public class AppPostController {
     @Login
     @PostMapping("/addPost")
     @ApiOperation("发帖子")
-    public R addPost(@RequestBody AddPostForm request, @LoginUser AppUserEntity user){
+    public R addPost(@RequestBody AddPostForm request,
+                     @ApiIgnore @LoginUser AppUserEntity user){
         ValidatorUtils.validateEntity(request);
         Integer id=postService.addPost(request,user);
         if(id==0){
@@ -163,7 +170,8 @@ public class AppPostController {
     @Login
     @PostMapping("/list")
     @ApiOperation("帖子列表分页")
-    public R list(@RequestBody PostListForm request, @LoginUser AppUserEntity user){
+    public R list(@RequestBody PostListForm request,
+                  @ApiIgnore @LoginUser AppUserEntity user){
 
         AppPageUtils page = postService.queryPageList(request,user);
 
