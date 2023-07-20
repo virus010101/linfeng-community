@@ -12,7 +12,7 @@
 
 ***用户端的前端代码在 src\main\resources\static\linfeng-community-uniapp-ky 目录下！***
 
-代码三端开源，包括用户端也发布了**开源版**（**SQL文件在qq群文件中**，点个star加群获取即可）
+代码三端均发布了开源版供学习（**SQL文件在qq群文件中**，点个star加群获取即可）
 
 #### 2.软件演示
 
@@ -72,32 +72,31 @@ H5端：https://h5.linfeng.tech
 
 1.  配置数据库和redis。先启动redis，再启动后端api服务。
 2.  数据库请使用MySQL5.7，或高于5.7的版本。
-3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可。移动端在HBuilderX中打开，需要先npm install，再启动。
-4.  优先更新码云Gitee：https://gitee.com/virus010101/linfeng-community
+3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可。
+4.  移动端在HBuilderX中打开，需要先npm install安装依赖后，再启动。
+5.  优先更新码云Gitee：https://gitee.com/virus010101/linfeng-community
 
 #### 4.必看说明
 
-1.**后台前端的代码**在\src\main\resources\static\linfeng-community-vue目录下！
+1.后台前端的代码在\src\main\resources\static\linfeng-community-vue目录下！
 
-2.**后台管理系统和后台管理系统后端API已经全部开源**。
+2.用户端代码在\src\main\resources\static\linfeng-community-uniapp-ky目录下！
 
-**用户端代码已开源**，在\src\main\resources\static\linfeng-community-uniapp-ky目录下！
-
-**需要商业版（即为上图演示站点项目）源码联系客服或前往项目官网了解详情**。
-
-<img src="https://github.com/virus010101/linfeng-community/blob/main/images/mine.jpg" style="zoom: 25%;" />
-
-
-
-3. SQL文件开源的，在QQ群，开源不易，**请左上角点个star后备注gitee的用户名加QQ群（640700429）获取**
-
-<img src="https://github.com/virus010101/linfeng-community/blob/main/images/qrcode.jpg" style="zoom:25%;" />
-
-4.**商业版和开源版的区别**
+3.**商业版和开源版的区别**
 
 https://net.linfeng.tech/version/version.html
 
 详情查看官网：https://net.linfeng.tech
+
+**需要标准商业版源码联系客服或前往项目官网了解详情**。
+
+<img src="https://github.com/virus010101/linfeng-community/blob/main/images/mine.jpg" style="zoom: 25%;" />
+
+4.SQL文件开源的，在QQ群，开源不易，**请左上角点个star后备注gitee的用户名加QQ群（640700429）获取**
+
+<img src="https://github.com/virus010101/linfeng-community/blob/main/images/qrcode.jpg" style="zoom:25%;" />
+
+
 
 #### 5.开源须知
 
@@ -109,8 +108,6 @@ https://net.linfeng.tech/version/version.html
 
 
 #### 6.版本更新记录
-
-
 
 
 
