@@ -79,7 +79,7 @@ public class CategoryController {
     @RequiresPermissions("admin:category:update")
     @ApiOperation("分类修改")
     public R update(@RequestBody CategoryEntity category){
-		categoryService.updateById(category);
+		categoryService.updateCategory(category);
 
         return R.ok();
     }

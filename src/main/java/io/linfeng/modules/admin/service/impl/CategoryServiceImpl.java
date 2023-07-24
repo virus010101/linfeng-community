@@ -58,8 +58,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveCategory(CategoryEntity category) {
-        Integer count = this.lambdaQuery().eq(CategoryEntity::getCateName, category.getCateName()).count();
-        if (count != 0) {
+        Integer count = this.lambdaQuery()
+                .eq(CategoryEntity::getCateName, category.getCateName())
+                .count();
+        if (count > 0) {
             throw new LinfengException("分类名不能重复");
         }
         this.save(category);
@@ -82,5 +84,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         });
         this.removeByIds(list);
     }
+
+    @Override
+    public void updateCategory(CategoryEntity category) {
+        Integer count = this.lambdaQuery()
+                .eq(CategoryEntity::getCateName, category.getCateName())
+                .count();
+        if (count > 1) {
+            throw new LinfengException("分类名不能重复");
+        }
+        this.updateById(category);
+    }
+
 
 }
