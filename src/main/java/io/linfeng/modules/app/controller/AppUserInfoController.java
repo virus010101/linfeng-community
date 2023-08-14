@@ -27,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -110,7 +111,7 @@ public class AppUserInfoController {
     @Login
     @GetMapping("/userInfo")
     @ApiOperation("获取用户信息")
-    public R userInfo(@LoginUser AppUserEntity user) {
+    public R userInfo(@ApiIgnore @LoginUser AppUserEntity user) {
 
         AppUserResponse response = appUserService.getUserInfo(user);
         return R.ok().put("result", response);
@@ -119,7 +120,8 @@ public class AppUserInfoController {
     @Login
     @PostMapping("/cancelFollow")
     @ApiOperation("取消关注用户")
-    public R cancelFollow(@LoginUser AppUserEntity user, @RequestBody AddFollowForm request) {
+    public R cancelFollow(@ApiIgnore @LoginUser AppUserEntity user,
+                          @RequestBody AddFollowForm request) {
         appUserService.cancelFollow(request, user);
         return R.ok("取消关注用户成功");
     }
@@ -156,7 +158,8 @@ public class AppUserInfoController {
     @Login
     @GetMapping("/follow")
     @ApiOperation("我的关注分页列表")
-    public R follow(@RequestParam("page") Integer page, @LoginUser AppUserEntity user) {
+    public R follow(@RequestParam("page") Integer page,
+                    @ApiIgnore @LoginUser AppUserEntity user) {
 
         AppPageUtils pages = appUserService.follow(page, user);
         return R.ok().put("result", pages);
@@ -166,7 +169,8 @@ public class AppUserInfoController {
     @Login
     @PostMapping("/userInfoById")
     @ApiOperation("用户个人主页信息")
-    public R userInfoById(@RequestBody AppUserInfoForm request, @LoginUser AppUserEntity user) {
+    public R userInfoById(@RequestBody AppUserInfoForm request,
+                          @ApiIgnore @LoginUser AppUserEntity user) {
         AppUserInfoResponse response = appUserService.findUserInfoById(request.getUid(), user);
 
         return R.ok().put("result", response);
