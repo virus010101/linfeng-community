@@ -24,7 +24,7 @@
           <img v-if="dataForm.img" :src="dataForm.img" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon" />
         </el-upload>
-        <p class="formInfo">建议尺寸：500*250像素，jpg、png图片类型</p>
+        <p class="formInfo">建议尺寸：500*200像素，jpg、png图片类型</p>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">

@@ -4,8 +4,8 @@
 (function() {
   window.SITE_CONFIG = {};
 
-  // api接口请求地址
-  window.SITE_CONFIG["baseUrl"] = "";
+  // api接口请求地址 你的线上api域名
+  window.SITE_CONFIG["baseUrl"] = "https://api.xxx.com";
 
   // cdn地址 = 域名 + 版本号
   window.SITE_CONFIG["domain"] = "./"; // 域名
