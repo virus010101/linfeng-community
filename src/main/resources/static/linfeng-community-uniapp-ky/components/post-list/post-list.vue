@@ -9,8 +9,8 @@
 								level-bg-color="#000000"></u-avatar>
 						</view>
 						<view class="center">
-							<view style="display: flex;align-items: center;justify-content: space-between;">
-								<view style="display: flex;align-items: center;">
+							<view class="post-top-box">
+								<view class="uname">
 									<text v-if="item.userInfo.type == 1" class="official">官方</text>
 									<text class="username">{{ item.userInfo.username.substring(0, 10) }}</text>
 								</view>
@@ -240,7 +240,15 @@
 			}
 		}
 	}
-
+	.post-top-box{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.uname{
+		display: flex;
+		align-items: center;
+	}
 	.post-list-item {
 		display: flex;
 		align-items: center;

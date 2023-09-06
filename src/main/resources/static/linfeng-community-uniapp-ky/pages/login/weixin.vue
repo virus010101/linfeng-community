@@ -30,7 +30,7 @@
 			},
 			getSysInfo() {
 				this.$H.get("system/miniConfig").then(res => {
-					if(res.code==0){
+					if (res.code == 0) {
 						this.logo = res.logo;
 					}
 				})
@@ -39,30 +39,24 @@
 			async login() {
 				uni.showLoading({
 					mask: true,
-					title: '正在登陆'
+					title: '正在登录中'
 				});
 				var that = this;
 				let code = await this.getLoginCode();
 				that.$H.post('user/miniWxlogin', {
 					code: code
 				}).then(res => {
-
 					if (res.code === 0) {
 						uni.setStorageSync("hasLogin", true);
 						uni.setStorageSync("token", res.token);
+						that.getUserInfo();
 						uni.switchTab({
 							url: '/pages/index/index'
 						});
-						that.getUserInfo();
 					}
 					uni.hideLoading();
 				})
-
-
-
 			},
-
-
 			getUserInfo() {
 				this.$H.get("user/userInfo").then(res => {
 					uni.setStorageSync("userInfo", res.result)

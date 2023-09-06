@@ -283,9 +283,7 @@
 			margin-right: 10rpx;
 		}
 	}
-
 	.title-desc {
-		// margin-left: 30rpx;
 		margin: auto;
 		font-size: 32rpx;
 		color: #565656;

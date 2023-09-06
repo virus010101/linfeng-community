@@ -64,7 +64,7 @@
 				<block v-if="postDetail.isCollection">
 					<view class="p-item" @click="cancelCollection">
 						<text class="iconfont icon-lujing" style="color: #d81e06;"></text>
-						<text>{{ postDetail.collectionCount }}</text>
+						<text>{{ postDetail.collectionCount}}</text>
 					</view>
 				</block>
 				<block v-else>
@@ -75,7 +75,7 @@
 				</block>
 				<view class="p-item" @click="focus = true">
 					<text class="iconfont icon-pinglun"></text>
-					<text>{{ postDetail.commentCount }}</text>
+					<text>{{ postDetail.commentCount  || 0  }}</text>
 				</view>
 				<view class="p-item" @click="showShare = true">
 					<text class="iconfont icon-forward"></text>
@@ -221,7 +221,7 @@
 				imgURL = this.postDetail.media[0];
 			}
 			return {
-				title: this.postDetail.content,
+				title: this.postDetail.title,
 				path: '/pages/post/post?id=' + this.postId,
 				imageUrl: imgURL
 			};
@@ -229,7 +229,7 @@
 		onShareTimeline() {
 			let imgURL = (imgURL = this.postDetail.media[0]);
 			return {
-				title: this.postDetail.content,
+				title: this.postDetail.title,
 				imageUrl: imgURL,
 				query: 'id=' + this.postId
 			};
@@ -355,6 +355,10 @@
 				});
 			},
 			getPostDetail() {
+				uni.showLoading({
+					mask: true,
+					title: '加载中'
+				});
 				this.$H
 					.get('post/detail', {
 						id: this.postId
@@ -369,6 +373,7 @@
 							}, 1500);
 						}
 						this.postDetail = res.result;
+						uni.hideLoading();
 					});
 			},
 			cancelCollection() {
@@ -740,11 +745,6 @@
 				margin-top: 20rpx;
 			}
 		}
-	}
-
-
-	video {
-		width: 100%;
 	}
 
 	.post-text {

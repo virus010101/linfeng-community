@@ -93,7 +93,7 @@
 			return {
 				userInfo: '',
 				hasLogin: false,
-				shareCover: 'http://pic.linfeng.tech/logo.png'
+				shareCover: 'http://pic.linfeng.tech/test/20220724/9a665bf276a44827ad8ef0b3140a7d1d.png'
 			};
 		},
 		onLoad() {

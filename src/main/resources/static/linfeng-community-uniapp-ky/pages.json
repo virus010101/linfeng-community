@@ -110,10 +110,19 @@
             }
             
         }
+        ,{
+            "path" : "pages/error/error",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "404",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "林风论坛",
+		"navigationBarTitleText": "林风社交论坛开源版",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"
 	},

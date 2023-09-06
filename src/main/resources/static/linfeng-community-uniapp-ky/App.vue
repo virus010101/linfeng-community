@@ -8,6 +8,12 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		onPageNotFound() {
+			// 跳转到 404 页面：
+			uni.redirectTo({
+				url: "pages/error/error"
+			});
 		}
 	}
 </script>

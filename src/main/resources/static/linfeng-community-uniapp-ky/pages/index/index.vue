@@ -85,7 +85,7 @@
 				if (index === 0) {
 					this.page1 = 1;
 					this.getFollowUserPost();
-				}else if (index === 1) {
+				} else if (index === 1) {
 					this.page2 = 1;
 					this.getLastPost();
 				}
