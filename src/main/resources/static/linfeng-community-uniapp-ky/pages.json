@@ -139,8 +139,8 @@
 			},
 			{
 				"pagePath": "pages/square/square",
-				"iconPath": "static/tabbar/msg-1.png",
-				"selectedIconPath": "static/tabbar/msg.png",
+				"iconPath": "static/tabbar/square-1.png",
+				"selectedIconPath": "static/tabbar/square.png",
 				"text": "广场"
 			},
 			{

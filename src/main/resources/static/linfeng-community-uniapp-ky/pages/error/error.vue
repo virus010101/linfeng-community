@@ -10,16 +10,16 @@
 	export default {
 		data() {
 			return {
-				
+
 			};
 		},
-		methods:{
-			goHome(){
+		methods: {
+			goHome() {
 				uni.switchTab({
-					url:'/pages/index/index'
+					url: '/pages/index/index'
 				})
 			},
-			goWebsite(){
+			goWebsite() {
 				// #ifdef H5
 				window.open("https://net.linfeng.tech")
 				// #endif
@@ -35,9 +35,9 @@
 					}
 				})
 				// #endif
-				
+
 			}
-			
+
 		}
 	}
 </script>

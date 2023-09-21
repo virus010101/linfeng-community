@@ -16,6 +16,7 @@
 
 					<text class="desc">{{userInfo.intro}}</text>
 					<text class="desc" v-if="userInfo.city">IP:{{userInfo.city}}</text>
+					<text class="desc" v-else>IP属地:未知</text>
 
 					<view class="btn-box" v-if="currUid!=uid">
 						<u-button v-show="!userInfo.isFollow" @click="follow" :custom-style="btnStyle" class="btn"
