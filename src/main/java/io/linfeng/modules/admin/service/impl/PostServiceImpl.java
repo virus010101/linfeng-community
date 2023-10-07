@@ -133,6 +133,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addCollection(AddCollectionForm request, AppUserEntity user) {
         Boolean collection = postCollectionService.isCollection(user.getUid(), request.getId());
         if(collection){
@@ -198,6 +199,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addComment(AddCommentForm request, AppUserEntity user) {
         if(user.getStatus()!=0){
             throw new LinfengException("您的账号已被禁用！");

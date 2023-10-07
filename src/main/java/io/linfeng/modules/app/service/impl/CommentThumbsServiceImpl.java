@@ -48,17 +48,17 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
 
     /**
      * 是否点赞
-     * @param uid
-     * @param id
+     * @param uid 用户id
+     * @param id 评论id
      * @return
      */
     @Override
     public Boolean isThumbs(Integer uid, Long id) {
-        CommentThumbsEntity one = baseMapper.selectOne(new LambdaQueryWrapper<CommentThumbsEntity>()
+        CommentThumbsEntity commentThumbs = this.lambdaQuery()
                 .eq(CommentThumbsEntity::getCId, id)
-                .eq(CommentThumbsEntity::getUid, uid));
-
-        return Optional.ofNullable(one).isPresent();
+                .eq(CommentThumbsEntity::getUid, uid)
+                .one();
+        return Optional.ofNullable(commentThumbs).isPresent();
     }
 
     @Override
@@ -70,8 +70,8 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
 
     /**
      * 点赞
-     * @param request
-     * @param user
+     * @param request 请求体
+     * @param user 用户实体
      */
     @Override
     public void addThumbs(AddThumbsForm request, AppUserEntity user) {
@@ -93,8 +93,8 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
 
     /**
      * 取消点赞
-     * @param request
-     * @param user
+     * @param request 请求体
+     * @param user 用户实体
      */
     @Override
     public void cancelThumbs(AddThumbsForm request, AppUserEntity user) {

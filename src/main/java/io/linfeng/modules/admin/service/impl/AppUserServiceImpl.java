@@ -97,6 +97,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void ban(Integer id) {
         Integer status = this.lambdaQuery().eq(AppUserEntity::getUid, id).one().getStatus();
         if (status.equals(Constant.USER_BANNER)) {
@@ -104,6 +105,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         }
         this.lambdaUpdate()
                 .set(AppUserEntity::getStatus, 1)
+                .set(AppUserEntity::getUpdateTime,new Date())
                 .eq(AppUserEntity::getUid, id)
                 .update();
     }
@@ -117,6 +119,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         }
         boolean update = this.lambdaUpdate()
                 .set(AppUserEntity::getStatus, 0)
+                .set(AppUserEntity::getUpdateTime,new Date())
                 .eq(AppUserEntity::getUid, id)
                 .update();
         if(!update){
@@ -201,6 +204,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateAppUserInfo(AppUserUpdateForm appUserUpdateForm, AppUserEntity user) {
         if (!ObjectUtil.isEmpty(appUserUpdateForm.getAvatar())) {
             user.setAvatar(appUserUpdateForm.getAvatar());

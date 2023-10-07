@@ -38,6 +38,7 @@ import io.linfeng.common.utils.R;
 @RestController
 @RequestMapping("admin/user")
 public class AppUserController {
+
     @Autowired
     private AppUserService appUserService;
 
@@ -63,14 +64,7 @@ public class AppUserController {
     }
 
 
-    @PostMapping("/save")
-    @RequiresPermissions("admin:user:save")
-    @ApiOperation("用户保存")
-    public R save(@RequestBody AppUserEntity user){
-		appUserService.save(user);
 
-        return R.ok();
-    }
 
 
     @PostMapping("/update")

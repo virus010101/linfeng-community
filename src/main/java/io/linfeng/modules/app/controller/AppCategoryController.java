@@ -26,6 +26,7 @@ public class AppCategoryController {
     private CategoryService categoryService;
 
 
+
     @GetMapping("/classList")
     @ApiOperation("分类列表")
     public R classList(){
