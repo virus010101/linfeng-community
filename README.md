@@ -91,7 +91,7 @@ https://net.linfeng.tech/version/version.html
 
 详情查看官网：https://net.linfeng.tech
 
-**需要标准商业版源码前往项目官网咨询客服了解详情**。
+**标准商业版前往项目官网咨询客服了解详情**。
 
 
 
