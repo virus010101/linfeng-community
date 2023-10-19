@@ -62,11 +62,7 @@ H5端：https://h5.linfeng.tech
 
 ![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic06.png)
 
-![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic07.png)
-
 ![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic08.png)
-
-![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic09.png)
 
 ![](https://github.com/virus010101/linfeng-community/blob/main/images/showPic10.png)
 
