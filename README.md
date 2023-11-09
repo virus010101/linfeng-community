@@ -20,7 +20,7 @@
 
 #### 2.软件演示
 
-官网：https://net.linfeng.tech
+项目官网：https://net.linfeng.tech
 
 ##### 2.1移动端演示
 
