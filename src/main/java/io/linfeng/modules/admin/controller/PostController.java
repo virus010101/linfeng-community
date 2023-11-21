@@ -91,5 +91,6 @@ public class PostController {
         postService.deleteByAdmin(Arrays.asList(ids));
         return R.ok();
     }
+	
 
 }

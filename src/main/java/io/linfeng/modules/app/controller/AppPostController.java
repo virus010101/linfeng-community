@@ -147,7 +147,7 @@ public class AppPostController {
     @Login
     @PostMapping("/addComment")
     @ApiOperation("添加评论")
-    public R addComment(@RequestBody AddCommentForm request, @LoginUser AppUserEntity user){
+    public R addComment(@RequestBody AddCommentForm request, @ApiIgnore @LoginUser AppUserEntity user){
         ValidatorUtils.validateEntity(request);
         postService.addComment(request,user);
 

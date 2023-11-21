@@ -83,9 +83,10 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         //模糊查询
         String key = (String) params.get("key");
         if (!ObjectUtil.isEmpty(key)) {
-            queryWrapper.like("username", key)
+            queryWrapper.lambda()
+                    .like(AppUserEntity::getUsername, key)
                     .or()
-                    .like("mobile", key);
+                    .like(AppUserEntity::getMobile, key);
         }
         queryWrapper.lambda().orderByDesc(AppUserEntity::getUid);
         IPage<AppUserEntity> page = this.page(
@@ -104,7 +105,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             throw new LinfengException("该用户已被禁用");
         }
         this.lambdaUpdate()
-                .set(AppUserEntity::getStatus, 1)
+                .set(AppUserEntity::getStatus, Constant.USER_BANNER)
                 .set(AppUserEntity::getUpdateTime,new Date())
                 .eq(AppUserEntity::getUid, id)
                 .update();
@@ -118,7 +119,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             throw new LinfengException("该用户已解除禁用");
         }
         boolean update = this.lambdaUpdate()
-                .set(AppUserEntity::getStatus, 0)
+                .set(AppUserEntity::getStatus, Constant.USER_NORMAL)
                 .set(AppUserEntity::getUpdateTime,new Date())
                 .eq(AppUserEntity::getUid, id)
                 .update();
@@ -143,17 +144,26 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         return response;
     }
 
+    /**
+     * 注册/登录
+     * @param form 手机验证码登录dto
+     * @param request
+     * @return 用户ID
+     */
     @Override
     public Integer smsLogin(SmsLoginForm form, HttpServletRequest request) {
         AppUserEntity appUserEntity = this.lambdaQuery().eq(AppUserEntity::getMobile, form.getMobile()).one();
-        String codeKey = "code_" + form.getMobile();
+        String codeKey = Constant.SMS_PREFIX + form.getMobile();
         String s = redisUtils.get(codeKey);
+        if (io.linfeng.common.utils.ObjectUtil.isEmpty(s)) {
+            throw new LinfengException("请先发送验证码");
+        }
         if (!s.equals(form.getCode())) {
             throw new LinfengException("验证码错误");
         }
         if (ObjectUtil.isNotNull(appUserEntity)) {
             //登录
-            if (appUserEntity.getStatus() == 1) {
+            if (appUserEntity.getStatus().equals(Constant.USER_BANNER)) {
                 throw new LinfengException("该账户已被禁用");
             }
             return appUserEntity.getUid();
@@ -170,7 +180,13 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             list.add("新人");
             appUser.setTagStr(JSON.toJSONString(list));
             baseMapper.insert(appUser);
-            AppUserEntity user = this.lambdaQuery().eq(AppUserEntity::getMobile, form.getMobile()).one();
+            AppUserEntity user = this.lambdaQuery()
+                    .eq(AppUserEntity::getMobile, form.getMobile())
+                    .one();
+            if(ObjectUtil.isNull(user)){
+                throw new LinfengException("注册失败");
+            }
+            //其他业务处理
             return user.getUid();
         }
 
@@ -180,7 +196,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     @Override
     public String sendSmsCode(SendCodeForm param) {
         String code = RandomUtil.randomNumbers(6);
-        String codeKey = "code_" + param.getMobile();
+        String codeKey = Constant.SMS_PREFIX + param.getMobile();
         String s = redisUtils.get(codeKey);
         if (ObjectUtil.isNotNull(s)) {
             return s;
@@ -213,7 +229,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             user.setGender(appUserUpdateForm.getGender());
         }
         baseMapper.updateById(user);
-        redisUtils.delete("userId:" + user.getUid());
+        redisUtils.delete(RedisKeys.getUserKey(user.getUid()));
     }
 
     @Override
@@ -310,7 +326,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         //根据openId获取数据库信息 判断用户是否登录
         AppUserEntity user = this.lambdaQuery().eq(AppUserEntity::getOpenid, openId).one();
         if (ObjectUtil.isNotNull(user)) {
-            if (user.getStatus() == 1) {
+            if (user.getStatus() .equals(Constant.USER_BANNER)) {
                 throw new LinfengException("该账户已被禁用");
             }
             //其他业务todo
@@ -329,6 +345,10 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             appUser.setTagStr(JSON.toJSONString(list));
             baseMapper.insert(appUser);
             AppUserEntity users = this.lambdaQuery().eq(AppUserEntity::getOpenid, openId).one();
+            if(ObjectUtil.isNull(users)){
+                throw new LinfengException("注册失败");
+            }
+            //其他业务todo
             return users.getUid();
         }
     }
@@ -373,7 +393,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     }
 
     private String getOpenId(String code){
-        SystemEntity system = systemService.lambdaQuery().eq(SystemEntity::getConfig, "miniapp").one();
+        SystemEntity system = systemService.lambdaQuery()
+                .eq(SystemEntity::getConfig, ConfigConstant.MINIAPP)
+                .one();
 
         //小程序唯一标识   (在微信小程序管理后台获取)
         String appId = system.getValue();

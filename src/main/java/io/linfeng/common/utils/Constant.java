@@ -47,6 +47,7 @@ public class Constant {
     public static final Integer USER_BANNER = 1;
 
 
+
     /**
      * 评论状态
      * 0 下架  1正常
@@ -59,6 +60,15 @@ public class Constant {
      * 手机验证码长度
      */
     public static final Integer SMS_SIZE = 6;
+
+    /**
+     * 手机验证码前缀
+     */
+    public static final String SMS_PREFIX = "code_";
+
+    /**
+     * 注册账户默认分配头像
+     */
     public static final String DEAULT_HEAD = "http://pic.linfeng.tech/test/20220126/4515fc2cbed74d0b9163d35a12bd4c3b.png";
 
     /**

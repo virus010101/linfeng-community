@@ -129,7 +129,7 @@ public class AppUserInfoController {
     @Login
     @PostMapping("/userInfoEdit")
     @ApiOperation("用户修改个人信息")
-    public R userInfoEdit(@LoginUser AppUserEntity user, @RequestBody AppUserUpdateForm appUserUpdateForm) {
+    public R userInfoEdit(@ApiIgnore  @LoginUser AppUserEntity user, @RequestBody AppUserUpdateForm appUserUpdateForm) {
         appUserService.updateAppUserInfo(appUserUpdateForm, user);
         return R.ok("修改成功");
     }
@@ -138,7 +138,7 @@ public class AppUserInfoController {
     @Login
     @PostMapping("/addFollow")
     @ApiOperation("关注用户")
-    public R addFollow(@LoginUser AppUserEntity user, @RequestBody AddFollowForm request) {
+    public R addFollow(@ApiIgnore  @LoginUser AppUserEntity user, @RequestBody AddFollowForm request) {
         appUserService.addFollow(request, user);
         return R.ok("关注用户成功");
     }
@@ -149,7 +149,7 @@ public class AppUserInfoController {
     @Login
     @GetMapping("/userFans")
     @ApiOperation("我的粉丝分页列表")
-    public R userFans(@RequestParam("page") Integer page, @LoginUser AppUserEntity user) {
+    public R userFans(@RequestParam("page") Integer page, @ApiIgnore @LoginUser AppUserEntity user) {
 
         AppPageUtils pages = appUserService.userFans(page, user.getUid());
         return R.ok().put("result", pages);

@@ -62,10 +62,10 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         QueryWrapper<PostEntity> queryWrapper=new QueryWrapper<>();
         String key = (String)params.get("key");
         String status = (String)params.get("status");
-        queryWrapper
-                .like(!ObjectUtil.isEmpty(status),"content", key)
+        queryWrapper.lambda()
+                .like(!ObjectUtil.isEmpty(status),PostEntity::getContent, key)
                 .or()
-                .like(!ObjectUtil.isEmpty(status),"title",key);
+                .like(!ObjectUtil.isEmpty(status),PostEntity::getTitle,key);
         queryWrapper.lambda().orderByDesc(PostEntity::getId);
         IPage<PostEntity> page = this.page(
                 new Query<PostEntity>().getPage(params),

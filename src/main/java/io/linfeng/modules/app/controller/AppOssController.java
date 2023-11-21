@@ -41,8 +41,11 @@ public class AppOssController {
 	@Value("${oss.max-size}")
 	private Long maxSize;
 
+	@Autowired
+	private SysOssService sysOssService;
 
-	@ApiOperation("上传文件")
+
+	@ApiOperation("APP端文件上传")
 	@PostMapping("/upload")
 	public R upload(@RequestParam("Image") MultipartFile file) throws Exception {
 		if (file.isEmpty()) {
@@ -52,6 +55,12 @@ public class AppOssController {
 		//上传文件
 		String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		String url = OSSFactory.build().uploadSuffix(file.getBytes(), suffix);
+
+		//保存文件信息
+		SysOssEntity ossEntity = new SysOssEntity();
+		ossEntity.setUrl(url);
+		ossEntity.setCreateDate(new Date());
+		sysOssService.save(ossEntity);
 
 		return R.ok().put("result", url);
 	}

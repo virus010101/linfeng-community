@@ -12,6 +12,7 @@
 package io.linfeng.modules.app.utils;
 
 import io.jsonwebtoken.Claims;
+import io.linfeng.common.utils.RedisKeys;
 import io.linfeng.common.utils.RedisUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.service.AppUserService;
@@ -58,13 +59,13 @@ public class LocalUser {
             return null;
         }
         long userId = Long.parseLong(claims.getSubject());
-        AppUserEntity userInfo = redisUtils.get("userId:" + userId, AppUserEntity.class);
+        AppUserEntity userInfo = redisUtils.get(RedisKeys.getUserKey((int)userId), AppUserEntity.class);
         if (userInfo != null) {
             return userInfo;
         }
         //重新获取用户信息
         AppUserEntity user = userService.getById(userId);
-        redisUtils.set("userId:" + userId, user, 7200);
+        redisUtils.set(RedisKeys.getUserKey((int)userId), user, 7200);
         return user;
     }
 }

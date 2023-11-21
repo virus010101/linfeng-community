@@ -38,5 +38,6 @@ public interface PostCollectionService extends IService<PostCollectionEntity> {
     void cancelCollection(AddCollectionForm request, AppUserEntity user);
 
     List<Integer> getPostListByUid(Integer uid);
+	
 }
 
