@@ -234,9 +234,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
     @Override
     public void addFollow(AddFollowForm request, AppUserEntity user) {
-        if (request.getId().equals(user.getUid())) {
-            throw new LinfengException("不能关注自己哦");
-        }
+//        if (request.getId().equals(user.getUid())) {
+//            throw new LinfengException("不能关注自己哦");
+//        }
         boolean isFollow = followService.isFollowOrNot(user.getUid(), request.getId());
         if (isFollow) {
             throw new LinfengException("不要重复关注哦");
