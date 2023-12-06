@@ -87,7 +87,7 @@ H5端：https://h5.linfeng.tech
 
 https://net.linfeng.tech/version/version.html
 
-详情查看官网：https://net.linfeng.tech
+详情查看项目官网：https://net.linfeng.tech
 
 **标准商业版前往项目官网咨询客服了解详情**。
 
