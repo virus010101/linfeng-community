@@ -11,7 +11,6 @@
  */
 package io.linfeng.modules.app.controller;
 
-import io.linfeng.common.utils.ConfigConstant;
 import io.linfeng.common.utils.R;
 import io.linfeng.modules.admin.entity.SystemEntity;
 import io.linfeng.modules.admin.service.SystemService;
@@ -34,12 +33,11 @@ public class AppSystemConfigController {
     @Autowired
     private SystemService systemService;
 
+
     @ApiOperation("logo配置")
     @GetMapping("/miniConfig")
     public R miniConfig(){
-        SystemEntity system = systemService.lambdaQuery()
-                .eq(SystemEntity::getConfig, ConfigConstant.MINIAPP)
-                .one();
+        SystemEntity system = systemService.miniConfig();
         return R.ok().put("logo",system.getIntro());
     }
 

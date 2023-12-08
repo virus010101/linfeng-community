@@ -39,11 +39,11 @@ public class AppUserRankResponse implements Serializable {
 	 * 头像
 	 */
 	private String avatar;
+
 	/**
 	 * 性别(0未知，1男，2女)
 	 */
 	private Integer gender;
-
 
 	/**
 	 * 个性签名
@@ -55,6 +55,9 @@ public class AppUserRankResponse implements Serializable {
 	 */
 	private String tagStr;
 
+	/**
+	 * 贴子数
+	 */
 	private Integer postNumber;
 
 }

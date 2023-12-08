@@ -12,6 +12,7 @@
  */
 package io.linfeng.modules.admin.service.impl;
 
+import io.linfeng.common.utils.ConfigConstant;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -36,6 +37,13 @@ public class SystemServiceImpl extends ServiceImpl<SystemDao, SystemEntity> impl
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public SystemEntity miniConfig() {
+        return this.lambdaQuery()
+                .eq(SystemEntity::getConfig, ConfigConstant.MINIAPP)
+                .one();
     }
 
 

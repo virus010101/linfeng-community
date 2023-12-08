@@ -177,7 +177,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             appUser.setCreateTime(DateUtil.nowDateTime());
             appUser.setUpdateTime(DateUtil.nowDateTime());
             List<String> list = new ArrayList<>();
-            list.add("新人");
+            list.add(Constant.DEFAULT_TAG);
             appUser.setTagStr(JSON.toJSONString(list));
             baseMapper.insert(appUser);
             AppUserEntity user = this.lambdaQuery()
@@ -341,7 +341,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             appUser.setUpdateTime(DateUtil.nowDateTime());
             appUser.setOpenid(openId);
             List<String> list = new ArrayList<>();
-            list.add("新人");
+            list.add(Constant.DEFAULT_TAG);
             appUser.setTagStr(JSON.toJSONString(list));
             baseMapper.insert(appUser);
             AppUserEntity users = this.lambdaQuery().eq(AppUserEntity::getOpenid, openId).one();
@@ -353,6 +353,10 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         }
     }
 
+    /**
+     * 查询本月发帖活跃用户
+     * @return 发帖达人列表
+     */
     @Override
     public List<AppUserRankResponse> userRank() {
         DateTime month = cn.hutool.core.date.DateUtil.beginOfMonth(new Date());
@@ -396,7 +400,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         SystemEntity system = systemService.lambdaQuery()
                 .eq(SystemEntity::getConfig, ConfigConstant.MINIAPP)
                 .one();
-
+        if(system == null){
+            throw new LinfengException("后台配置项不存在");
+        }
         //小程序唯一标识   (在微信小程序管理后台获取)
         String appId = system.getValue();
         //小程序的 app secret (在微信小程序管理后台获取)

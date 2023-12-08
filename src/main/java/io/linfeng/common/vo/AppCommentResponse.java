@@ -35,10 +35,12 @@ public class AppCommentResponse implements Serializable {
 	 */
 	@TableId
 	private Long id;
+
 	/**
 	 * 父级id
 	 */
 	private Integer pid;
+
 	/**
 	 * 评论类型:1帖子
 	 */
@@ -47,22 +49,27 @@ public class AppCommentResponse implements Serializable {
 	 * 评论作者ID
 	 */
 	private Long uid;
+
 	/**
 	 * 被回复用户ID
 	 */
 	private Integer toUid;
+
 	/**
 	 * 评论帖子ID
 	 */
 	private Long postId;
+
 	/**
 	 * 评论内容
 	 */
 	private String content;
+
 	/**
 	 * 评论状态
 	 */
 	private Integer status;
+
 	/**
 	 * 创建时间
 	 */
@@ -71,7 +78,7 @@ public class AppCommentResponse implements Serializable {
 	/**
 	 * 子评论
 	 */
-	private List<AppChildrenCommentResponse> children;
+	private List<Object> children;
 
 	/**
 	 * 评论用户信息

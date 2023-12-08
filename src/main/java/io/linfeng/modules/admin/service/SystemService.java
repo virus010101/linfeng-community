@@ -31,6 +31,6 @@ public interface SystemService extends IService<SystemEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
-
+    SystemEntity miniConfig();
 }
 

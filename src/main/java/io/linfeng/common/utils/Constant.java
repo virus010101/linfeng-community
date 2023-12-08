@@ -66,6 +66,8 @@ public class Constant {
      */
     public static final String SMS_PREFIX = "code_";
 
+    public static final String DEFAULT_TAG = "新人";
+
     /**
      * 注册账户默认分配头像
      */
