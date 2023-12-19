@@ -201,7 +201,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addComment(AddCommentForm request, AppUserEntity user) {
-        if(user.getStatus()!=0){
+        if(user.getStatus().equals(Constant.USER_BANNER)){
             throw new LinfengException("您的账号已被禁用！");
         }
 

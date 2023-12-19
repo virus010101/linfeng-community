@@ -195,7 +195,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
     @Override
     public String sendSmsCode(SendCodeForm param) {
-        String code = RandomUtil.randomNumbers(6);
+        String code = RandomUtil.randomNumbers(Constant.SMS_SIZE);
         String codeKey = Constant.SMS_PREFIX + param.getMobile();
         String s = redisUtils.get(codeKey);
         if (ObjectUtil.isNotNull(s)) {
