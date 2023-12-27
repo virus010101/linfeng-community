@@ -31,22 +31,13 @@ import lombok.Data;
 public class SystemEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
 	@TableId
 	private String config;
-	/**
-	 * 
-	 */
+
 	private String value;
-	/**
-	 * 
-	 */
+
 	private String extend;
-	/**
-	 * 
-	 */
+
 	private String intro;
 
 }

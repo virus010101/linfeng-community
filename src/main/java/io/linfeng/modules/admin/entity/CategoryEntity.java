@@ -41,7 +41,7 @@ public class CategoryEntity implements Serializable {
 	 */
 	private String cateName;
 	/**
-	 * 是否推荐(1推荐)
+	 * 是否推荐
 	 */
 	private Integer isTop;
 	/**
