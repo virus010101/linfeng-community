@@ -20,7 +20,7 @@
 
 #### 2.软件演示
 
-项目官网：https://net.linfeng.tech
+林风社交论坛项目官网：https://net.linfeng.tech
 
 ##### 2.1移动端演示
 
@@ -34,7 +34,7 @@ H5端：https://h5.linfeng.tech
 
 后台管理系统演示地址：https://dev.linfeng.tech
 
-演示账号1 ： test           密码：  123456
+演示账号：自带
 
 演示账号2 ： test2         密码：  123456
 
