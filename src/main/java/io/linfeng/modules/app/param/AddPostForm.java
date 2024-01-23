@@ -40,13 +40,13 @@ public class AddPostForm implements Serializable {
      * 标题
      */
     @Length(max = 20, message = "标题不能超过20个字符")
-    @NotBlank(message = "参数有误")
+    @NotBlank(message = "标题不能超过20个字符")
     private String title;
     /**
      * 内容
      */
     @Length(max = 400, message = "内容不能超过400个字符")
-    @NotBlank(message = "参数有误")
+    @NotBlank(message = "内容不能超过400个字符")
     private String content;
     /**
      * 文件
