@@ -34,7 +34,7 @@ H5端：https://h5.linfeng.tech
 
 后台管理系统演示地址：https://dev.linfeng.tech
 
-演示账号：自带
+自带演示账号：
 
 
 
@@ -107,6 +107,8 @@ https://net.linfeng.tech/version/version.html
 #### 6.版本更新记录
 
 ***当前版本标准版V1.13.0***
+
+
 
 2024.2.27
 
