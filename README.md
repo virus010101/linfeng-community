@@ -22,6 +22,8 @@
 
 林风社交论坛项目官网：https://net.linfeng.tech
 
+备用官网：https://www.linfengtech.cn
+
 ##### 2.1移动端演示
 
 ![移动端二维码](https://github.com/virus010101/linfeng-community/blob/main/images/er.jpg)
