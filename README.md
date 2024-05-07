@@ -36,9 +36,7 @@ H5端：https://h5.linfeng.tech
 
 后台管理系统演示地址：https://dev.linfeng.tech
 
-自带演示账号：
-
-
+关注微信公众号“林风科技”了解更多
 
 **注意:演示站点为标准商业版**
 
@@ -86,6 +84,8 @@ H5端：https://h5.linfeng.tech
 https://net.linfeng.tech/version/version.html
 
 详情查看项目官网：https://net.linfeng.tech
+
+备用官网：https://www.linfengtech.cn
 
 **标准商业版前往项目官网咨询客服了解详情**。
 
