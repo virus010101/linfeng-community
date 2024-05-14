@@ -148,7 +148,7 @@
 			},
 			getSysInfo() {
 				this.$H.get('system/miniConfig').then(res => {
-					this.shareCover = res.result.intro;
+					this.shareCover = res.logo;
 				});
 			},
 			commercialLink() {

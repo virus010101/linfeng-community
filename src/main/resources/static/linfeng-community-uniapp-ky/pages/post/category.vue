@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="title">选择圈子类目</view>
+		<view class="title">选择帖子类目</view>
 		<view class="class-wrap">
 			<view class="class-item u-line-1" @click="chooseClass(item.cateId,item.cateName)"
 				v-for="(item, index) in classList" :key="index">{{ item.cateName }}</view>
@@ -20,13 +20,11 @@
 		},
 		methods: {
 			getClassList() {
-				this.$H.get('topic/classList').then(res => {
+				this.$H.get('category/classList').then(res => {
 					this.classList = res.result
 				})
 			},
 			chooseClass(id, name) {
-				console.log('id:', id)
-				console.log('name:', name)
 				let pages = getCurrentPages();
 				let nowPage = pages[pages.length - 1];
 				let prevPage = pages[pages.length - 2];

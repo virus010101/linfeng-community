@@ -59,7 +59,7 @@
             "path" : "pages/post/add",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "正在发帖",
                 "enablePullDownRefresh": false
             }
             

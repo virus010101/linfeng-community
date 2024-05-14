@@ -3,7 +3,13 @@
 		<text class="title">页面迷路啦~</text>
 		<text class="info">请确认访问地址是否有误</text>
 		<u-button type="primary" class="btn-home" @click="goHome">返回首页</u-button>
+		<!-- #ifdef MP-WEIXIN -->
+		<u-button type="success" @click="goWebsite">前往官网演示</u-button>
+		<!-- #endif -->
+		<!-- #ifdef H5 -->
 		<u-button type="success" @click="goWebsite">前往官网</u-button>
+		<!-- #endif -->
+		
 	</view>
 </template>
 <script>

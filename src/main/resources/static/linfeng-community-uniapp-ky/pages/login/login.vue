@@ -1,6 +1,7 @@
 <template>
-	<view class="login-register">
-		<view class="title">请先登录/注册</view>
+	<view class="lf-login-register">
+		<image class="logo" :src="logo" mode="aspectFit" />
+		<view class="title">欢迎使用{{title}}</view>
 		<u-form :model="form" ref="uForm">
 			<u-form-item>
 				<u-input v-model="form.mobile" placeholder="请输入手机号" />
@@ -13,8 +14,12 @@
 			</u-form-item>
 		</u-form>
 		<view class="button-login">
-			<u-button v-show="form.mobile && form.code" type="success" @click="phoneLogin" shape="circle">登录</u-button>
-			<u-button v-show="!form.mobile || !form.code" type="default" shape="circle">登录</u-button>
+			<u-button v-show="form.mobile && form.code" type="primary" @click="phoneLogin" shape="circle">登录/注册</u-button>
+			<u-button v-show="!form.mobile || !form.code" type="success" shape="circle">登录/注册</u-button>
+		</view>
+		<view class="lf-bottom" @click="goIndex"><text>——— 暂不登录，再看看 ———</text></view>
+		<view class="">
+			
 		</view>
 	</view>
 </template>
@@ -27,10 +32,27 @@
 					mobile: "",
 					code: ""
 				},
-				tips: '验证码'
+				tips: '验证码',
+				logo: '',
+				title: this.$c.miniappName
 			};
 		},
+		onLoad() {
+			this.getSysInfo();
+		},
 		methods: {
+			goIndex(){
+				uni.switchTab({
+					url:"/pages/index/index"
+				})
+			},
+			getSysInfo() {
+				this.$H.get("system/miniConfig").then(res => {
+					if (res.code == 0) {
+						this.logo = res.logo;
+					}
+				})
+			},
 			phoneLogin() {
 				uni.showLoading({
 					mask: true,
@@ -40,6 +62,7 @@
 					if (res.code == 0) {
 						uni.setStorageSync("hasLogin", true);
 						uni.setStorageSync("token", res.token);
+						uni.setStorageSync("linfeng", "lf");
 						uni.switchTab({
 							url: '/pages/index/index'
 						});
@@ -85,17 +108,39 @@
 </script>
 
 <style lang="scss" scoped>
-	.login-register {
+	.lf-login-register {
 		padding: 20rpx 50rpx;
+		text-align: center;
+	}
+
+	.logo {
+		width: 200rpx;
+		height: 200rpx;
+		margin-top: 100rpx;
+	}
+
+	.title {
+		font-size: 44rpx;
+		font-weight: 600;
+		margin-bottom: 50rpx;
 	}
 
 	.button-login {
 		margin-top: 100rpx;
 	}
-
-	.title {
-		font-size: 40rpx;
-		font-weight: 600;
-		margin-bottom: 50rpx;
+	
+	.lf-bottom {
+		text-align: center;
+		margin: 150rpx 0 0 0;
+		color: #666;
 	}
+	
+	.lf-bottom text {
+		margin-left: 20rpx;
+		color: #aaaaaa;
+		font-size: 27rpx;
+	}
+	
+
+
 </style>

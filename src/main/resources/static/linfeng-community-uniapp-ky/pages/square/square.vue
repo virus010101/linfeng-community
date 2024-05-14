@@ -20,18 +20,18 @@
 			<!-- 帖子列表 -->
 			<post-list :list="postList" :loadStatus="loadPostStatus"></post-list>
 		</view>
-		<!-- 发帖达人 -->
+		<!-- 发帖达人（查询本月发帖活跃用户） -->
 		<view v-show="pageCurrent == 1">
 			<navigator :url="'/pages/user/home?uid=' + item.uid" class="user-item" hover-class="none"
 				v-for="(item, index) in userList" :key="index">
-				<view v-if="index < 10" class="user-index-hot">{{ index + 1 }}</view>
-				<view v-else class="user-index">{{ index + 1 }}</view>
+				<view v-if="index < 3" class="user-index-hot">{{ index + 1 }}</view>
+				<view v-else class="user-index-common">{{ index + 1 }}</view>
 				<image class="avatar" mode="aspectFill" :src="item.avatar"></image>
 				<view class="right">
 					<text class="username">{{ item.username }}</text>
 					<view class="tag-wrap">
 						<text class="tag" :key="index2">{{ item.intro }}</text>
-						<text class="tag" :key="index2">+{{ item.postNumber }}</text>
+						<text class="post-num" :key="index2">+{{ item.postNumber }}</text>
 					</view>
 				</view>
 			</navigator>
@@ -58,10 +58,10 @@
 				pageCurrent: 0,
 				current: 0,
 				pageTab: [{
-						name: '创作广场'
+						name: '广场'
 					},
 					{
-						name: '发帖达人'
+						name: '达人'
 					}
 				],
 				classList: [{
@@ -79,9 +79,18 @@
 		},
 		onLoad() {
 			this.getBannerList();
-			this.getPostList();
 			this.getClassList();
 			this.getUserRanking();
+			if (uni.getStorageSync("hasLogin")) {
+				this.getPostList();
+			} else {
+				this.goLogin()
+			}
+		},
+		onShow() {
+			if (uni.getStorageSync("linfeng")) {
+				this.getPostList();
+			}
 		},
 		onReachBottom() {
 			if (this.pageCurrent == 0) {
@@ -121,6 +130,19 @@
 					url: '/pages/post/add'
 				})
 			},
+			goLogin() {
+				// #ifdef MP-WEIXIN
+				uni.navigateTo({
+					url: "/pages/login/weixin"
+				})
+				// #endif
+
+				// #ifdef H5
+				uni.navigateTo({
+					url: "/pages/login/login"
+				})
+				// #endif
+			},
 			pageTabChange(index) {
 				this.pageCurrent = index
 			},
@@ -132,7 +154,7 @@
 				this.getPostList()
 			},
 			getClassList() {
-				this.$H.get('topic/classList').then(res => {
+				this.$H.get('category/classList').then(res => {
 					this.classList = this.classList.concat(res.result)
 				})
 			},
@@ -145,6 +167,7 @@
 			},
 			// 根据分页和分类展示帖子列表
 			getPostList() {
+				uni.removeStorageSync("linfeng");
 				this.loadPostStatus = 'loading';
 				this.$H
 					.post('post/list', {
@@ -187,9 +210,20 @@
 		border-bottom: 1px solid #f5f5f5;
 
 		.user-index-hot {
-			margin-right: 20rpx;
+			margin: 20rpx 20rpx 0rpx 0rpx;
 			color: #fff;
 			background-image: linear-gradient(#e64340, #ffaac3);
+			width: 55rpx;
+			height: 55rpx;
+			border-radius: 50%;
+			text-align: center;
+			line-height: 55rpx;
+		}
+
+		.user-index-common {
+			margin: 20rpx 20rpx 0rpx 0rpx;
+			color: #fff;
+			background-image: linear-gradient(#000000, #949494);
 			width: 55rpx;
 			height: 55rpx;
 			border-radius: 50%;
@@ -221,20 +255,25 @@
 			}
 
 			.tag-wrap {
-				font-size: 20rpx;
+				font-size: 24rpx;
 
 				.tag {
 					display: inline-block;
-					padding: 5rpx 20rpx;
 					border-radius: 10rpx;
 					margin-right: 20rpx;
-					margin-bottom: 20rpx;
-					background-color: #7da9bd;
+					margin-top: 40rpx;
+					color: #a3a3a3;
+					font-size: 22rpx;
+				}
 
-					&:nth-child(2n) {
-						background-color: #ccb3ff;
-					}
-
+				.post-num {
+					display: inline-block;
+					border-radius: 10rpx;
+					margin-right: 20rpx;
+					margin-top: 40rpx;
+					color: #aaaaff;
+					font-size: 36rpx;
+					font-weight: 800;
 				}
 			}
 		}

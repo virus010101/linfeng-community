@@ -7,10 +7,10 @@
 				</u-form-item>
 				<u-form-item label="昵称" right-icon="arrow-right">
 					<u-input  :placeholder="userInfo.username"
-						:disabled="true" input-align="right" />
+						 input-align="right" :disabled="true" />
 				</u-form-item>
 				<u-form-item label="性别" right-icon="arrow-right">
-					<u-input @click="showGender = true" :placeholder="userInfo.gender" :disabled="true"
+					<u-input @click="openGender" :placeholder="userInfo.gender"
 						input-align="right" />
 				</u-form-item>
 				<u-form-item label="个性签名" right-icon="arrow-right">
@@ -57,6 +57,9 @@
 			this.getUserInfo();
 		},
 		methods: {
+			openGender(){
+				this.showGender = true
+			},
 			// 修改性别
 			saveGender(index) {
 				let gender = index[0].value;

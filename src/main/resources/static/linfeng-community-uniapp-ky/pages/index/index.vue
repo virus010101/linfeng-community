@@ -90,11 +90,6 @@
 					this.getLastPost();
 				}
 			},
-			getSysInfo() {
-				this.$H.get('system/miniConfig').then(res => {
-					this.shareCover = res.result.intro;
-				});
-			},
 			// 获取关注用户帖子
 			getFollowUserPost() {
 				this.loadStatus1 = 'loading';
