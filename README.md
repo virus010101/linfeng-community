@@ -14,7 +14,7 @@
 
 ***用户端的前端代码在 src\main\resources\static\linfeng-community-uniapp-ky 目录下！***
 
-代码三端均发布了开源版供学习（**SQL文件在qq群文件中**，点个star加群获取即可）
+代码三端均发布了开源版供学习
 
 
 
@@ -38,7 +38,7 @@ H5端：https://h5.linfeng.tech
 
 关注微信公众号“林风科技”了解更多
 
-**注意:演示站点为标准商业版**
+**注意:演示站点为标准版**
 
 开源版具体的功能清单请查看：https://net.linfeng.tech/version/version.html
 
