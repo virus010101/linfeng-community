@@ -11,6 +11,7 @@
  */
 package io.linfeng.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -31,10 +32,18 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig implements WebMvcConfigurer {
 
+    @Value("${linfeng.swagger.enable}")
+    private Boolean enable;
+
+    @Value("${linfeng.swagger.version}")
+    private String version;
+
+
     @Bean
     public Docket createRestApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                .enable(enable)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("io.linfeng"))
                 .paths(PathSelectors.any())
@@ -46,9 +55,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 .title("林风社交论坛开源版接口文档")
-                .description("林风社交论坛项目开源版接口文档 官网 https://net.linfeng.tech")
-                .contact(new Contact("linfeng","http:localhost:8080/doc.html","linfengtech001@163.com"))
-                .version("1.0")
+                .description("林风社交论坛项目开源版接口文档 官网：https://net.linfeng.tech")
+                .contact(new Contact("linfeng","http://localhost:8080/doc.html","linfengtech001@163.com"))
+                .version(version)
                 .build();
 
     }

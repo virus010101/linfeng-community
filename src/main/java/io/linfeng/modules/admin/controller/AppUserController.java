@@ -11,7 +11,6 @@
  */
 package io.linfeng.modules.admin.controller;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
@@ -77,14 +76,6 @@ public class AppUserController {
     }
 
 
-    @PostMapping("/delete")
-    @RequiresPermissions("admin:user:delete")
-    @ApiOperation("用户修改")
-    public R delete(@RequestBody Integer[] uids){
-		appUserService.removeByIds(Arrays.asList(uids));
-
-        return R.ok();
-    }
 
 
     @GetMapping("/ban/{id}")

@@ -78,7 +78,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
             PostListResponse response=new PostListResponse();
             BeanUtils.copyProperties(l,response);
             response.setCollectionCount(postCollectionService.collectCount(response.getId()));
-            response.setCommentCount(commentService.getCountByTopicId(response.getId()));
+            response.setCommentCount(commentService.getCountByPostId(response.getId()));
             response.setUserInfo(appUserService.getById(response.getUid()));
             response.setMedia(JsonUtils.JsonToList(l.getMedia()));
             responseList.add(response);
@@ -286,7 +286,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
             PostListResponse response=new PostListResponse();
             BeanUtils.copyProperties(l,response);
             response.setCollectionCount(postCollectionService.collectCount(response.getId()));
-            response.setCommentCount(commentService.getCountByTopicId(response.getId()));
+            response.setCommentCount(commentService.getCountByPostId(response.getId()));
             response.setUserInfo(appUserService.getById(response.getUid()));
             if (uid==0){
                 response.setIsCollection(false);

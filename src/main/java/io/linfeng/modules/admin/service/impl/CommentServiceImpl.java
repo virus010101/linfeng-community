@@ -64,12 +64,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
         return new PageUtils(page);
     }
 
-    @Override
-    public Integer getCountByTopicId(Integer id) {
-        return baseMapper.selectCount(new LambdaQueryWrapper<CommentEntity>()
-                .eq(CommentEntity::getStatus, Constant.COMMENT_NORMAL)
-                .eq(CommentEntity::getPostId, id));
-    }
 
 
     /**
@@ -94,7 +88,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
     public Integer getCountByPostId(Integer id) {
         return this.lambdaQuery()
                 .eq(CommentEntity::getStatus,  Constant.COMMENT_NORMAL)
-                .eq(CommentEntity::getPostId, id).count();
+                .eq(CommentEntity::getPostId, id)
+                .count();
     }
 
     @Override

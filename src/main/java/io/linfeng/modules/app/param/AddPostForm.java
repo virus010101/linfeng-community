@@ -29,7 +29,7 @@ public class AddPostForm implements Serializable {
     /**
      * 圈子id
      */
-    @NotNull(message = "无参数圈子id")
+    @NotNull(message = "未选择圈子")
     private Integer topicId;
     /**
      * 话题id
@@ -56,7 +56,7 @@ public class AddPostForm implements Serializable {
     /**
      * 帖子类型：1 图文 ，2视频 ，3文章，4投票
      */
-    @NotNull(message = "无参数type")
+    @NotNull(message = "未选择帖子类型")
     private Integer type;
     /**
      * 地址名称

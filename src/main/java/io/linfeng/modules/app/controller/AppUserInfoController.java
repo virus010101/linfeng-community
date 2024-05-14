@@ -177,7 +177,7 @@ public class AppUserInfoController {
     }
 
 
-    @Login
+
     @PostMapping("/userRank")
     @ApiOperation("发帖达人列表")
     public R userRank() {

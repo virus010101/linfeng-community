@@ -31,8 +31,6 @@ public interface CommentService extends IService<CommentEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
-    Integer getCountByTopicId(Integer id);
-
     void deleteByAdmin(List<Long> longs);
 
     Integer getCountByPostId(Integer id);

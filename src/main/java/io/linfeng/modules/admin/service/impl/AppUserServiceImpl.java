@@ -151,6 +151,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
      * @return 用户ID
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Integer smsLogin(SmsLoginForm form, HttpServletRequest request) {
         AppUserEntity appUserEntity = this.lambdaQuery().eq(AppUserEntity::getMobile, form.getMobile()).one();
         String codeKey = Constant.SMS_PREFIX + form.getMobile();
@@ -173,7 +174,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             appUser.setMobile(form.getMobile());
             appUser.setGender(0);
             appUser.setAvatar(Constant.DEAULT_HEAD);
-            appUser.setUsername("LF_" + RandomUtil.randomNumbers(8));
+            appUser.setUsername(generateRandomName(Constant.H5));
             appUser.setCreateTime(DateUtil.nowDateTime());
             appUser.setUpdateTime(DateUtil.nowDateTime());
             List<String> list = new ArrayList<>();
@@ -258,9 +259,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     public AppPageUtils userFans(Integer currPage, Integer uid) {
         List<Integer> uidList = followService.getFansList(uid);
         if (uidList.isEmpty()) {
-            return new AppPageUtils(null, 0, 10, currPage);
+            return new AppPageUtils(new ArrayList<>(), 0, 20, currPage);
         }
-        Page<AppUserEntity> page = new Page<>(currPage, 10);
+        Page<AppUserEntity> page = new Page<>(currPage, 20);
         QueryWrapper<AppUserEntity> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.lambda().in(AppUserEntity::getUid, uidList);
         Page<AppUserEntity> page1 = this.page(page, queryWrapper1);
@@ -283,9 +284,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     public AppPageUtils follow(Integer currPage, AppUserEntity user) {
         List<Integer> followUids = followService.getFollowUids(user);
         if (followUids.isEmpty()) {
-            return new AppPageUtils(null, 0, 10, currPage);
+            return new AppPageUtils(new ArrayList<>(), 0, 20, currPage);
         }
-        Page<AppUserEntity> page = new Page<>(currPage, 10);
+        Page<AppUserEntity> page = new Page<>(currPage, 20);
         QueryWrapper<AppUserEntity> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.lambda().in(AppUserEntity::getUid, followUids);
         Page<AppUserEntity> page1 = this.page(page, queryWrapper1);
@@ -317,6 +318,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Integer miniWxLogin(WxLoginForm form) {
 
         String openId = getOpenId(form.getCode());
@@ -324,7 +326,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             throw new LinfengException("请正确配置appId和密钥");
         }
         //根据openId获取数据库信息 判断用户是否登录
-        AppUserEntity user = this.lambdaQuery().eq(AppUserEntity::getOpenid, openId).one();
+        AppUserEntity user = this.lambdaQuery()
+                .eq(AppUserEntity::getOpenid, openId)
+                .one();
         if (ObjectUtil.isNotNull(user)) {
             if (user.getStatus() .equals(Constant.USER_BANNER)) {
                 throw new LinfengException("该账户已被禁用");
@@ -336,7 +340,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             AppUserEntity appUser = new AppUserEntity();
             appUser.setGender(0);
             appUser.setAvatar(Constant.DEAULT_HEAD);
-            appUser.setUsername("LF_wx" + RandomUtil.randomNumbers(8));
+            appUser.setUsername(generateRandomName(Constant.WXAPP));
             appUser.setCreateTime(DateUtil.nowDateTime());
             appUser.setUpdateTime(DateUtil.nowDateTime());
             appUser.setOpenid(openId);
@@ -344,7 +348,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             list.add(Constant.DEFAULT_TAG);
             appUser.setTagStr(JSON.toJSONString(list));
             baseMapper.insert(appUser);
-            AppUserEntity users = this.lambdaQuery().eq(AppUserEntity::getOpenid, openId).one();
+            AppUserEntity users = this.lambdaQuery()
+                    .eq(AppUserEntity::getOpenid, openId)
+                    .one();
             if(ObjectUtil.isNull(users)){
                 throw new LinfengException("注册失败");
             }
@@ -418,6 +424,22 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         JSONObject json = JSON.parseObject(sr);
         //用户的唯一标识（openId）
         return (String) json.get("openid");
+    }
+
+
+    /**
+     * 生成随机用户名
+     * @param type 终端类型
+     * @return 随机用户名
+     */
+    private String generateRandomName(String type){
+        String name = "";
+        if(type.equals(Constant.H5)){
+            name = "LF_" + RandomUtil.randomNumbers(8);
+        }else if(type.equals(Constant.WXAPP)){
+            name = "LF_wx" + RandomUtil.randomNumbers(8);
+        }
+        return name;
     }
 
 }

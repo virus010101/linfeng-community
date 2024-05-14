@@ -39,6 +39,12 @@ public class Constant {
     public static final String ORDER_DESC_READCOUNT = "read_count desc";
 
 
+    /**
+     *  终端
+     */
+    public static final String H5 = "H5";
+    public static final String WXAPP = "WXAPP";
+
 
     /**
      * 用户是否禁用

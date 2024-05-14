@@ -80,7 +80,6 @@ public class CategoryController {
     @ApiOperation("分类修改")
     public R update(@RequestBody CategoryEntity category){
 		categoryService.updateCategory(category);
-
         return R.ok();
     }
 

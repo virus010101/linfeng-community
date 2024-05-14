@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Api(tags = "用户端——分类")
 @RestController
-@RequestMapping("app/topic")
+@RequestMapping("app/category")
 public class AppCategoryController {
 
 
