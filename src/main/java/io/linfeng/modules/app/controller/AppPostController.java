@@ -20,10 +20,7 @@ import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.admin.service.PostService;
 import io.linfeng.modules.app.annotation.Login;
 import io.linfeng.modules.app.annotation.LoginUser;
-import io.linfeng.modules.app.param.AddCollectionForm;
-import io.linfeng.modules.app.param.AddCommentForm;
-import io.linfeng.modules.app.param.AddPostForm;
-import io.linfeng.modules.app.param.PostListForm;
+import io.linfeng.modules.app.param.*;
 import io.linfeng.modules.app.service.PostCollectionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -101,6 +98,16 @@ public class AppPostController {
     public R cancelCollection(@RequestBody AddCollectionForm request,
                               @ApiIgnore @LoginUser AppUserEntity user){
         postCollectionService.cancelCollection(request,user);
+        return R.ok();
+    }
+
+
+    @Login
+    @PostMapping("/deleteMyPost")
+    @ApiOperation("删除自己帖子")
+    public R deleteMyPost(@RequestBody DeletePostForm request,
+                              @ApiIgnore @LoginUser AppUserEntity user){
+        postService.deleteMyPost(request,user);
         return R.ok();
     }
 

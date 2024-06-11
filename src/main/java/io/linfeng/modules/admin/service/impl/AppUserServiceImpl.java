@@ -101,8 +101,8 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     @Transactional(rollbackFor = Exception.class)
     public void ban(Integer id) {
         Integer status = this.lambdaQuery().eq(AppUserEntity::getUid, id).one().getStatus();
-        if (status.equals(Constant.USER_BANNER)) {
-            throw new LinfengException("该用户已被禁用");
+        if(status.equals(Constant.USER_BANNER)){
+            throw new LinfengException(Constant.USER_BANNER_MSG);
         }
         this.lambdaUpdate()
                 .set(AppUserEntity::getStatus, Constant.USER_BANNER)
@@ -116,7 +116,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     public void openBan(Integer id) {
         Integer status = this.lambdaQuery().eq(AppUserEntity::getUid, id).one().getStatus();
         if (status.equals(Constant.USER_NORMAL)) {
-            throw new LinfengException("该用户已解除禁用");
+            throw new LinfengException(Constant.USER_BANNER_MSG);
         }
         boolean update = this.lambdaUpdate()
                 .set(AppUserEntity::getStatus, Constant.USER_NORMAL)
@@ -165,7 +165,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         if (ObjectUtil.isNotNull(appUserEntity)) {
             //登录
             if (appUserEntity.getStatus().equals(Constant.USER_BANNER)) {
-                throw new LinfengException("该账户已被禁用");
+                throw new LinfengException(Constant.USER_BANNER_MSG);
             }
             return appUserEntity.getUid();
         } else {
@@ -330,8 +330,8 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
                 .eq(AppUserEntity::getOpenid, openId)
                 .one();
         if (ObjectUtil.isNotNull(user)) {
-            if (user.getStatus() .equals(Constant.USER_BANNER)) {
-                throw new LinfengException("该账户已被禁用");
+            if(user.getStatus().equals(Constant.USER_BANNER)){
+                throw new LinfengException(Constant.USER_BANNER_MSG);
             }
             //其他业务todo
             return user.getUid();

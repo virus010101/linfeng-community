@@ -35,7 +35,7 @@ public class AppSystemConfigController {
 
 
     @ApiOperation("logo配置")
-    @GetMapping("/miniConfig")
+    @GetMapping("/config")
     public R miniConfig(){
         SystemEntity system = systemService.miniConfig();
         return R.ok().put("logo",system.getIntro());

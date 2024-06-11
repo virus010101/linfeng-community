@@ -16,6 +16,7 @@ import io.linfeng.common.utils.PageUtils;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import io.linfeng.modules.app.entity.PostCollectionEntity;
 import io.linfeng.modules.app.param.AddCollectionForm;
+import io.linfeng.modules.app.param.DeletePostForm;
 
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,5 @@ public interface PostCollectionService extends IService<PostCollectionEntity> {
     void cancelCollection(AddCollectionForm request, AppUserEntity user);
 
     List<Integer> getPostListByUid(Integer uid);
-	
 }
 

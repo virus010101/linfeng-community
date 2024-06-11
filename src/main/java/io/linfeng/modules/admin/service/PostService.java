@@ -55,5 +55,7 @@ public interface PostService extends IService<PostEntity> {
     Integer addPost(AddPostForm request, AppUserEntity user);
 
     AppPageUtils queryPageList(PostListForm request, AppUserEntity user);
+
+    void deleteMyPost(DeletePostForm request, AppUserEntity user);
 }
 

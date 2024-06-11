@@ -147,13 +147,13 @@
 				});
 			},
 			getSysInfo() {
-				this.$H.get('system/miniConfig').then(res => {
+				this.$H.get('system/config').then(res => {
 					this.shareCover = res.logo;
 				});
 			},
 			commercialLink() {
 				// #ifdef H5
-				window.open("https://h5.linfeng.tech")
+				window.open("https://www.linfengtech.cn")
 				// #endif
 				// #ifdef MP-WEIXIN
 				uni.navigateToMiniProgram({

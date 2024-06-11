@@ -8,10 +8,12 @@
 						<text class="user-name">{{ postDetail.userInfo.username }}</text>
 						<view class="userIntro">{{ postDetail.userInfo.intro }}</view>
 					</view>
-					<u-button v-show="postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
+					<u-button v-show="!isAuthor&&postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
 						@click="cancelFollow">已关注</u-button>
-					<u-button v-show="!postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
+					<u-button v-show="!isAuthor&&!postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
 						@click="follow">关注</u-button>
+						<u-button v-show="isAuthor" size="mini" type="error" style="float:right;font-size: 14px;"
+							@click="deletePost">删除</u-button>
 				</view>
 				<view class="icon">
 					<text>{{ postDetail.createTime  }}</text>
@@ -187,6 +189,7 @@
 				},
 				page: 1,
 				loadStatus: 'loadmore',
+				isAuthor: false, //是否为作者本人
 
 			};
 		},
@@ -235,6 +238,31 @@
 			};
 		},
 		methods: {
+			deletePost(){
+				var that = this;
+				uni.showModal({
+					title: '提示',
+					content: '确定删除该帖子吗？',
+					success: function(res) {
+						if (res.confirm) {
+							that.$H
+								.post('post/deleteMyPost', {
+									id: that.postId
+								})
+								.then(res => {
+									if(res.code==0){
+										uni.switchTab({
+											url:"/pages/index/index"
+										})
+									}
+								});
+						} else if (res.cancel) {
+				
+						}
+					}
+				});
+				
+			},
 			messageRead(mid) {
 				this.$H
 					.post('message/readMessage', {
@@ -373,6 +401,13 @@
 							}, 1500);
 						}
 						this.postDetail = res.result;
+						if (uni.getStorageSync('hasLogin')) {
+							this.$H.get('user/userInfo').then(res => {
+								if (res.result.uid == this.postDetail.uid) {
+									this.isAuthor = true
+								}
+							});
+						}
 						uni.hideLoading();
 					});
 			},

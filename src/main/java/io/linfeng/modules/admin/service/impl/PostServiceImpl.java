@@ -202,7 +202,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Transactional(rollbackFor = Exception.class)
     public void addComment(AddCommentForm request, AppUserEntity user) {
         if(user.getStatus().equals(Constant.USER_BANNER)){
-            throw new LinfengException("您的账号已被禁用！");
+            throw new LinfengException(Constant.USER_BANNER_MSG);
         }
 
         CommentEntity commentEntity=new CommentEntity();
@@ -217,8 +217,8 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer addPost(AddPostForm request, AppUserEntity user) {
-        if(user.getStatus()!=0){
-            throw new LinfengException("您的账号已被禁用");
+        if(user.getStatus().equals(Constant.USER_BANNER)){
+            throw new LinfengException(Constant.USER_BANNER_MSG);
         }
         PostEntity post=new PostEntity();
         BeanUtils.copyProperties(request,post);
@@ -266,6 +266,19 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
 
 
         return appPage;
+    }
+
+    @Override
+    public void deleteMyPost(DeletePostForm request, AppUserEntity user) {
+        PostEntity post = this.getById(request.getId());
+        if(post==null){
+            throw new LinfengException("帖子不存在");
+        }
+        if(!post.getUid().equals(user.getUid())){
+            throw new LinfengException("不能删除别人帖子");
+        }
+        this.removeById(request.getId());
+        //关联业务处理todo
     }
 
     /**

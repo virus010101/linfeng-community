@@ -52,6 +52,9 @@ public class Constant {
     public static final Integer USER_NORMAL = 0;
     public static final Integer USER_BANNER = 1;
 
+    public static final String USER_BANNER_MSG = "该账号已被禁用";
+
+
 
 
     /**

@@ -47,7 +47,7 @@
 				})
 			},
 			getSysInfo() {
-				this.$H.get("system/miniConfig").then(res => {
+				this.$H.get("system/config").then(res => {
 					if (res.code == 0) {
 						this.logo = res.logo;
 					}
