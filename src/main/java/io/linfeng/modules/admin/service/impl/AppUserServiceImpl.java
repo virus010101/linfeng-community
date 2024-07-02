@@ -229,6 +229,12 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         if(!ObjectUtil.isEmpty(appUserUpdateForm.getGender())){
             user.setGender(appUserUpdateForm.getGender());
         }
+        if(!ObjectUtil.isEmpty(appUserUpdateForm.getUsername())){
+            user.setUsername(appUserUpdateForm.getUsername());
+        }
+        if(!ObjectUtil.isEmpty(appUserUpdateForm.getIntro())){
+            user.setIntro(appUserUpdateForm.getIntro());
+        }
         baseMapper.updateById(user);
         redisUtils.delete(RedisKeys.getUserKey(user.getUid()));
     }

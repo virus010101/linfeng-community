@@ -15,18 +15,21 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * app用户信息修改
- *
- */
+
 @Data
-@ApiModel(value = "app用户信息修改")
+@ApiModel(value = "app用户信息修改请求体")
 public class AppUserUpdateForm {
 
-    @ApiModelProperty(value = "头像")
+    @ApiModelProperty(value = "LF头像")
     private String avatar;
 
-    @ApiModelProperty(value = "性别")
+    @ApiModelProperty(value = "LF昵称")
+    private String username;
+
+    @ApiModelProperty(value = "LF个性签名")
+    private String intro;
+
+    @ApiModelProperty(value = "LF性别")
     private Integer gender;
 
 }

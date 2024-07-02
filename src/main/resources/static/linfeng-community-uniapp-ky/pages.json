@@ -31,7 +31,7 @@
             "path" : "pages/login/login",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "登录注册",
                 "enablePullDownRefresh": false
             }
             
@@ -68,7 +68,7 @@
             "path" : "pages/user/edit",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人信息维护",
                 "enablePullDownRefresh": false
             }
             
@@ -105,7 +105,7 @@
             "path" : "pages/post/category",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "帖子分类",
                 "enablePullDownRefresh": false
             }
             

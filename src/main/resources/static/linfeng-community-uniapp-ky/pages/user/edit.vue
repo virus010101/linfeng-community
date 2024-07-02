@@ -6,18 +6,21 @@
 					<u-avatar @click="onAvatar" mode="square" slot="right" :src="userInfo.avatar" size="100"></u-avatar>
 				</u-form-item>
 				<u-form-item label="昵称" right-icon="arrow-right">
-					<u-input  :placeholder="userInfo.username"
-						 input-align="right" :disabled="true" />
+					<u-input  v-model="username"
+						 input-align="right"/>
 				</u-form-item>
 				<u-form-item label="性别" right-icon="arrow-right">
 					<u-input @click="openGender" :placeholder="userInfo.gender"
-						input-align="right" />
+						input-align="right"/>
 				</u-form-item>
 				<u-form-item label="个性签名" right-icon="arrow-right">
-					<u-input  :placeholder="userInfo.intro" :disabled="true"
-						input-align="right" />
+					<u-input  v-model="intro"
+						input-align="right"/>
 				</u-form-item>
 			</u-form>
+		</view>
+		<view class="save-btn">
+			<u-button :custom-style="saveBtnStyle" @click="saveInfo">保存个人信息</u-button>
 		</view>
 		<view class="out-btn">
 			<u-button :custom-style="btnStyle" @click="outlogin">退出登录</u-button>
@@ -31,6 +34,10 @@
 	export default {
 		data() {
 			return {
+				saveBtnStyle: {
+					color: "#fff",
+					backgroundColor: '#8f8fd6'
+				},
 				btnStyle: {
 					color: "#fff",
 					backgroundColor: '#333333'
@@ -50,7 +57,9 @@
 						value: 0,
 						label: "保密"
 					}
-				]
+				],
+				username:"",
+				intro:""
 			};
 		},
 		onShow(options) {
@@ -60,6 +69,24 @@
 			openGender(){
 				this.showGender = true
 			},
+			saveInfo(){
+				if (!this.username) {
+					this.$u.toast('昵称不能为空');
+					return;
+				}
+				if (!this.intro) {
+					this.$u.toast('个性签名不能为空');
+					return;
+				}
+				this.$H.post("user/userInfoEdit", {
+					username: this.username,
+					intro: this.intro
+				}).then(res => {
+					if (res.code == 0) {
+						this.$u.toast('个人信息更新成功');
+					}
+				})
+			},
 			// 修改性别
 			saveGender(index) {
 				let gender = index[0].value;
@@ -68,12 +95,15 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.userInfo.gender = index[0].label
+						this.$u.toast('性别更新成功');
 					}
 				})
 			},
 			getUserInfo() {
 				this.$H.get("user/userInfo").then(res => {
 					this.userInfo = res.result
+					this.username=res.result.username
+					this.intro=res.result.intro
 					if (res.result.gender === 1) {
 						this.userInfo.gender = '男'
 					} else if (res.result.gender === 2) {
@@ -81,8 +111,6 @@
 					} else {
 						this.userInfo.gender = '保密'
 					}
-
-
 				})
 			},
 			outlogin() {
@@ -129,6 +157,7 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.userInfo.avatar = avatar;
+						this.$u.toast('头像更新成功');
 					}
 				})
 			}
@@ -140,7 +169,9 @@
 		padding: 20rpx;
 		background-color: #FFFFFF;
 	}
-
+	.save-btn {
+		margin: 40rpx 30rpx;
+	}
 	.out-btn {
 		margin: 40rpx 30rpx;
 	}

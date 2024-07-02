@@ -24,19 +24,19 @@
 			<u-grid :col="4" :border="false" style="margin: 20rpx 0;" @click="toNav">
 				<u-grid-item index="/pages/my/user?type=2">
 					<text>{{ userInfo.fans || 0}}</text>
-					<view class="grid-text">粉丝</view>
+					<view class="nav-text">粉丝</view>
 				</u-grid-item>
 				<u-grid-item index="/pages/my/user?type=1">
 					<text>{{ userInfo.follow || 0 }}</text>
-					<view class="grid-text">关注</view>
+					<view class="nav-text">关注</view>
 				</u-grid-item>
 				<u-grid-item index="/pages/my/post?type=2">
 					<text>{{ userInfo.postNum || 0 }}</text>
-					<view class="grid-text">帖子</view>
+					<view class="nav-text">帖子</view>
 				</u-grid-item>
 				<u-grid-item index="">
 					<text>{{ userInfo.integral || 0 }}</text>
-					<view class="grid-text">积分</view>
+					<view class="nav-text">积分</view>
 				</u-grid-item>
 			</u-grid>
 		</view>
@@ -78,6 +78,15 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
+		<view  @click="commercialLink">
+			<view class="bottom-info">
+				林风社交论坛开源版
+				</view>
+			<view class="bottom-info-t">
+				© www.linfengtech.cn
+			</view>
+		</view>
+		
 		<!-- 发贴入口 -->
 		<add-post-tag></add-post-tag>
 	</view>
@@ -207,6 +216,12 @@
 		margin-left: 20rpx;
 	}
 
+	.nav-text {
+		color: #999;
+		font-size: 14px;
+		margin-bottom: 20rpx;
+	}
+	
 	.grid-text {
 		color: #999;
 		font-size: 12px;
@@ -274,5 +289,21 @@
 			background-color: #fff;
 			padding: 20rpx;
 		}
+	}
+	.bottom-info {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #737373;
+		font-size: 32rpx;
+		font-weight: 600;
+	}
+	.bottom-info-t{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #1f1f1f;
+		font-size: 28rpx;
+		font-weight: 400;
 	}
 </style>
