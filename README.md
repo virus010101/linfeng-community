@@ -71,7 +71,7 @@ H5端：https://h5.linfeng.tech
 3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可。
 4.  移动端在HBuilderX中打开，需要先npm install安装依赖后，再启动。
 5.  优先更新码云Gitee：https://gitee.com/virus010101/linfeng-community
-6.  相关文档、SQL文件请在QQ群文件下载（640700429）
+6.  相关文档、SQL文件请在QQ群文件下载（群1：640700429   群2：667859660）
 
 #### 4.必看说明
 
@@ -91,7 +91,11 @@ https://net.linfeng.tech/version/version.html
 
 
 
-4.SQL文件开源的，在QQ群，开源不易，**请左上角点个star后备注gitee的用户名加QQ群（640700429）获取**
+4.SQL文件开源的，在QQ群，开源不易，**请左上角点个star后备注gitee的用户名加QQ群获取：**
+
+群1：640700429 （2000人已满）
+
+群2：667859660  （新群可进）
 
 <img src="https://github.com/virus010101/linfeng-community/blob/main/images/qrcode.jpg" style="zoom:25%;" />
 
