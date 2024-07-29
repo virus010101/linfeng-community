@@ -125,7 +125,7 @@
 		<view style="height: 100rpx;"></view>
 		<!-- 评论输入框 -->
 		<view class="comment-input">
-			<textarea :placeholder="placeholder" @blur="onBlur" :focus="focus" fixed="true" cursor-spacing="10"
+			<textarea :placeholder="placeholder" @blur="onBlur" :focus="focusEvent" fixed="true" cursor-spacing="10"
 				v-model="form.content" auto-height="true" placeholder-class="txt-placeholder" confirm-type="send"
 				@confirm="addComment"></textarea>
 			<u-button @click="addComment" :disabled="canSunbmit" :custom-style="btnStyle" style="border-radius: 0;">发布
@@ -167,9 +167,6 @@
 					media: [],
 					commentList: {
 						data: []
-					},
-					topicInfo: {
-						topicName: ''
 					}
 				},
 				focus: false,
@@ -194,15 +191,9 @@
 			};
 		},
 		onLoad(options) {
-			this.postId = options.id;
-
-			if (options.scene) {
-				this.postId = options.scene;
+			if (options.id) {
+				this.postId = options.id;
 			}
-			if (options.mid) {
-				this.messageRead(options.mid);
-			}
-
 			this.form.postId = this.postId;
 			this.getPostDetail();
 			this.getCommentList();
@@ -219,10 +210,7 @@
 			this.getCommentList();
 		},
 		onShareAppMessage(res) {
-			let imgURL;
-			if (this.postDetail.media.length > 0) {
-				imgURL = this.postDetail.media[0];
-			}
+			let imgURL = (imgURL = this.postDetail.media[0]);
 			return {
 				title: this.postDetail.title,
 				path: '/pages/post/post?id=' + this.postId,
@@ -263,16 +251,7 @@
 				});
 				
 			},
-			messageRead(mid) {
-				this.$H
-					.post('message/readMessage', {
-						postId: this.postId,
-						mid: mid
-					})
-					.then(res => {
-
-					});
-			},
+			
 			copyPageUrl() {
 				let that = this;
 				uni.setClipboardData({
@@ -331,6 +310,9 @@
 				// #ifdef MP
 				this.form.pid = 0;
 				// #endif
+			},
+			focusEvent(){
+				
 			},
 			// 获取评论列表
 			getCommentList() {

@@ -18,9 +18,7 @@
 			<u-button v-show="!form.mobile || !form.code" type="success" shape="circle">登录/注册</u-button>
 		</view>
 		<view class="lf-bottom" @click="goIndex"><text>——— 暂不登录，再看看 ———</text></view>
-		<view class="">
-			
-		</view>
+		
 	</view>
 </template>
 
@@ -86,7 +84,6 @@
 						uni.showLoading({
 							title: '正在获取验证码'
 						})
-						//模拟发送
 						this.$H.post("user/sendSmsCode", {
 							mobile: this.form.mobile
 						}).then(res => {

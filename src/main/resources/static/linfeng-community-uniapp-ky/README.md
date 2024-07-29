@@ -31,3 +31,5 @@ https://net.linfeng.tech/version/version.html
 了解更多请查看：
 
 [林风社交论坛官网](https://net.linfeng.tech) 
+
+备用官网：https://www.linfengtech.cn/
