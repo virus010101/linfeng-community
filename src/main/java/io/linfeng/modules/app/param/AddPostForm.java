@@ -45,8 +45,8 @@ public class AddPostForm implements Serializable {
     /**
      * 内容
      */
-    @Length(max = 400, message = "内容不能超过400个字符")
-    @NotBlank(message = "内容不能超过400个字符")
+    @Length(max = 1000, message = "内容不能超过1000个字符")
+    @NotBlank(message = "内容不能超过1000个字符")
     private String content;
     /**
      * 文件

@@ -201,10 +201,8 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addComment(AddCommentForm request, AppUserEntity user) {
-        if(user.getStatus().equals(Constant.USER_BANNER)){
-            throw new LinfengException(Constant.USER_BANNER_MSG);
-        }
 
+        checkUserStatus(user);
         CommentEntity commentEntity=new CommentEntity();
         BeanUtils.copyProperties(request,commentEntity);
         commentEntity.setCreateTime(DateUtil.nowDateTime());
@@ -217,9 +215,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer addPost(AddPostForm request, AppUserEntity user) {
-        if(user.getStatus().equals(Constant.USER_BANNER)){
-            throw new LinfengException(Constant.USER_BANNER_MSG);
-        }
+        checkUserStatus(user);
         PostEntity post=new PostEntity();
         BeanUtils.copyProperties(request,post);
         post.setMedia(JSON.toJSONString(request.getMedia()));
@@ -281,6 +277,15 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         //关联业务处理todo
     }
 
+    /**
+     * 检查用户状态
+     * @param user 用户
+     */
+    private void checkUserStatus(AppUserEntity user){
+        if(user.getStatus().equals(Constant.USER_BANNER)){
+            throw new LinfengException(Constant.USER_BANNER_MSG);
+        }
+    }
     /**
      * 组装帖子分页
      * 在一个循环里 尽量减少数据库查询操作 这种方式并不太好 应该全部查询出来后再set值

@@ -27,10 +27,6 @@ public class AppUserInfoResponse implements Serializable {
 	 */
 	private Integer uid;
 	/**
-	 * 手机号
-	 */
-	private String mobile;
-	/**
 	 * 用户名
 	 */
 	private String username;
@@ -44,10 +40,6 @@ public class AppUserInfoResponse implements Serializable {
 	 */
 	private Integer gender;
 	/**
-	 * 省份
-	 */
-	private String province;
-	/**
 	 * 城市
 	 */
 	private String city;
@@ -60,14 +52,7 @@ public class AppUserInfoResponse implements Serializable {
 	 * 个性签名
 	 */
 	private String intro;
-	/**
-	 * 积分
-	 */
-	private Integer integral;
-	/**
-	 * 最后登录ip
-	 */
-	private String lastLoginIp;
+
 	/**
 	 * 用户标签
 	 */

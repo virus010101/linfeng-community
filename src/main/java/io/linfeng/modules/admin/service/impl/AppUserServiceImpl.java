@@ -288,13 +288,13 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
     @Override
     public AppPageUtils follow(Integer currPage, AppUserEntity user) {
-        List<Integer> followUids = followService.getFollowUids(user);
-        if (followUids.isEmpty()) {
+        List<Integer> followUidList = followService.getFollowUids(user);
+        if (followUidList.isEmpty()) {
             return new AppPageUtils(new ArrayList<>(), 0, 20, currPage);
         }
         Page<AppUserEntity> page = new Page<>(currPage, 20);
         QueryWrapper<AppUserEntity> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.lambda().in(AppUserEntity::getUid, followUids);
+        queryWrapper1.lambda().in(AppUserEntity::getUid, followUidList);
         Page<AppUserEntity> page1 = this.page(page, queryWrapper1);
 
 
@@ -439,11 +439,13 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
      * @return 随机用户名
      */
     private String generateRandomName(String type){
-        String name = "";
+        String name;
         if(type.equals(Constant.H5)){
             name = "LF_" + RandomUtil.randomNumbers(8);
         }else if(type.equals(Constant.WXAPP)){
             name = "LF_wx" + RandomUtil.randomNumbers(8);
+        }else{
+            name = "LF_" + RandomUtil.randomNumbers(6);
         }
         return name;
     }
