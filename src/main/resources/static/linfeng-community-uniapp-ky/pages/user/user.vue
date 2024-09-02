@@ -294,15 +294,15 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: #737373;
+		color: #888888;
 		font-size: 32rpx;
-		font-weight: 600;
+		font-weight: 400;
 	}
 	.bottom-info-t{
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: #1f1f1f;
+		color: #888888;
 		font-size: 28rpx;
 		font-weight: 400;
 	}

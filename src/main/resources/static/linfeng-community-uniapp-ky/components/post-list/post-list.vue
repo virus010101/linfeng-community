@@ -14,7 +14,7 @@
 									<text v-if="item.userInfo.type == 1" class="official">官方</text>
 									<text class="username">{{ item.userInfo.username.substring(0, 10) }}</text>
 								</view>
-								<view class="">
+								<view>
 									<text v-if="item.postTop>0" class="officials">置顶</text>
 									<text v-if="item.status==1" class="officials">审核中</text>
 									<text v-if="item.status==2" class="officials">已下架</text>
@@ -152,12 +152,9 @@
 
 			jump(e) {
 				let url;
-
-				// 图文
-				if (e.type == 1 || e.type == 4) {
+				if (e.type == 1) {
 					url = '/pages/post/post?id=' + e.id;
 				}
-
 				uni.navigateTo({
 					url: url
 				});

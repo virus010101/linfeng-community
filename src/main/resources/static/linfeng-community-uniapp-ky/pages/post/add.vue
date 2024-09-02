@@ -18,7 +18,7 @@
 			<u-icon class="u-icon" name="arrow-right"></u-icon>
 		</view>
 		<view class="button-style">
-			<u-button v-if="form.type == 1" :custom-style="btnStyle" @click="uploadImg" shape="circle">发布</u-button>
+			<u-button :custom-style="btnStyle" @click="uploadImg" shape="circle">发布</u-button>
 		</view>
 	</view>
 </template>
