@@ -27,5 +27,13 @@
         <result property="createTime" column="create_time"/>
     </resultMap>
 
+    <select id="getBatchUser" parameterType="java.util.List" resultType="io.linfeng.modules.admin.entity.AppUserEntity">
+        SELECT * FROM lf_user WHERE uid IN
+        <foreach collection="list" item="uid" open="(" separator="," close=")">
+            #{uid}
+        </foreach>
+
+    </select>
+
 
 </mapper>

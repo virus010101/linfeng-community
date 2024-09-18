@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -153,7 +154,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer smsLogin(SmsLoginForm form, HttpServletRequest request) {
-        AppUserEntity appUserEntity = this.lambdaQuery().eq(AppUserEntity::getMobile, form.getMobile()).one();
+        AppUserEntity appUserEntity = this.lambdaQuery()
+                .eq(AppUserEntity::getMobile, form.getMobile())
+                .one();
         String codeKey = Constant.SMS_PREFIX + form.getMobile();
         String s = redisUtils.get(codeKey);
         if (io.linfeng.common.utils.ObjectUtil.isEmpty(s)) {
@@ -366,15 +369,15 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     }
 
     /**
-     * 查询本月发帖活跃用户
+     * 查询本周发帖活跃用户
      * @return 发帖达人列表
      */
     @Override
     public List<AppUserRankResponse> userRank() {
-        DateTime month = cn.hutool.core.date.DateUtil.beginOfMonth(new Date());
+        DateTime week = cn.hutool.core.date.DateUtil.beginOfWeek(new Date());
 
         List<PostEntity> postList = postService.lambdaQuery()
-                .gt(PostEntity::getCreateTime, month)
+                .gt(PostEntity::getCreateTime, week)
                 .list();
         if(postList.isEmpty()){
             return new ArrayList<>();
@@ -385,13 +388,20 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
                 .stream()
                 .sorted(Collections.reverseOrder(comparingByValue()))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                                LinkedHashMap::new));
+                        LinkedHashMap::new));
+        List<Integer> userIdList = new ArrayList<>(sorted.keySet());
+        List<AppUserEntity> batchUser = userDao.getBatchUser(userIdList);
+        Map<Integer, AppUserEntity> userMap = batchUser.stream()
+                .collect(Collectors.toMap(AppUserEntity::getUid, Function.identity()));
         List<AppUserRankResponse> list=new ArrayList<>();
         sorted.forEach((k,v)->{
-            AppUserRankResponse response=new AppUserRankResponse();
-            BeanUtils.copyProperties(this.getById(k),response);
-            response.setPostNumber(v.intValue());
-            list.add(response);
+            AppUserEntity appUser = userMap.get(k);
+            if(appUser!=null){
+                AppUserRankResponse response=new AppUserRankResponse();
+                BeanUtils.copyProperties(appUser,response);
+                response.setPostNumber(v.intValue());
+                list.add(response);
+            }
         });
         return list;
     }

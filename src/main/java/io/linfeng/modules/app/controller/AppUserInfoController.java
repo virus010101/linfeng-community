@@ -55,13 +55,14 @@ public class AppUserInfoController {
     @Value("${sms.open}")
     private boolean isOpen;
 
+
     @PostMapping("/sendSmsCode")
     @ApiOperation("测试发送验证码")
     public R sendSmsCode(@RequestBody SendCodeForm param) {
         String code = appUserService.sendSmsCode(param);
         if (isOpen) {
             //TODO
-            //send Aliyun Sms code
+            //send Sms code
         }
         return R.ok("测试验证码:" + code);
     }
@@ -87,11 +88,9 @@ public class AppUserInfoController {
         return R.ok(map);
     }
 
-    /**
-     * 微信小程序登录
-     */
+
     @PostMapping("/miniWxlogin")
-    @ApiOperation("手机验证码登录")
+    @ApiOperation("微信小程序登录")
     public R miniWxLogin(@RequestBody WxLoginForm form) {
 
         //用户登录
@@ -129,7 +128,8 @@ public class AppUserInfoController {
     @Login
     @PostMapping("/userInfoEdit")
     @ApiOperation("用户修改个人信息")
-    public R userInfoEdit(@ApiIgnore  @LoginUser AppUserEntity user, @RequestBody AppUserUpdateForm appUserUpdateForm) {
+    public R userInfoEdit(@ApiIgnore  @LoginUser AppUserEntity user,
+                          @RequestBody AppUserUpdateForm appUserUpdateForm) {
         appUserService.updateAppUserInfo(appUserUpdateForm, user);
         return R.ok("修改成功");
     }
@@ -138,18 +138,19 @@ public class AppUserInfoController {
     @Login
     @PostMapping("/addFollow")
     @ApiOperation("关注用户")
-    public R addFollow(@ApiIgnore  @LoginUser AppUserEntity user, @RequestBody AddFollowForm request) {
+    public R addFollow(@ApiIgnore  @LoginUser AppUserEntity user,
+                       @RequestBody AddFollowForm request) {
         appUserService.addFollow(request, user);
         return R.ok("关注用户成功");
     }
 
 
 
-
     @Login
     @GetMapping("/userFans")
     @ApiOperation("我的粉丝分页列表")
-    public R userFans(@RequestParam("page") Integer page, @ApiIgnore @LoginUser AppUserEntity user) {
+    public R userFans(@RequestParam("page") Integer page,
+                      @ApiIgnore @LoginUser AppUserEntity user) {
 
         AppPageUtils pages = appUserService.userFans(page, user.getUid());
         return R.ok().put("result", pages);

@@ -57,14 +57,6 @@ public class AppUserInfoResponse implements Serializable {
 	 * 用户标签
 	 */
 	private List<String> tagStr;
-	/**
-	 * 0为普通用户  1官方账号 2马甲虚拟用户
-	 */
-	private Integer type;
-	/**
-	 * 更新时间
-	 */
-	private Date updateTime;
 
 	/**
 	 * 关注
