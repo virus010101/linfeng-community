@@ -36,7 +36,7 @@ H5端：https://h5.linfeng.tech
 
 后台管理系统演示地址：https://dev.linfeng.tech
 
-演示账号已自带
+演示账号已自带可直接登录
 
 关注微信公众号“林风科技”了解更多
 
@@ -71,7 +71,7 @@ H5端：https://h5.linfeng.tech
 1.  配置数据库和redis。先启动redis，再启动后端api服务。
 2.  数据库请使用MySQL5.7，或高于5.7的版本。
 3.  配置后台前端  先npm install 下载依赖后，再npm run dev即可（node版本需要小于等于14）。
-4.  移动端在HBuilderX中打开，需要先npm install安装依赖后，再启动。
+4.  移动端在HBuilderX中打开，需要先进入uniapp项目根目录执行npm install安装依赖后，再启动。
 5.  优先更新码云Gitee：https://gitee.com/virus010101/linfeng-community
 6.  相关文档、SQL文件请在QQ群文件下载（群1：640700429   群2：667859660）
 
@@ -93,7 +93,7 @@ https://net.linfeng.tech/version/version.html
 
 
 
-4.SQL文件开源的，在QQ群，开源不易，**请左上角点个star后备注gitee的用户名加QQ群获取：**
+4.SQL文件开源的，在QQ群，开源不易，**请左上角点个star后备注github用户名加QQ群获取：**
 
 群1：640700429 （2000人已满）
 
