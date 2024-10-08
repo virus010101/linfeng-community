@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.linfeng.common.enums.GenderStatus;
 import io.linfeng.common.exception.LinfengException;
 import io.linfeng.common.vo.*;
 import io.linfeng.common.utils.*;
@@ -175,7 +176,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             //注册
             AppUserEntity appUser = new AppUserEntity();
             appUser.setMobile(form.getMobile());
-            appUser.setGender(0);
+            appUser.setGender(GenderStatus.UNKNOWN.getValue());
             appUser.setAvatar(Constant.DEAULT_HEAD);
             appUser.setUsername(generateRandomName(Constant.H5));
             appUser.setCreateTime(DateUtil.nowDateTime());
@@ -347,7 +348,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         } else {
             //新注册用户
             AppUserEntity appUser = new AppUserEntity();
-            appUser.setGender(0);
+            appUser.setGender(GenderStatus.UNKNOWN.getValue());
             appUser.setAvatar(Constant.DEAULT_HEAD);
             appUser.setUsername(generateRandomName(Constant.WXAPP));
             appUser.setCreateTime(DateUtil.nowDateTime());
