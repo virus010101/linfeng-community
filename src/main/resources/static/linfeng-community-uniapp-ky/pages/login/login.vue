@@ -1,7 +1,7 @@
 <template>
 	<view class="lf-login-register">
 		<image class="logo" :src="logo" mode="aspectFit" />
-		<view class="title">欢迎使用{{title}}</view>
+		<view class="title">{{title}}</view>
 		<u-form :model="form" ref="uForm">
 			<u-form-item>
 				<u-input v-model="form.mobile" placeholder="请输入手机号" />
@@ -14,11 +14,12 @@
 			</u-form-item>
 		</u-form>
 		<view class="button-login">
-			<u-button v-show="form.mobile && form.code" type="primary" @click="phoneLogin" shape="circle">登录/注册</u-button>
+			<u-button v-show="form.mobile && form.code" type="primary" @click="phoneLogin"
+				shape="circle">登录/注册</u-button>
 			<u-button v-show="!form.mobile || !form.code" type="success" shape="circle">登录/注册</u-button>
 		</view>
 		<view class="lf-bottom" @click="goIndex"><text>——— 暂不登录，再看看 ———</text></view>
-		
+
 	</view>
 </template>
 
@@ -39,9 +40,9 @@
 			this.getSysInfo();
 		},
 		methods: {
-			goIndex(){
+			goIndex() {
 				uni.switchTab({
-					url:"/pages/index/index"
+					url: "/pages/index/index"
 				})
 			},
 			getSysInfo() {
@@ -65,7 +66,6 @@
 							url: '/pages/index/index'
 						});
 					}
-
 					uni.hideLoading();
 				})
 			},
@@ -125,19 +125,16 @@
 	.button-login {
 		margin-top: 100rpx;
 	}
-	
+
 	.lf-bottom {
 		text-align: center;
 		margin: 150rpx 0 0 0;
 		color: #666;
 	}
-	
+
 	.lf-bottom text {
 		margin-left: 20rpx;
 		color: #aaaaaa;
 		font-size: 27rpx;
 	}
-	
-
-
 </style>

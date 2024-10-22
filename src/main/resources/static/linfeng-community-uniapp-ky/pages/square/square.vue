@@ -24,8 +24,6 @@
 		<view v-show="pageCurrent == 1">
 			<view style="background-color: #aaaaff;">
 				<view class="tab">
-					<!-- <view :class="{'tab-active' : currentRank === 0}" @click="tabChangeRank()"><text>发帖周排行</text></view> -->
-					<!-- <view :class="{'tab-active' : currentRank === 1}" @click="tabChangeRank()"><text>发帖月排行</text></view> -->
 				</view>
 				<view class="top" v-if="userList.length > 0">
 					<view class="top-item" v-if="userList.length >= 2 && userList[1]">
@@ -33,7 +31,7 @@
 						<text class="top-item-name">{{userList[1].username}}</text>
 						<text class="top-item-score">+{{userList[1].postNumber}}</text>
 					</view>
-					<view class="top-item" >
+					<view class="top-item">
 						<image class="top-item-avatar" :src="userList[0].avatar"></image>
 						<text class="top-item-name">{{userList[0].username}}</text>
 						<text class="top-item-score">+{{userList[0].postNumber}}</text>
@@ -45,7 +43,8 @@
 					</view>
 				</view>
 				<view class="ranking">
-					<view class="ranking-list-item" v-if="userList.length > 0" v-for="(item,index) in userList" :key="index">
+					<view class="ranking-list-item" v-if="userList.length > 0" v-for="(item,index) in userList"
+						:key="index">
 						<text class="ranking-list-number">{{index+1}}</text>
 						<view class="ranking-list-nickname" @click="goUser(item.uid)">
 							<image :src="item.avatar"></image>
@@ -55,15 +54,8 @@
 					</view>
 				</view>
 			</view>
-			
-			<!-- 加载状态 -->
-			<block v-if="userList.length === 0 && loadStatus == 'nomore'">
-				<u-empty margin-top="100" text="暂无内容" mode="favor"></u-empty>
-			</block>
-			<block v-else>
-				<view class="no-info">
-					<u-loadmore :status="loadStatus" />
-				</view>
+			<block v-if="userList.length == 0">
+				<u-empty margin-top="100" text="暂无排名" mode="favor"></u-empty>
 			</block>
 		</view>
 		<!-- 发帖入口 -->
@@ -155,10 +147,9 @@
 					url: '/pages/post/add'
 				})
 			},
-			goUser(uid){
-				console.log(uid)
+			goUser(uid) {
 				uni.navigateTo({
-					url: "/pages/user/home?uid="+uid
+					url: "/pages/user/home?uid=" + uid
 				})
 			},
 			goLogin() {
@@ -240,7 +231,7 @@
 		padding: 25rpx;
 		color: #fff;
 		margin-bottom: 25rpx;
-	
+
 		view {
 			height: 70rpx;
 			width: 220rpx;
@@ -250,29 +241,29 @@
 			font-size: 16px;
 			text-align: center;
 			font-weight: bold;
-	
+
 			&:nth-child(1) {
 				border-radius: 35rpx 0 0 35rpx;
 			}
-	
+
 			&:nth-child(2) {
 				border-radius: 0 35rpx 35rpx 0;
 			}
 		}
-	
+
 		.tab-active {
 			background: #fff;
 			color: #000000;
 		}
 	}
-	
+
 	.top {
 		width: 660rpx;
 		margin: auto;
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
-	
+
 		.top-item {
 			width: 200rpx;
 			height: 300rpx;
@@ -282,77 +273,83 @@
 			align-items: center;
 			border-radius: 100rpx 100rpx 0 0;
 			color: #fff;
-	
+
 			&:nth-child(1) {
 				.top-item-avatar {
 					border: 8rpx solid #c7c7c7;
 				}
 			}
-	
+
 			&:nth-child(2) {
 				height: 320rpx;
-	
+
 				.top-item-avatar {
 					border: 8rpx solid #ffff00;
 				}
 			}
-	
+
 			&:nth-child(3) {
 				.top-item-avatar {
 					border: 8rpx solid #aa5500;
 				}
 			}
-	
+
 			.top-item-avatar {
 				border-radius: 50%;
 				width: 140rpx;
 				height: 140rpx;
 			}
-			.top-item-score{
+
+			.top-item-score {
 				font-size: 16px;
 			}
-			.top-item-name{
+
+			.top-item-name {
 				margin: 10rpx 0;
 			}
 		}
 	}
-	.ranking{
+
+	.ranking {
 		width: 700rpx;
 		border-radius: 30rpx;
 		margin: auto;
 		background: #fff;
 		box-sizing: border-box;
 		padding: 20rpx;
-		.ranking-list-item{
+
+		.ranking-list-item {
 			height: 110rpx;
 			display: flex;
 			align-items: center;
 			font-size: 14px;
-			.ranking-list-number{
+
+			.ranking-list-number {
 				display: block;
 				width: 70rpx;
 				color: #777;
 			}
-			.ranking-list-score{
+
+			.ranking-list-score {
 				display: block;
 				width: 70rpx;
 				color: #E28935;
 				font-size: 16px;
 			}
-			
-			.ranking-list-nickname{
+
+			.ranking-list-nickname {
 				display: flex;
 				align-items: center;
 				width: calc(100% - 140rpx);
-				
-				image{
+
+				image {
 					width: 80rpx;
 					height: 80rpx;
 					border-radius: 50%;
 					margin-right: 20rpx;
 				}
-				
-				text{
+
+				text {
 					width: auto;
 				}
 			}

@@ -27,7 +27,7 @@
 			},
 			goWebsite() {
 				// #ifdef H5
-				window.open("https://net.linfeng.tech")
+				window.open("https://www.linfengtech.cn")
 				// #endif
 				// #ifdef MP-WEIXIN
 				uni.navigateToMiniProgram({
