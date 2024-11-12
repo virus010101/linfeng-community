@@ -169,7 +169,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         if (ObjectUtil.isNotNull(appUserEntity)) {
             //登录
             if (appUserEntity.getStatus().equals(Constant.USER_BANNER)) {
-                throw new LinfengException(Constant.USER_BANNER_MSG);
+                throw new LinfengException(Constant.USER_BANNER_MSG,Constant.USER_BANNER_CODE);
             }
             return appUserEntity.getUid();
         } else {
@@ -341,7 +341,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
                 .one();
         if (ObjectUtil.isNotNull(user)) {
             if(user.getStatus().equals(Constant.USER_BANNER)){
-                throw new LinfengException(Constant.USER_BANNER_MSG);
+                throw new LinfengException(Constant.USER_BANNER_MSG,Constant.USER_BANNER_CODE);
             }
             //其他业务todo
             return user.getUid();

@@ -58,6 +58,7 @@
 					title: '登录中'
 				});
 				this.$H.post("user/smsLogin", this.form).then(res => {
+					uni.hideLoading();
 					if (res.code == 0) {
 						uni.setStorageSync("hasLogin", true);
 						uni.setStorageSync("token", res.token);
@@ -65,8 +66,13 @@
 						uni.switchTab({
 							url: '/pages/index/index'
 						});
+					}else if(res.code == 701){
+						uni.showToast({
+							title: res.msg,
+							icon: "none",
+							duration: 2000
+						});
 					}
-					uni.hideLoading();
 				})
 			},
 			codeChange(text) {

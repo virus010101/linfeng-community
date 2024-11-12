@@ -21,15 +21,27 @@ export default {
 							url: "/pages/login/login"
 						})
 						// #endif
-					}
-
-					if (response.data.code == 500) {
+					} else if (response.data.code == 500) {
 						uni.showToast({
 							title: response.data.msg,
 							icon: "none",
 							duration: 2000
 						});
+					} else if (response.data.code == 701) {
+						//封号
+						uni.showToast({
+							title: response.data.msg,
+							icon: "none",
+							duration: 2000
+						});
+						uni.removeStorageSync("hasLogin");
+						uni.removeStorageSync("token");
+						uni.removeStorageSync("userInfo");
+						uni.switchTab({
+							url: "/pages/index/index"
+						})
 					}
+
 					resolve(response.data)
 				} else {
 					uni.showToast({

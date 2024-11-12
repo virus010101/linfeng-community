@@ -175,15 +175,12 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         if(ObjectUtil.isNull(post)){
             throw new LinfengException("该帖子不存在或已删除");
         }
-
-        AppUserEntity user = localUser.getUser();
-        post.setReadCount(post.getReadCount()+1);
-        baseMapper.updateById(post);
+        updatePv(post);
         PostDetailResponse response=new PostDetailResponse();
         BeanUtils.copyProperties(post,response);
         AppUserEntity userInfo = appUserService.getById(post.getUid());
-
         response.setUserInfo(userInfo);
+        AppUserEntity user = localUser.getUser();
         if(ObjectUtil.isNull(user)){
             response.setIsFollow(false);
             response.setIsCollection(false);
@@ -278,21 +275,28 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     }
 
     /**
+     * 更新浏览量
+     * @param post 帖子
+     */
+    void updatePv(PostEntity post){
+        post.setReadCount(post.getReadCount()+1);
+        baseMapper.updateById(post);
+    }
+
+    /**
      * 检查用户状态
      * @param user 用户
      */
     private void checkUserStatus(AppUserEntity user){
         if(user.getStatus().equals(Constant.USER_BANNER)){
-            throw new LinfengException(Constant.USER_BANNER_MSG);
+            throw new LinfengException(Constant.USER_BANNER_MSG,Constant.USER_BANNER_CODE);
         }
     }
     /**
      * 组装帖子分页
-     * 在一个循环里 尽量减少数据库查询操作 这种方式并不太好 应该全部查询出来后再set值
-     *
      * @param page
      * @param queryWrapper
-     * @param uid
+     * @param uid 用户id 没有填0
      * @return
      */
     public AppPageUtils  mapPostList(Page<PostEntity> page,QueryWrapper<PostEntity> queryWrapper,Integer uid){

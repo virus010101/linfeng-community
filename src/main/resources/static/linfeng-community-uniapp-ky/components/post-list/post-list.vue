@@ -71,7 +71,7 @@
 					<!-- 底部 -->
 					<view class="post-list-bottom">
 						<view class="p-item margin50">
-							<text class="iconfont icon-quanzi"></text>
+							<text class="iconfont icon-yuedu"></text>
 							<text class="count">{{ item.readCount }}</text>
 						</view>
 						<view v-show="item.isCollection" class="p-item" @click.stop="cancelCollection(item.id,index)">

@@ -259,7 +259,7 @@
 					success: function() {
 						uni.hideToast();
 						uni.showToast({
-							title: '复制成功快分享给好友叭~',
+							title: '复制成功可分享链接',
 							icon: 'success',
 							duration: 2000,
 						})
@@ -488,11 +488,7 @@
 		background-color: #ffffff;
 	}
 
-	.icon text {
-		font-size: 12px;
-		color: #999;
-		margin-right: 20rpx;
-	}
+
 
 	/*关注*/
 
@@ -520,7 +516,10 @@
 			border-radius: 50%;
 		}
 	}
-
+	.icon text {
+		font-size: 26rpx;
+		color: #999;
+	}
 	.menu-container {
 		margin: 30rpx;
 		display: flex;

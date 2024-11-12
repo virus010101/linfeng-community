@@ -46,6 +46,7 @@
 				that.$H.post('user/miniWxlogin', {
 					code: code
 				}).then(res => {
+					uni.hideLoading();
 					if (res.code === 0) {
 						uni.setStorageSync("hasLogin", true);
 						uni.setStorageSync("token", res.token);
@@ -54,8 +55,14 @@
 						uni.switchTab({
 							url: '/pages/index/index'
 						});
+					} else if (res.code == 701) {
+						uni.showToast({
+							title: res.msg,
+							icon: "none",
+							duration: 2000
+						});
 					}
-					uni.hideLoading();
+					
 				})
 			},
 			getUserInfo() {
