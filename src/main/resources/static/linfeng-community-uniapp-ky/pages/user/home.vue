@@ -1,48 +1,39 @@
 <template>
-	<view>
-		<view style="position: absolute;">
-			<u-navbar :custom-back="onBack" back-icon-color="#0c0000" :background="background" :border-bottom="false">
-			</u-navbar>
-		</view>
-		<view class="container">
-			<view class="info-wrap">
-				<u-avatar class="avatar" :src="userInfo.avatar" :show-level='userInfo.type == 1'
-					level-bg-color="#8072f3" size="130"></u-avatar>
-				<view class="user-style">
-					<view class="username">{{userInfo.username}}
-						<text class="iconfont icon-nan kong" v-if="userInfo.gender=='男'"></text>
-						<text class="iconfont icon-nv kong" v-else-if="userInfo.gender=='女'"></text>
-					</view>
-
-					<text class="desc">{{userInfo.intro}}</text>
-					<text class="desc" v-if="userInfo.city">IP:{{userInfo.city}}</text>
-					<text class="desc" v-else>IP属地:未知</text>
-
-					<view class="btn-box" v-if="currUid!=uid">
-						<u-button v-show="!userInfo.isFollow" @click="follow" :custom-style="btnStyle" class="btn"
-							shape="circle" size="mini">
-							<u-icon name="plus"></u-icon>
-							<text>关注</text>
-						</u-button>
-						<u-button v-show="userInfo.isFollow" @click="cancelFollow" :custom-style="btnStyle2" class="btn"
-							shape="circle" size="mini">
-							<text>已关注</text>
-						</u-button>
-						<u-button :custom-style="btnStyle2" @click="chat" shape="circle" size="mini">
-							<text style="margin: 0 15rpx;">私信</text>
-						</u-button>
-					</view>
+	<view class="profile-container">
+		<view class="profile-info">
+			<image class="avatar" :src="userInfo.avatar" mode="aspectFill"></image>
+			<view class="username">
+				{{userInfo.username}}
+				<text class="iconfont icon-nan kong" v-if="userInfo.gender=='男'"></text>
+				<text class="iconfont icon-nv kong" v-else-if="userInfo.gender=='女'"></text>
+			</view>
+			<view class="desc">{{userInfo.intro}}</view>
+			<text class="desc" v-if="userInfo.city">IP:{{userInfo.city}}</text>
+			<text class="desc" v-else>IP属地:未知</text>
+			<view class="stats">
+				<view class="stat-item">
+					<text class="number">{{userInfo.follow}}</text>
+					<text class="label">关注</text>
+				</view>
+				<view class="stat-divider"></view>
+				<view class="stat-item">
+					<text class="number">{{userInfo.fans}}</text>
+					<text class="label">粉丝</text>
 				</view>
 			</view>
-			<!-- 帖子 -->
-			<view>
-				<view class="title-desc">发布的动态</view>
-				<post-list :list="postList" :loadStatus="loadStatus"></post-list>
+
+			<view class="actions" v-show="!userInfo.isFollow" @click="follow">
+				<button class="follow-btn">关注</button>
+			</view>
+			<view class="actions" v-show="userInfo.isFollow" @click="cancelFollow">
+				<button class="cancelfollow-btn">取关</button>
 			</view>
 		</view>
 
-		<!-- 发贴入口 -->
-		<add-post-tag></add-post-tag>
+		<view class="content-tabs">
+			<view class="tab active">动态</view>
+		</view>
+		<post-list :list="postList" :loadStatus="loadStatus"></post-list>
 
 	</view>
 </template>
@@ -175,119 +166,177 @@
 		}
 	}
 </script>
+
 <style>
-	page {
-		background-color: #f5f5f5;
-	}
-</style>
-<style lang="scss" scoped>
-	.container {
-		padding: 30rpx;
-		position: relative;
-		top: 100rpx;
-		width: 100%;
+	.profile-container {
+		min-height: 100vh;
+		background-color: #f8f9fa;
 	}
 
-	.info-wrap {
+	.header {
+		padding: 44rpx 32rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.back-icon,
+	.more-icon {
+		font-size: 40rpx;
+		color: #333;
+	}
+
+	.profile-info {
+		padding: 0 32rpx;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		background-color: #ffffff;
+		background-image: url(../../static/img/bg.jpeg);
 	}
 
 	.avatar {
-		width: 130rpx;
-		height: 130rpx;
-		border-radius: 100rpx !important;
-		z-index: 999;
-		margin: 150rpx 550rpx 100rpx 50rpx;
+		width: 160rpx;
+		height: 160rpx;
+		border-radius: 50%;
+		margin-bottom: 24rpx;
 	}
 
-	.info-wrap .user-style {
-		background-color: #FFFFFF;
-		border-radius: 30rpx;
-		padding: 30rpx;
-		position: absolute;
-		top: 85rpx;
-		width: 100%;
-		box-shadow: 5rpx 10rpx 20rpx #e6e6e6;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.info-wrap .user-style .username {
-		font-size: 34rpx;
+	.username {
+		font-size: 36rpx;
 		font-weight: bold;
-		margin: 10rpx 10rpx 10rpx 90rpx;
-
-		.kong {
-			margin-left: 25rpx;
-		}
-	}
-
-	.info-wrap .user-style .num-box {
-		font-size: 24rpx;
-		margin: 20rpx 0;
-		text-align: center;
-	}
-
-	.info-wrap .user-style .num-box .txt {
-		color: #999;
-		margin-left: 5rpx;
-	}
-
-	.info-wrap .user-style .num-box text {
-		margin-right: 30rpx;
-	}
-
-	.info-wrap .user-style .desc {
-		font-size: 28rpx;
-		color: #999;
-		margin: 1rpx 20rpx 20rpx 140rpx;
-	}
-
-	.info-wrap .user-style .btn-box {
-		margin: 0rpx 30rpx 10rpx 90rpx;
-	}
-
-	.info-wrap .user-style .btn-box .btn {
-		margin-right: 20rpx;
-	}
-
-	.tab-box {
-		margin-top: 30rpx;
-		margin-bottom: 30rpx;
-	}
-
-	.info-c {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.info-c>text {
-		margin-bottom: 20rpx;
-		color: #999;
-	}
-
-	.info-c .level-box {
-		margin-bottom: 20rpx;
+		margin-bottom: 12rpx;
 		display: flex;
 		align-items: center;
-		color: #999;
-
-		.level {
-			font-size: 20rpx;
-			color: #fff;
-			padding: 5rpx 10rpx;
-			background-color: #333333;
-			border-radius: 10rpx;
-			margin-right: 10rpx;
-		}
+		gap: 8rpx;
 	}
-	.title-desc {
-		margin: auto;
+
+	.badge {
+		font-size: 28rpx;
+	}
+
+	.desc {
+		font-size: 28rpx;
+		color: #666;
+		margin-bottom: 32rpx;
+	}
+
+	.stats {
+		display: flex;
+		align-items: center;
+		gap: 48rpx;
+		margin-bottom: 32rpx;
+	}
+
+	.stat-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.stat-divider {
+		width: 2rpx;
+		height: 24rpx;
+		background-color: #e0e0e0;
+	}
+
+	.number {
 		font-size: 32rpx;
-		color: #565656;
-		font-weight: 500;
+		font-weight: bold;
+		color: #333;
+	}
+
+	.label {
+		font-size: 28rpx;
+		color: #666;
+	}
+
+	.actions {
+		display: flex;
+		gap: 24rpx;
+		margin-bottom: 48rpx;
+	}
+
+	.follow-btn {
+		background-color: #aaaaff;
+		color: #ffffff;
+		padding: 6rpx 28rpx;
+		border-radius: 32rpx;
+		font-size: 28rpx;
+	}
+
+	.cancelfollow-btn {
+		background-color: #efefef;
+		color: #090909;
+		padding: 6rpx 28rpx;
+		border-radius: 32rpx;
+		font-size: 28rpx;
+	}
+
+	.content-tabs {
+		border-bottom: 1rpx solid #e0e0e0;
+		padding: 0 32rpx;
+	}
+
+	.tab {
+		display: inline-block;
+		padding: 24rpx 0;
+		font-size: 32rpx;
+		color: #333;
+		position: relative;
+	}
+
+	.tab.active::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 48rpx;
+		height: 4rpx;
+		background-color: #aa55ff;
+	}
+
+	.posts {
+		padding: 32rpx;
+	}
+
+	.post-item {
+		margin-bottom: 48rpx;
+	}
+
+	.post-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 16rpx;
+	}
+
+	.post-date {
+		font-size: 32rpx;
+		font-weight: bold;
+	}
+
+	.post-content {
+		font-size: 28rpx;
+		color: #333;
+		margin-bottom: 16rpx;
+	}
+
+	.post-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.school {
+		color: #007AFF;
+		font-size: 24rpx;
+	}
+
+	.post-stats {
+		display: flex;
+		gap: 24rpx;
+		color: #999;
+		font-size: 24rpx;
 	}
 </style>

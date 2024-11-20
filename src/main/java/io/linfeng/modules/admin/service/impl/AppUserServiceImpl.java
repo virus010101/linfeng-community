@@ -324,6 +324,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         }
         AppUserInfoResponse response = new AppUserInfoResponse();
         BeanUtils.copyProperties(userEntity, response);
+        response.setFans(followService.getFans(userEntity.getUid()));
+        response.setFollow(followService.getFollowCount(userEntity.getUid()));
+        response.setIsFollow(followService.isFollowOrNot(user.getUid(), uid));
         return response;
     }
 
