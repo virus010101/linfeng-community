@@ -4,8 +4,8 @@
 			<image class="avatar" :src="userInfo.avatar" mode="aspectFill"></image>
 			<view class="username">
 				{{userInfo.username}}
-				<text class="iconfont icon-nan kong" v-if="userInfo.gender=='男'"></text>
-				<text class="iconfont icon-nv kong" v-else-if="userInfo.gender=='女'"></text>
+				<text class="iconfont icon-nan" v-if="userInfo.gender=='男'"></text>
+				<text class="iconfont icon-nv" v-else-if="userInfo.gender=='女'"></text>
 			</view>
 			<view class="desc">{{userInfo.intro}}</view>
 			<text class="desc" v-if="userInfo.city">IP:{{userInfo.city}}</text>
@@ -21,7 +21,6 @@
 					<text class="label">粉丝</text>
 				</view>
 			</view>
-
 			<view class="actions" v-show="!userInfo.isFollow" @click="follow">
 				<button class="follow-btn">关注</button>
 			</view>
@@ -34,7 +33,6 @@
 			<view class="tab active">动态</view>
 		</view>
 		<post-list :list="postList" :loadStatus="loadStatus"></post-list>
-
 	</view>
 </template>
 
@@ -48,14 +46,6 @@
 		data() {
 			return {
 				loading: true,
-				btnStyle: {
-					color: "#fff",
-					backgroundColor: '#000000'
-				},
-				btnStyle2: {
-					border: '1px solid #000000',
-					color: "#000000"
-				},
 				background: {
 					backgroundColor: 'unset'
 				},
@@ -95,9 +85,8 @@
 				}).then(res => {
 					if (res.code === 0) {
 						this.userInfo.isFollow = true;
-					} else {
-						this.$u.toast(res.msg);
 					}
+					this.$u.toast(res.msg);
 				})
 			},
 			cancelFollow() {
@@ -107,6 +96,7 @@
 					if (res.code === 0) {
 						this.userInfo.isFollow = false;
 					}
+					this.$u.toast(res.msg);
 				})
 			},
 
@@ -258,19 +248,17 @@
 	}
 
 	.follow-btn {
-		background-color: #aaaaff;
+		background-color: #232323;
 		color: #ffffff;
-		padding: 6rpx 28rpx;
 		border-radius: 32rpx;
-		font-size: 28rpx;
+		font-size: 26rpx;
 	}
 
 	.cancelfollow-btn {
 		background-color: #efefef;
-		color: #090909;
-		padding: 6rpx 28rpx;
+		color: #000000;
 		border-radius: 32rpx;
-		font-size: 28rpx;
+		font-size: 26rpx;
 	}
 
 	.content-tabs {
@@ -296,47 +284,4 @@
 		background-color: #aa55ff;
 	}
 
-	.posts {
-		padding: 32rpx;
-	}
-
-	.post-item {
-		margin-bottom: 48rpx;
-	}
-
-	.post-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 16rpx;
-	}
-
-	.post-date {
-		font-size: 32rpx;
-		font-weight: bold;
-	}
-
-	.post-content {
-		font-size: 28rpx;
-		color: #333;
-		margin-bottom: 16rpx;
-	}
-
-	.post-footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.school {
-		color: #007AFF;
-		font-size: 24rpx;
-	}
-
-	.post-stats {
-		display: flex;
-		gap: 24rpx;
-		color: #999;
-		font-size: 24rpx;
-	}
 </style>
