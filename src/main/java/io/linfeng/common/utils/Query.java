@@ -1,4 +1,3 @@
-
 package io.linfeng.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -41,7 +40,6 @@ public class Query<T> {
         //防止SQL注入（因为sidx、order是通过拼接SQL实现排序的，会有SQL注入风险）
         String orderField = SQLFilter.sqlInject((String)params.get(Constant.ORDER_FIELD));
         String order = (String)params.get(Constant.ORDER);
-
 
         //前端字段排序
         if(StringUtils.isNotEmpty(orderField) && StringUtils.isNotEmpty(order)){

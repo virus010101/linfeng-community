@@ -64,6 +64,10 @@
 					<image class="gn-icon" src="/static/img/fans.png"></image>
 					<view class="grid-text">我的粉丝</view>
 				</u-grid-item>
+				<u-grid-item index="/pages/user/home">
+					<image class="gn-icon" src="/static/img/mine.png"></image>
+					<view class="grid-text">我的主页</view>
+				</u-grid-item>
 				<!-- #ifdef MP-WEIXIN -->
 				<u-grid-item>
 					<button open-type="contact" class="u-reset-button">
@@ -102,7 +106,7 @@
 			return {
 				userInfo: '',
 				hasLogin: false,
-				shareCover: 'http://pic.linfeng.tech/test/20220724/9a665bf276a44827ad8ef0b3140a7d1d.png'
+				shareCover: ''
 			};
 		},
 		onLoad() {

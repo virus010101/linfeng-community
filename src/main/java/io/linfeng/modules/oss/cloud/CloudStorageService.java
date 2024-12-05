@@ -1,4 +1,3 @@
-
 package io.linfeng.modules.oss.cloud;
 
 import io.linfeng.common.utils.DateUtils;
@@ -9,7 +8,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * 云存储(支持七牛、阿里云、腾讯云、又拍云)
+ * 云存储支持七牛云、阿里云
  *
  */
 public abstract class CloudStorageService {

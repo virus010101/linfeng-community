@@ -7,7 +7,7 @@ const baseUrl = "localhost:8080";
 const domain = 'http://' + baseUrl + "/app/"; 
 
 //线上环境配置
-// const baseUrl = "";
+// const baseUrl = "api.xxx.com";
 // const domain = 'https://' + baseUrl + "/app/";
 
 

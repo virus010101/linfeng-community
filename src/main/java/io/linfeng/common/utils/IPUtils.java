@@ -1,6 +1,10 @@
 package io.linfeng.common.utils;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
  * IP地址
  *
  */
+@Slf4j
 public class IPUtils {
 	private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
-
+    // IP归属地查询
+    private static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp?ip=%s&json=true";
 	/**
 	 * 获取IP地址
 	 * 
@@ -44,5 +50,32 @@ public class IPUtils {
         
         return ip;
     }
-	
+
+    /**
+     * 根据ip获取归属地 地址1
+     * @param ip 用户ip
+     * @return 地址
+     */
+    public static String getCityInfo(String ip) {
+        String api = String.format(IP_URL,ip);
+        String s = HttpUtil.get(api,5000);
+        if(s == null || s.isEmpty()){
+            return "";
+        }
+        JSONObject object = null;
+        try {
+            object = JSONUtil.parseObj(s);
+        } catch (Exception e) {
+            log.error("获取地理位置异常 {}", ip);
+//            return getCityInfo2(ip); //继续调用第二个接口
+        }
+        if(object == null){
+            return "";
+        }
+        String addr = object.get("addr", String.class);
+        if(!ObjectUtil.isEmpty(addr)){
+            return addr.split(" ")[0];
+        }
+        return addr;
+    }
 }

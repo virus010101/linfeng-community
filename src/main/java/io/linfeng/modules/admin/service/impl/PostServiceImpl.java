@@ -2,11 +2,11 @@
  * -----------------------------------
  * 林风社交论坛开源版本请务必保留此注释头信息
  * 开源地址: https://gitee.com/virus010101/linfeng-community
- * 商业版详情查看: https://www.linfeng.tech
+ * 商业版详情查看: https://www.linfengtech.cn
  * 商业版购买联系技术客服
  * QQ:  3582996245
  * 可正常分享和学习源码，不得转卖或非法牟利！
- * Copyright (c) 2021-2023 linfeng all rights reserved.
+ * Copyright (c) 2021-2025 linfeng all rights reserved.
  * 版权所有 ，侵权必究！
  * -----------------------------------
  */
@@ -101,7 +101,6 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
 
     @Override
     public Integer getPostNumByUid(Integer uid) {
-
         return this.lambdaQuery()
                 .eq(PostEntity::getUid,uid)
                 .count();
@@ -113,7 +112,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         QueryWrapper<PostEntity> queryWrapper=new QueryWrapper<>();
         queryWrapper.orderByDesc("post_top","id");
         AppUserEntity user = localUser.getUser();
-        if(user==null){
+        if(user == null){
             return this.mapPostList(page,queryWrapper,0);
         }
         return this.mapPostList(page,queryWrapper,user.getUid());

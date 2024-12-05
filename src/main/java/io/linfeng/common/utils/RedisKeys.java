@@ -1,4 +1,3 @@
-
 package io.linfeng.common.utils;
 
 /**

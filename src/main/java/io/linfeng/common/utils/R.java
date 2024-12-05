@@ -1,4 +1,3 @@
-
 package io.linfeng.common.utils;
 
 import org.apache.http.HttpStatus;
@@ -11,6 +10,7 @@ import java.util.Map;
  *
  */
 public class R extends HashMap<String, Object> {
+
 	private static final long serialVersionUID = 1L;
 	
 	public R() {

@@ -1,4 +1,3 @@
-
 package io.linfeng.modules.oss.controller;
 
 import com.google.gson.Gson;
@@ -45,9 +44,7 @@ public class SysOssController {
 
     private final static String KEY = ConfigConstant.CLOUD_STORAGE_CONFIG_KEY;
 	
-	/**
-	 * 列表
-	 */
+
 	@ApiOperation("文件列表")
 	@GetMapping("/list")
 	@RequiresPermissions("sys:oss:all")
@@ -58,9 +55,7 @@ public class SysOssController {
 	}
 
 
-    /**
-     * 云存储配置信息
-     */
+
 	@ApiOperation("云存储配置信息")
     @GetMapping("/config")
     @RequiresPermissions("sys:oss:all")
@@ -71,9 +66,7 @@ public class SysOssController {
     }
 
 
-	/**
-	 * 保存云存储配置信息
-	 */
+
 	@ApiOperation("保存云存储配置信息")
 	@PostMapping("/saveConfig")
 	@RequiresPermissions("sys:oss:all")
@@ -87,9 +80,6 @@ public class SysOssController {
 		}else if(config.getType() == Constant.CloudService.ALIYUN.getValue()){
 			//校验阿里云数据
 			ValidatorUtils.validateEntity(config, AliyunGroup.class);
-		}else if(config.getType() == Constant.CloudService.QCLOUD.getValue()){
-			//校验腾讯云数据
-			ValidatorUtils.validateEntity(config, QcloudGroup.class);
 		}
 
         sysConfigService.updateValueByKey(KEY, new Gson().toJson(config));
@@ -98,9 +88,7 @@ public class SysOssController {
 	}
 	
 
-	/**
-	 * 上传文件
-	 */
+
 	@ApiOperation("上传文件")
 	@PostMapping("/upload")
 	@RequiresPermissions("sys:oss:all")
@@ -124,15 +112,12 @@ public class SysOssController {
 	}
 
 
-	/**
-	 * 删除
-	 */
+
 	@ApiOperation("删除")
 	@PostMapping("/delete")
 	@RequiresPermissions("sys:oss:all")
 	public R delete(@RequestBody Long[] ids){
 		sysOssService.removeByIds(Arrays.asList(ids));
-
 		return R.ok();
 	}
 

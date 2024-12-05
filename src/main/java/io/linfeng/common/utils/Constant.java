@@ -150,11 +150,7 @@ public class Constant {
         /**
          * 阿里云
          */
-        ALIYUN(2),
-        /**
-         * 腾讯云
-         */
-        QCLOUD(3);
+        ALIYUN(2);
 
         private int value;
 

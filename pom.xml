@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.linfeng</groupId>
 	<artifactId>linfeng-community</artifactId>
-	<version>1.1.0</version>
+	<version>3.0.0</version>
 	<packaging>jar</packaging>
-	<description>林风社交论坛开源版</description>
+	<description>林风社交论坛项目开源版</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -29,7 +29,7 @@
 		<commons.io.version>2.5</commons.io.version>
 		<commons.codec.version>1.10</commons.codec.version>
 		<commons.configuration.version>1.10</commons.configuration.version>
-		<shiro.version>1.4.0</shiro.version>
+		<shiro.version>1.11.0</shiro.version>
 		<jwt.version>0.7.0</jwt.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<qiniu.version>7.2.23</qiniu.version>
@@ -41,12 +41,6 @@
 		<fastjson.version>1.2.72</fastjson.version>
 		<hutool.version>4.1.1</hutool.version>
 		<lombok.version>1.18.4</lombok.version>
-		<!--wagon plugin 配置-->
-		<service-path>/work/project</service-path>
-		<pack-name>${project.artifactId}-${project.version}.jar</pack-name>
-		<remote-addr>127.0.0.1:22</remote-addr>
-		<remote-username>root</remote-username>
-		<remote-passwd>root</remote-passwd>
 	</properties>
 
 	<dependencies>
@@ -247,44 +241,6 @@
 				<configuration>
 					<skipTests>true</skipTests>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>wagon-maven-plugin</artifactId>
-				<version>1.0</version>
-				<configuration>
-					<fromFile>target/${pack-name}</fromFile>
-					<url><![CDATA[scp://${remote-username}:${remote-passwd}@${remote-addr}${service-path}]]></url>
-					<commands>
-						<!-- Kill Old Process -->
-						<command>kill -9 `ps -ef |grep ${project.artifactId}.jar|grep -v "grep" |awk '{print $2}'`</command>
-						<!-- Restart jar package，write result into linfeng.log -->
-						<command><![CDATA[nohup java -jar ${service-path}/${pack-name} --spring.profiles.active=test > ${service-path}/project.log 2>&1 & ]]></command>
-						<command><![CDATA[netstat -nptl]]></command>
-						<command><![CDATA[ps -ef | grep java | grep -v grep]]></command>
-					</commands>
-					<!-- 运行命令 mvn clean package wagon:upload-single wagon:sshexec-->
-					<displayCommandOutputs>true</displayCommandOutputs>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.14</version>
-				
-				<configuration>
-					<imageName>project/fast</imageName>
-					<dockerDirectory>${project.basedir}</dockerDirectory>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
-				<!-- 运行命令 mvn clean package docker:build 打包并生成docker镜像 -->
 			</plugin>
 		</plugins>
 	</build>

@@ -59,17 +59,17 @@
 				userInfo: {},
 				userJson: "",
 				loadStatus: "loading",
-				page: 1,
-				currUid: 0
+				page: 1
 			};
 		},
 		onLoad(options) {
-			this.uid = options.uid;
+			if(options.uid){
+				this.uid = options.uid;
+			}else{
+				this.uid = 0
+			}
 			this.getUserInfo();
 			this.getPostList();
-			if (uni.getStorageSync('userInfo').uid) {
-				this.currUid = uni.getStorageSync('userInfo').uid;
-			}
 		},
 		onReachBottom() {
 			this.page++;
