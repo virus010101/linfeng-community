@@ -39,8 +39,8 @@
 					backgroundColor: '#8f8fd6'
 				},
 				btnStyle: {
-					color: "#fff",
-					backgroundColor: '#333333'
+					color: "#000000",
+					backgroundColor: '#fff'
 				},
 				form: {},
 				userInfo: {},
@@ -116,7 +116,6 @@
 			outlogin() {
 				uni.removeStorageSync("hasLogin");
 				uni.removeStorageSync("token");
-				uni.removeStorageSync("userInfo");
 				uni.switchTab({
 					url: "/pages/index/index"
 				})

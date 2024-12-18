@@ -36,7 +36,6 @@ export default {
 						});
 						uni.removeStorageSync("hasLogin");
 						uni.removeStorageSync("token");
-						uni.removeStorageSync("userInfo");
 						uni.switchTab({
 							url: "/pages/index/index"
 						})

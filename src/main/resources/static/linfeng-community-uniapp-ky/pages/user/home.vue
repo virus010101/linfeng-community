@@ -63,9 +63,9 @@
 			};
 		},
 		onLoad(options) {
-			if(options.uid){
+			if (options.uid) {
 				this.uid = options.uid;
-			}else{
+			} else {
 				this.uid = 0
 			}
 			this.getUserInfo();
@@ -76,9 +76,6 @@
 			this.getPostList();
 		},
 		methods: {
-			onBack() {
-				uni.navigateBack();
-			},
 			follow() {
 				this.$H.post('user/addFollow', {
 					id: this.userInfo.uid
@@ -114,9 +111,6 @@
 					}
 				})
 			},
-			chat() {
-				this.$u.toast('开源版暂未开放')
-			},
 			getUserInfo() {
 				this.$H.post('user/userInfoById', {
 					uid: this.uid
@@ -130,16 +124,6 @@
 						} else {
 							this.userInfo.gender = '保密'
 						}
-
-						let user = {
-							uid: res.result.uid,
-							username: res.result.username,
-							avatar: res.result.avatar,
-						}
-						this.userJson = JSON.stringify(user)
-						uni.setNavigationBarTitle({
-							title: this.userInfo.username
-						});
 					} else {
 						this.$u.toast(res.msg)
 						setTimeout(function() {
@@ -148,8 +132,6 @@
 							});
 						}, 1500);
 					}
-
-
 					this.loading = false;
 				})
 			}
@@ -283,5 +265,4 @@
 		height: 4rpx;
 		background-color: #aa55ff;
 	}
-
 </style>

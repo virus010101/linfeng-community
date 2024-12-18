@@ -26,7 +26,7 @@ https://net.linfeng.tech/version/version.html
 
 开源版运行效果：
 
- [查看开源版移动端效果图](https://pic.linfeng.tech/test/20230724/7bace9859cef4e2ca4a23a4a687a248e.gif)
+ [查看开源版移动端效果图](https://pic.linfeng.tech/test/20241120/35a061d0447d481e86cd647a7dc277a5.gif)
 
 了解更多请查看：
 

@@ -76,9 +76,7 @@
         ,{
             "path" : "pages/user/home",
             "style": {
-            	"navigationBarTitleText": "个人主页",
-            	"navigationStyle": "custom",
-            	"navigationBarTextStyle": "white"
+            	"navigationBarTitleText": "个人主页"
             }
             
         }
