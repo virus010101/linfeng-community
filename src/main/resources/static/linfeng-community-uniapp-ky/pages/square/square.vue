@@ -115,16 +115,6 @@
 				this.getUserRanking();
 			}
 		},
-		onPullDownRefresh() {
-			if (this.pageCurrent == 0) {
-				this.page = 1
-				this.pageList = []
-				this.getPostList()
-			} else if (this.pageCurrent == 1) {
-				this.userList = [];
-				this.getUserRanking();
-			}
-		},
 		methods: {
 			tabChangeRank() {
 				this.currentRank = this.currentRank ? 0 : 1;

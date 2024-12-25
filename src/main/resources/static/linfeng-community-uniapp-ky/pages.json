@@ -94,7 +94,7 @@
 			"style" :
 			{
 			    
-			    "enablePullDownRefresh": true,
+			    "enablePullDownRefresh": false,
 				"navigationStyle": "custom"
 			}
 		}
