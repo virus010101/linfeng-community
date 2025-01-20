@@ -419,6 +419,11 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     }
 
 
+    @Override
+    public List<AppUserEntity> getBatchUser(List<Integer> uid) {
+        return userDao.getBatchUser(uid);
+    }
+
     private Integer getTotalNum() {
         return this.lambdaQuery().select(AppUserEntity::getUid).count();
     }
@@ -437,20 +442,12 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         if(system == null){
             throw new LinfengException("后台配置项不存在");
         }
-        //小程序唯一标识   (在微信小程序管理后台获取)
         String appId = system.getValue();
-        //小程序的 app secret (在微信小程序管理后台获取)
         String secret = system.getExtend();
-        //授权（必填）
         String grant_type = "authorization_code";
-        //https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
-        //向微信服务器 使用登录凭证 code 获取 session_key 和 openid
         String params = "appid=" + appId + "&secret=" + secret + "&js_code=" + code + "&grant_type=" + grant_type;
-        //发送请求
-        String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
-        //解析相应内容（转换成json对象）
-        JSONObject json = JSON.parseObject(sr);
-        //用户的唯一标识（openId）
+        String res = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
+        JSONObject json = JSON.parseObject(res);
         return (String) json.get("openid");
     }
 

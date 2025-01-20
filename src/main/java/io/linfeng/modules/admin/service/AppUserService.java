@@ -68,5 +68,7 @@ public interface AppUserService extends IService<AppUserEntity> {
     Integer miniWxLogin(WxLoginForm form);
 
     List<AppUserRankResponse> userRank();
+
+    List<AppUserEntity> getBatchUser(List<Integer> uidList);
 }
 

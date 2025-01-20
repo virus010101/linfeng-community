@@ -32,6 +32,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -303,18 +305,24 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         AppPageUtils appPage=new AppPageUtils(pages);
         List<PostEntity> data = (List<PostEntity>) appPage.getData();
         List<PostListResponse> responseList=new ArrayList<>();
-        data.forEach(l->{
+        List<Integer> uidList = data.stream().map(PostEntity::getUid).collect(Collectors.toList());
+        List<AppUserEntity> appUserList = appUserService.getBatchUser(uidList);
+        Map<Integer, AppUserEntity> userMap = appUserList.stream()
+                .collect(Collectors.toMap(AppUserEntity::getUid,Function.identity()));
+        data.forEach(post->{
             PostListResponse response=new PostListResponse();
-            BeanUtils.copyProperties(l,response);
+            BeanUtils.copyProperties(post,response);
             response.setCollectionCount(postCollectionService.collectCount(response.getId()));
             response.setCommentCount(commentService.getCountByPostId(response.getId()));
-            response.setUserInfo(appUserService.getById(response.getUid()));
+            if (ObjectUtil.isNotNull(userMap.get(post.getUid()))) {
+                response.setUserInfo(userMap.get(post.getUid()));
+            }
             if (uid==0){
                 response.setIsCollection(false);
             }else{
                 response.setIsCollection(postCollectionService.isCollection(uid,response.getId()));
             }
-            response.setMedia(JsonUtils.JsonToList(l.getMedia()));
+            response.setMedia(JsonUtils.JsonToList(post.getMedia()));
             responseList.add(response);
         });
         appPage.setData(responseList);
