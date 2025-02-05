@@ -421,6 +421,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
     @Override
     public List<AppUserEntity> getBatchUser(List<Integer> uid) {
+        if(uid.isEmpty()){
+            return new ArrayList<>();
+        }
         return userDao.getBatchUser(uid);
     }
 

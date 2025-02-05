@@ -12,8 +12,8 @@
 						@click="cancelFollow">已关注</u-button>
 					<u-button v-show="!isAuthor&&!postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
 						@click="follow">关注</u-button>
-						<u-button v-show="isAuthor" size="mini" type="error" style="float:right;font-size: 14px;"
-							@click="deletePost">删除</u-button>
+					<u-button v-show="isAuthor" size="mini" type="error" style="float:right;font-size: 14px;"
+						@click="deletePost">删除</u-button>
 				</view>
 				<view class="icon">
 					<text>{{ postDetail.createTime  }}</text>
@@ -125,7 +125,7 @@
 		<view style="height: 100rpx;"></view>
 		<!-- 评论输入框 -->
 		<view class="comment-input">
-			<textarea :placeholder="placeholder" @blur="onBlur" :focus="focusEvent" fixed="true" cursor-spacing="10"
+			<textarea :placeholder="placeholder" @blur="onBlur" fixed="true" cursor-spacing="10"
 				v-model="form.content" auto-height="true" placeholder-class="txt-placeholder" confirm-type="send"
 				@confirm="addComment"></textarea>
 			<u-button @click="addComment" :disabled="canSunbmit" :custom-style="btnStyle" style="border-radius: 0;">发布
@@ -167,7 +167,8 @@
 					media: [],
 					commentList: {
 						data: []
-					}
+					},
+					userInfo:{}
 				},
 				focus: false,
 				canSunbmit: false,
@@ -226,7 +227,7 @@
 			};
 		},
 		methods: {
-			deletePost(){
+			deletePost() {
 				var that = this;
 				uni.showModal({
 					title: '提示',
@@ -238,20 +239,20 @@
 									id: that.postId
 								})
 								.then(res => {
-									if(res.code==0){
+									if (res.code == 0) {
 										uni.switchTab({
-											url:"/pages/index/index"
+											url: "/pages/index/index"
 										})
 									}
 								});
 						} else if (res.cancel) {
-				
+
 						}
 					}
 				});
-				
+
 			},
-			
+
 			copyPageUrl() {
 				let that = this;
 				uni.setClipboardData({
@@ -310,9 +311,6 @@
 				// #ifdef MP
 				this.form.pid = 0;
 				// #endif
-			},
-			focusEvent(){
-				
 			},
 			// 获取评论列表
 			getCommentList() {
@@ -449,11 +447,7 @@
 					.then(res => {
 						if (res.code === 0) {
 							this.postDetail.isFollow = true;
-						} else {
-							this.$refs.uToast.show({
-								title: res.msg,
-								type: 'error'
-							});
+							this.$u.toast('关注成功')
 						}
 					});
 			},
@@ -465,6 +459,7 @@
 					.then(res => {
 						if (res.code === 0) {
 							this.postDetail.isFollow = false;
+							this.$u.toast('已取消关注')
 						}
 					});
 			},
@@ -481,6 +476,7 @@
 <style lang="scss" scoped>
 	.post-title {
 		margin: 20rpx 0;
+		font-weight: 700;
 	}
 
 	.detail-container {
@@ -516,10 +512,12 @@
 			border-radius: 50%;
 		}
 	}
+
 	.icon text {
 		font-size: 26rpx;
 		color: #999;
 	}
+
 	.menu-container {
 		margin: 30rpx;
 		display: flex;

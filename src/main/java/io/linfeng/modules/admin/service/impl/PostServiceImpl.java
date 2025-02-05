@@ -199,13 +199,11 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addComment(AddCommentForm request, AppUserEntity user) {
-
         checkUserStatus(user);
         CommentEntity commentEntity=new CommentEntity();
         BeanUtils.copyProperties(request,commentEntity);
         commentEntity.setCreateTime(DateUtil.nowDateTime());
         commentEntity.setUid(user.getUid().longValue());
-
         commentService.save(commentEntity);
 
     }
@@ -251,7 +249,11 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
             }
 
             if (ObjectUtil.isNotNull(request.getUid())) {
-                queryWrapper.lambda().eq(PostEntity::getUid, request.getUid());
+                if(request.getUid()==0){
+                    queryWrapper.lambda().eq(PostEntity::getUid, user.getUid());
+                }else{
+                    queryWrapper.lambda().eq(PostEntity::getUid, request.getUid());
+                }
                 appPage = this.mapPostList(page, queryWrapper, request.getUid());
             } else {
                 appPage = this.mapPostList(page, queryWrapper, user.getUid());
