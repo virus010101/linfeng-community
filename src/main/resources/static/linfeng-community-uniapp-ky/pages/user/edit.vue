@@ -9,6 +9,10 @@
 					<u-input  v-model="username"
 						 input-align="right"/>
 				</u-form-item>
+				<u-form-item label="手机号" right-icon="arrow-right">
+					<u-input  v-model="mobile" disabled
+						input-align="right"/>
+				</u-form-item>
 				<u-form-item label="性别" right-icon="arrow-right">
 					<u-input @click="openGender" :placeholder="userInfo.gender"
 						input-align="right"/>
@@ -59,7 +63,8 @@
 					}
 				],
 				username:"",
-				intro:""
+				intro:"",
+				mobile:""
 			};
 		},
 		onShow(options) {
@@ -104,6 +109,7 @@
 					this.userInfo = res.result
 					this.username=res.result.username
 					this.intro=res.result.intro
+					this.mobile=res.result.mobile
 					if (res.result.gender === 1) {
 						this.userInfo.gender = '男'
 					} else if (res.result.gender === 2) {

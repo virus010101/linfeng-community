@@ -21,24 +21,24 @@
 					<!-- #endif -->
 				</view>
 			</block>
-			<u-grid :col="4" :border="false" style="margin: 20rpx 0;" @click="toNav">
-				<u-grid-item index="/pages/my/user?type=2">
-					<text>{{ userInfo.fans || 0}}</text>
-					<view class="nav-text">粉丝</view>
-				</u-grid-item>
-				<u-grid-item index="/pages/my/user?type=1">
-					<text>{{ userInfo.follow || 0 }}</text>
-					<view class="nav-text">关注</view>
-				</u-grid-item>
-				<u-grid-item index="/pages/my/post?type=2">
-					<text>{{ userInfo.postNum || 0 }}</text>
-					<view class="nav-text">帖子</view>
-				</u-grid-item>
-				<u-grid-item index="">
-					<text>{{ userInfo.integral || 0 }}</text>
-					<view class="nav-text">积分</view>
-				</u-grid-item>
-			</u-grid>
+			<view class="lf-stats-grid">
+				<view class="lf-stats-item" @click="toNav('/pages/my/user?type=2')">
+					<text class="lf-stats-num">{{ userInfo.fans || 0}}</text>
+					<text class="lf-stats-label">粉丝</text>
+				</view>
+				<view class="lf-stats-item" @click="toNav('/pages/my/user?type=1')">
+					<text class="lf-stats-num">{{ userInfo.follow || 0 }}</text>
+					<text class="lf-stats-label">关注</text>
+				</view>
+				<view class="lf-stats-item" @click="toNav('/pages/my/post?type=2')">
+					<text class="lf-stats-num">{{ userInfo.postNum || 0 }}</text>
+					<text class="lf-stats-label">帖子</text>
+				</view>
+				<view class="lf-stats-item">
+					<text class="lf-stats-num">{{ userInfo.integral || 0 }}</text>
+					<text class="lf-stats-label">积分</text>
+				</view>
+			</view>
 		</view>
 		<!-- 我的服务 -->
 		<view class="block-wrap">
@@ -82,15 +82,15 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
-		<view  @click="commercialLink">
+		<view class="lf-bottom-section" @click="commercialLink">
 			<view class="bottom-info">
 				林风社交论坛开源版
-				</view>
+			</view>
 			<view class="bottom-info-t">
 				© www.linfengtech.cn
 			</view>
 		</view>
-		
+
 		<!-- 发贴入口 -->
 		<add-post-tag></add-post-tag>
 	</view>
@@ -192,20 +192,32 @@
 </style>
 <style lang="scss" scoped>
 	.head {
-		padding: 20rpx;
-		background-color: #fff;
+		padding: 30rpx 20rpx;
+		background: #ffffff;
+		margin-bottom: 20rpx;
 
-		.sub-txt {
-			font-size: 24rpx;
-			color: #616161;
-			display: block;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 1;
-			overflow: hidden;
+		.userinfo {
+			padding: 20rpx 10rpx;
+
+			.username {
+				text {
+					color: #333;
+					font-size: 32rpx;
+					font-weight: 600;
+				}
+
+				.sub-txt {
+					color: #999;
+					font-size: 24rpx;
+					margin-top: 6rpx;
+				}
+			}
 		}
 
-		margin-bottom: 20rpx;
+		.nav-text {
+			color: #666;
+			font-size: 26rpx;
+		}
 	}
 
 	.userinfo {
@@ -225,7 +237,7 @@
 		font-size: 14px;
 		margin-bottom: 20rpx;
 	}
-	
+
 	.grid-text {
 		color: #999;
 		font-size: 12px;
@@ -285,29 +297,84 @@
 
 	.block-wrap {
 		background-color: #fff;
-		border-radius: 20rpx;
 		margin: 20rpx;
-		overflow: hidden;
 
 		.block-title {
-			background-color: #fff;
-			padding: 20rpx;
+			padding: 30rpx 20rpx;
+			font-size: 30rpx;
+			color: #333;
+			border-bottom: 1rpx solid #f5f5f5;
 		}
 	}
-	.bottom-info {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: #888888;
-		font-size: 32rpx;
-		font-weight: 400;
+
+	.lf-grid-item {
+		padding: 20rpx 0;
+
+		.gn-icon {
+			width: 56rpx;
+			height: 56rpx;
+			margin-bottom: 12rpx;
+		}
+
+		.grid-text {
+			color: #666;
+			font-size: 26rpx;
+		}
 	}
-	.bottom-info-t{
+
+	.lf-bottom-section {
+		text-align: center;
+		padding: 40rpx 20rpx;
+
+		.bottom-info {
+			color: #999;
+			font-size: 26rpx;
+		}
+
+		.bottom-info-t {
+			color: #999;
+			font-size: 24rpx;
+			margin-top: 8rpx;
+		}
+	}
+
+	.lf-stats-grid {
 		display: flex;
+		justify-content: space-around;
+		padding: 20rpx 10rpx;
+		background: #fff;
+		margin: 20rpx 0;
+	}
+
+	.lf-stats-item {
+		display: flex;
+		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		color: #888888;
-		font-size: 28rpx;
-		font-weight: 400;
+		position: relative;
+		padding: 0 20rpx;
+		
+		&:not(:last-child)::after {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 1px;
+			height: 30rpx;
+			background: #f0f0f0;
+		}
+	}
+
+	.lf-stats-num {
+		font-size: 36rpx;
+		font-weight: 600;
+		color: #333;
+		line-height: 1.4;
+	}
+
+	.lf-stats-label {
+		font-size: 24rpx;
+		color: #999;
+		margin-top: 4rpx;
 	}
 </style>
