@@ -2,14 +2,7 @@
   <div class="site-wrapper site-page--login">
     <div class="site-content__wrapper">
       <div class="site-content">
-        <div class="brand-info">
-          <h2 class="brand-info__text">林风社交论坛-开源版后台系统</h2>
-          <p class="brand-info__intro">
-            基于Springboot MybatisPlus Shiro Jwt Vue Uniapp Redis
-            MySQL构建的社交app平台
-            -开源版
-          </p>
-        </div>
+        <h2 class="brand-info__text">林风社交论坛-开源版后台系统</h2>
         <div class="login-main">
           <h3 class="login-title">管理员登录</h3>
           <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" status-icon>
@@ -35,12 +28,26 @@
             </el-form-item>
           </el-form>
         </div>
+        <div class="brand-info">
+          <p class="brand-info__intro">
+            基于Springboot MybatisPlus Shiro Jwt Vue Uniapp Redis
+            MySQL构建的社交app平台
+            -开源版
+          </p>
+          <p class="web-info__intro">
+            林风社交论坛项目官网：<a href="https://net.linfeng.tech" target="_blank">https://net.linfeng.tech</a>
+          </p>
+          <p class="brand-info__intro">
+            开源版后台前端技术栈：Vue2+Element-UI <br>
+            标准版后台前端技术栈：Vue3+Element-Plus
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script>    
 import { getUUID } from "@/utils";
 export default {
   data() {
@@ -142,19 +149,27 @@ export default {
 
   .site-content {
     min-height: 100%;
-    padding: 30px 500px 30px 30px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .brand-info {
-    margin: 220px 100px 0 90px;
+    margin: 40px 0 0 0;
     color: #fff;
+    text-align: center;
+    max-width: 800px;
   }
 
   .brand-info__text {
-    margin: 0 0 22px 0;
+    margin: 0 0 30px 0;
     font-size: 48px;
     font-weight: 400;
     text-transform: uppercase;
+    color: #fff;
+    text-align: center;
   }
 
   .brand-info__intro {
@@ -164,14 +179,18 @@ export default {
     opacity: 0.6;
   }
 
+  .web-info__intro{
+    font-size: 20px;
+    line-height: 1.58;
+  }
+
   .login-main {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 150px 60px 180px;
+    position: relative;
+    padding: 40px 60px;
     width: 470px;
-    min-height: 100%;
     background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   }
 
   .login-title {

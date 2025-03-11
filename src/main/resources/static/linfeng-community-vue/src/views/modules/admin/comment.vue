@@ -33,14 +33,14 @@
         prop="id"
         header-align="center"
         align="center"
-        label="id"
+        label="评论ID"
       >
       </el-table-column>
       <el-table-column
         prop="uid"
         header-align="center"
         align="center"
-        label="评论作者ID"
+        label="评论用户ID"
       >
       </el-table-column>
       <el-table-column

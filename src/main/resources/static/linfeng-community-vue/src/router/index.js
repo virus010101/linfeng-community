@@ -77,7 +77,6 @@ router.beforeEach((to, from, next) => {
         next()
       }
     }).catch((e) => {
-      console.log(`%c${e} 请求菜单列表和权限失败，跳转至登录页！！`, 'color:blue')
       router.push({ name: 'login' })
     })
   }
@@ -146,10 +145,6 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
       { path: '*', redirect: { name: '404' } }
     ])
     sessionStorage.setItem('dynamicMenuRoutes', JSON.stringify(mainRoutes.children || '[]'))
-    console.log('\n')
-    console.log('%c!<-------------------- 动态(菜单)路由 s -------------------->', 'color:blue')
-    console.log(mainRoutes.children)
-    console.log('%c!<-------------------- 动态(菜单)路由 e -------------------->', 'color:blue')
   }
 }
 

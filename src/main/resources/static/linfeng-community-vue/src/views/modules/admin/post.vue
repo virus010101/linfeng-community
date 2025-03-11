@@ -44,7 +44,6 @@
       </el-table-column>
       <el-table-column prop="media" header-align="center" align="center" label="文件">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.type == 2" type="text" @click="openVideo(scope.row.media[0])">点击预览</el-button>
           <el-button v-if="scope.row.type == 1 && scope.row.media[0]" type="text"
             @click="openPic(scope.row.media)">点击查看</el-button>
         </template>
@@ -55,7 +54,7 @@
       </el-table-column>
       <el-table-column prop="collectionCount" header-align="center" align="center" label="点赞数">
       </el-table-column>
-      <el-table-column prop="postTop" header-align="center" align="center" label="置顶">
+      <el-table-column prop="postTop" header-align="center" align="center" label="平台置顶">
         <template slot-scope="scope">
           <div>
             <el-tag v-if="scope.row.postTop == 1" type="success">是</el-tag>
@@ -67,7 +66,7 @@
       <el-table-column prop="address" header-align="center" align="center" label="发帖地址">
       </el-table-column>
 
-      <el-table-column prop="createTime" header-align="center" align="center" label="创建时间">
+      <el-table-column prop="createTime" header-align="center" align="center" label="发帖时间">
       </el-table-column>
       <el-table-column fixed="right" header-align="center" align="center" width="150" label="操作">
         <template slot-scope="scope">
@@ -88,14 +87,7 @@
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
 
-    <el-dialog title="视频预览" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-      <video class="video" :src="this.videoUrl" enable-danmu danmu-btn controls></video>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog title="图片预览(点击查看)" :visible.sync="dialogVisible2" width="60%" :before-close="handleClose">
+    <el-dialog title="图片预览(点击查看)" :visible.sync="dialogVisible" width="60%" :before-close="handleClose">
       <div class="images">
         <div v-for="(item, index) in media" :key="index" class="image-middle">
           <el-card shadow="hover" :body-style="{ padding: '10px' }">
@@ -108,8 +100,8 @@
       </div>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible2 = false">确 定</el-button>
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -132,7 +124,6 @@ export default {
       dataListSelections: [],
       addOrUpdateVisible: false,
       dialogVisible: false,
-      dialogVisible2: false,
       videoUrl: "",
       media: [],
       options: [
@@ -324,16 +315,11 @@ export default {
         })
         .catch((_) => { });
     },
-    openVideo(url) {
-      this.dialogVisible = true;
-      this.videoUrl = url;
-    },
     openPic(media) {
-      this.dialogVisible2 = true;
+      this.dialogVisible = true;
       this.media = media;
     },
     goPic(url) {
-      console.log("==>", url);
       window.open(url);
     },
   },

@@ -3,7 +3,7 @@
     <div class="site-navbar__header">
       <h1 class="site-navbar__brand" @click="$router.push({ name: 'home' })">
         <a class="site-navbar__brand-lg" href="javascript:;">林风社交论坛</a>
-        <a class="site-navbar__brand-mini" href="javascript:;">社交论坛</a>
+        <a class="site-navbar__brand-mini" href="javascript:;">林风科技</a>
       </h1>
     </div>
     <div class="site-navbar__body clearfix">
@@ -13,6 +13,13 @@
         </el-menu-item>
       </el-menu>
       <el-menu class="site-navbar__menu site-navbar__menu--right" mode="horizontal">
+        <el-menu-item index="1" @click="officialWebsite">
+          <template slot="title">
+            <el-badge>
+              <icon-svg name="zonghe" class="el-icon-setting"></icon-svg>
+            </el-badge>
+          </template>
+        </el-menu-item>
         <el-menu-item index="1" @click="$router.push({ name: 'theme' })">
           <template slot="title">
             <el-badge>
@@ -67,6 +74,9 @@ export default {
     }
   },
   methods: {
+    officialWebsite(){
+      window.open('https://net.linfeng.tech', '_blank');
+    },
     // 修改密码
     updatePasswordHandle() {
       this.updatePassowrdVisible = true
