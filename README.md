@@ -34,6 +34,8 @@ H5端：https://h5.linfeng.tech
 
 微信小程序：搜索”林风bbs“
 
+用户端网页PC版本(新发布的产品)演示：https://pc.linfeng.tech
+
 后台管理系统演示地址：https://dev.linfeng.tech
 
 演示账号已自带可直接登录
