@@ -6,7 +6,7 @@
 					<image @click="jumpUser(postDetail.uid)" :src="postDetail.userInfo.avatar"></image>
 					<view class="user-item-user">
 						<text class="user-name">{{ postDetail.userInfo.username }}</text>
-						<view class="userIntro">{{ postDetail.userInfo.intro }}</view>
+						<view class="user-intro">{{ postDetail.userInfo.intro }}</view>
 					</view>
 					<u-button v-show="!isAuthor&&postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
 						@click="cancelFollow">已关注</u-button>
@@ -494,13 +494,14 @@
 		.user-item-user {
 			flex: 1;
 
-			.userIntro {
+			.user-intro {
 				font-size: 12px;
 				color: #999;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
 				-webkit-line-clamp: 1;
 				overflow: hidden;
+				margin-top: 10rpx;
 			}
 		}
 

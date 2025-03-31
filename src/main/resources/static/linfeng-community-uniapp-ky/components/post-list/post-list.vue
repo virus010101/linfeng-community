@@ -149,17 +149,11 @@
 					urls: urls // 需要预览的图片http链接列表
 				});
 			},
-
 			jump(e) {
-				let url;
-				if (e.type == 1) {
-					url = '/pages/post/post?id=' + e.id;
-				}
 				uni.navigateTo({
-					url: url
+					url: '/pages/post/post?id=' + e.id
 				});
 			},
-
 			toUser(uid) {
 				uni.navigateTo({
 					url: '/pages/user/home?uid=' + uid
@@ -237,15 +231,18 @@
 			}
 		}
 	}
-	.post-top-box{
+
+	.post-top-box {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
-	.uname{
+
+	.uname {
 		display: flex;
 		align-items: center;
 	}
+
 	.post-list-item {
 		display: flex;
 		align-items: center;

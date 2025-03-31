@@ -21,22 +21,22 @@
 					<!-- #endif -->
 				</view>
 			</block>
-			<view class="lf-stats-grid">
-				<view class="lf-stats-item" @click="toNav('/pages/my/user?type=2')">
-					<text class="lf-stats-num">{{ userInfo.fans || 0}}</text>
-					<text class="lf-stats-label">粉丝</text>
+			<view class="lf_stats_grid">
+				<view class="lf_stats_item" @click="toNav('/pages/my/user?type=2')">
+					<text class="lf_stats_num">{{ userInfo.fans || 0}}</text>
+					<text class="lf_stats_label">粉丝</text>
 				</view>
-				<view class="lf-stats-item" @click="toNav('/pages/my/user?type=1')">
-					<text class="lf-stats-num">{{ userInfo.follow || 0 }}</text>
-					<text class="lf-stats-label">关注</text>
+				<view class="lf_stats_item" @click="toNav('/pages/my/user?type=1')">
+					<text class="lf_stats_num">{{ userInfo.follow || 0 }}</text>
+					<text class="lf_stats_label">关注</text>
 				</view>
-				<view class="lf-stats-item" @click="toNav('/pages/my/post?type=2')">
-					<text class="lf-stats-num">{{ userInfo.postNum || 0 }}</text>
-					<text class="lf-stats-label">帖子</text>
+				<view class="lf_stats_item" @click="toNav('/pages/my/post?type=2')">
+					<text class="lf_stats_num">{{ userInfo.postNum || 0 }}</text>
+					<text class="lf_stats_label">帖子</text>
 				</view>
-				<view class="lf-stats-item">
-					<text class="lf-stats-num">{{ userInfo.integral || 0 }}</text>
-					<text class="lf-stats-label">积分</text>
+				<view class="lf_stats_item">
+					<text class="lf_stats_num">{{ userInfo.integral || 0 }}</text>
+					<text class="lf_stats_label">积分</text>
 				</view>
 			</view>
 		</view>
@@ -338,20 +338,27 @@
 		}
 	}
 
-	.lf-stats-grid {
+	.lf_stats_grid {
 		display: flex;
 		justify-content: space-around;
-		padding: 20rpx 10rpx;
+		padding: 30rpx 10rpx;
 		background: #fff;
 		margin: 20rpx 0;
+		border-radius: 12rpx;
+		box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
 	}
 
-	.lf-stats-item {
+	.lf_stats_item {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		position: relative;
 		padding: 0 20rpx;
+		transition: all 0.3s ease;
+		
+		&:hover {
+			transform: translateY(-2rpx);
+		}
 		
 		&:not(:last-child)::after {
 			content: '';
@@ -360,21 +367,42 @@
 			top: 50%;
 			transform: translateY(-50%);
 			width: 1px;
-			height: 30rpx;
-			background: #f0f0f0;
+			height: 40rpx;
+			background: linear-gradient(180deg, transparent, #f0f0f0, transparent);
 		}
 	}
 
-	.lf-stats-num {
-		font-size: 36rpx;
+	.lf_stats_num {
+		font-size: 40rpx;
 		font-weight: 600;
 		color: #333;
 		line-height: 1.4;
+		margin-bottom: 8rpx;
+		
+		&:hover {
+			color: #2979ff;
+		}
 	}
 
-	.lf-stats-label {
-		font-size: 24rpx;
+	.lf_stats_label {
+		font-size: 26rpx;
 		color: #999;
-		margin-top: 4rpx;
+		position: relative;
+		
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -6rpx;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 2rpx;
+			background: #2979ff;
+			transition: width 0.3s ease;
+		}
+		
+		&:hover::after {
+			width: 100%;
+		}
 	}
 </style>
