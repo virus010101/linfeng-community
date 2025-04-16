@@ -3,7 +3,6 @@ package io.linfeng.modules.oss.cloud;
 
 
 import io.linfeng.common.validator.group.AliyunGroup;
-import io.linfeng.common.validator.group.QcloudGroup;
 import io.linfeng.common.validator.group.QiniuGroup;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -11,7 +10,6 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -61,14 +59,6 @@ public class CloudStorageConfig implements Serializable {
     //阿里云BucketName
     @NotBlank(message="阿里云BucketName不能为空", groups = AliyunGroup.class)
     private String aliyunBucketName;
-
-    private String qcloudDomain;
-    private String qcloudPrefix;
-    private Integer qcloudAppId;
-    private String qcloudSecretId;
-    private String qcloudSecretKey;
-    private String qcloudBucketName;
-    private String qcloudRegion;
 
 
 }

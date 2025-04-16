@@ -5,7 +5,6 @@ import io.linfeng.common.exception.LinfengException;
 import io.linfeng.common.utils.*;
 import io.linfeng.common.validator.ValidatorUtils;
 import io.linfeng.common.validator.group.AliyunGroup;
-import io.linfeng.common.validator.group.QcloudGroup;
 import io.linfeng.common.validator.group.QiniuGroup;
 import io.linfeng.modules.oss.cloud.CloudStorageConfig;
 import io.linfeng.modules.oss.cloud.OSSFactory;
