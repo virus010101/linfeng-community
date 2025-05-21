@@ -106,11 +106,15 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         if(status.equals(Constant.USER_BANNER)){
             throw new LinfengException(Constant.USER_BANNER_MSG);
         }
-        this.lambdaUpdate()
+        boolean update = this.lambdaUpdate()
                 .set(AppUserEntity::getStatus, Constant.USER_BANNER)
-                .set(AppUserEntity::getUpdateTime,new Date())
+                .set(AppUserEntity::getUpdateTime, new Date())
                 .eq(AppUserEntity::getUid, id)
                 .update();
+        if(!update){
+            throw new LinfengException("封禁失败");
+        }
+        redisUtils.delete(RedisKeys.getUserKey(id));
     }
 
     @Override
@@ -128,19 +132,20 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         if(!update){
             throw new LinfengException("解除失败");
         }
+        redisUtils.delete(RedisKeys.getUserKey(id));
     }
 
     @Override
     public HomeRateResponse indexDate() {
         String today = cn.hutool.core.date.DateUtil.date().toString("yyyy-MM-dd");
         String yesterday = cn.hutool.core.date.DateUtil.yesterday().toString("yyyy-MM-dd");
-        Integer postCount = postService.lambdaQuery().select(PostEntity::getId).count();
+
         HomeRateResponse response = new HomeRateResponse();
         response.setTotalPostOfReview(0);
-        response.setTotalPost(postCount);
+        response.setTotalPost(this.getTotalPostNum());
         response.setNewUserNum(this.getRegisterNumByDate(today));
         response.setYesterdayNewUserNum(this.getRegisterNumByDate(yesterday));
-        response.setTotalUser(this.getTotalNum());
+        response.setTotalUser(this.getTotalUserNum());
         response.setYesterdayCommentCount(commentService.getYesterdayCount());
         response.setCommentCount(commentService.getAllCount());
         return response;
@@ -427,8 +432,12 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         return userDao.getBatchUser(uid);
     }
 
-    private Integer getTotalNum() {
+    private Integer getTotalUserNum() {
         return this.lambdaQuery().select(AppUserEntity::getUid).count();
+    }
+
+    private Integer getTotalPostNum() {
+        return postService.lambdaQuery().select(PostEntity::getId).count();
     }
 
     private Integer getRegisterNumByDate(String date) {

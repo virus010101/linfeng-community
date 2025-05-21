@@ -41,10 +41,6 @@ public interface AppUserService extends IService<AppUserEntity> {
 
     void openBan(Integer id);
 
-    /**
-     * 首页数据
-     * @return HomeRateResponse
-     */
     HomeRateResponse indexDate();
 
     Integer smsLogin(SmsLoginForm form, HttpServletRequest request);
