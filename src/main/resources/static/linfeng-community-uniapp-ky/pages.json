@@ -41,7 +41,7 @@
             "path" : "pages/my/post",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "我的帖子",
                 "enablePullDownRefresh": false
             }
             
