@@ -111,6 +111,6 @@ public class PostDetailResponse implements Serializable {
 	/**
 	 * 用户信息
 	 */
-	private AppUserEntity userInfo;
+	private AppUserInfoShortResponse userInfo;
 
 }

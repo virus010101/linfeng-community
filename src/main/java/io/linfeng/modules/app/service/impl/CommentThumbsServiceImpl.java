@@ -75,18 +75,18 @@ public class CommentThumbsServiceImpl extends ServiceImpl<CommentThumbsDao, Comm
      */
     @Override
     public void addThumbs(AddThumbsForm request, AppUserEntity user) {
-        CommentThumbsEntity one=baseMapper.selectOne(new LambdaQueryWrapper<CommentThumbsEntity>()
-        .eq(CommentThumbsEntity::getCId,request.getId())
-        .eq(CommentThumbsEntity::getUid,user.getUid()));
-        if(ObjectUtil.isNotNull(one)){
+        CommentThumbsEntity thumbsEntity = this.lambdaQuery()
+                .eq(CommentThumbsEntity::getCId, request.getId())
+                .eq(CommentThumbsEntity::getUid, user.getUid())
+                .one();
+        if (ObjectUtil.isNotNull(thumbsEntity)) {
             throw new LinfengException("请勿重复点赞");
         }
-        CommentThumbsEntity ct=new CommentThumbsEntity();
+        CommentThumbsEntity ct = new CommentThumbsEntity();
         ct.setUid(user.getUid());
         ct.setCId(request.getId());
         ct.setCreateTime(DateUtil.nowDateTime());
-        boolean save = this.save(ct);
-        if(!save){
+        if (!this.save(ct)) {
             throw new LinfengException("点赞失败");
         }
     }

@@ -16,6 +16,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.linfeng.common.exception.LinfengException;
+import io.linfeng.common.vo.AppUserInfoShortResponse;
 import io.linfeng.common.vo.PostDetailResponse;
 import io.linfeng.common.vo.PostListResponse;
 import io.linfeng.common.utils.*;
@@ -30,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -81,7 +83,10 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
             BeanUtils.copyProperties(l,response);
             response.setCollectionCount(postCollectionService.collectCount(response.getId()));
             response.setCommentCount(commentService.getCountByPostId(response.getId()));
-            response.setUserInfo(appUserService.getById(response.getUid()));
+            AppUserEntity userInfo = appUserService.getById(response.getUid());
+            AppUserInfoShortResponse userInfoVo=new AppUserInfoShortResponse();
+            BeanUtils.copyProperties(userInfo,userInfoVo);
+            response.setUserInfo(userInfoVo);
             response.setMedia(JsonUtils.JsonToList(l.getMedia()));
             responseList.add(response);
         });
@@ -180,7 +185,9 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         PostDetailResponse response=new PostDetailResponse();
         BeanUtils.copyProperties(post,response);
         AppUserEntity userInfo = appUserService.getById(post.getUid());
-        response.setUserInfo(userInfo);
+        AppUserInfoShortResponse userInfoVo=new AppUserInfoShortResponse();
+        BeanUtils.copyProperties(userInfo,userInfoVo);
+        response.setUserInfo(userInfoVo);
         AppUserEntity user = localUser.getUser();
         if(ObjectUtil.isNull(user)){
             response.setIsFollow(false);
@@ -295,40 +302,76 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
             throw new LinfengException(Constant.USER_BANNER_MSG,Constant.USER_BANNER_CODE);
         }
     }
+
     /**
      * 组装帖子分页
-     * @param page
-     * @param queryWrapper
-     * @param uid 用户id 没有填0
-     * @return
+     * @param page 分页参数
+     * @param queryWrapper 查询条件
+     * @param uid 用户id，未登录传0
+     * @return 组装后的分页数据
      */
-    public AppPageUtils  mapPostList(Page<PostEntity> page,QueryWrapper<PostEntity> queryWrapper,Integer uid){
-        Page<PostEntity> pages = baseMapper.selectPage(page,queryWrapper);
-        AppPageUtils appPage=new AppPageUtils(pages);
-        List<PostEntity> data = (List<PostEntity>) appPage.getData();
-        List<PostListResponse> responseList=new ArrayList<>();
-        List<Integer> uidList = data.stream().map(PostEntity::getUid).collect(Collectors.toList());
-        List<AppUserEntity> appUserList = appUserService.getBatchUser(uidList);
-        Map<Integer, AppUserEntity> userMap = appUserList.stream()
-                .collect(Collectors.toMap(AppUserEntity::getUid,Function.identity()));
-        data.forEach(post->{
-            PostListResponse response=new PostListResponse();
-            BeanUtils.copyProperties(post,response);
-            response.setCollectionCount(postCollectionService.collectCount(response.getId()));
-            response.setCommentCount(commentService.getCountByPostId(response.getId()));
-            if (ObjectUtil.isNotNull(userMap.get(post.getUid()))) {
-                response.setUserInfo(userMap.get(post.getUid()));
-            }
-            if (uid==0){
-                response.setIsCollection(false);
-            }else{
-                response.setIsCollection(postCollectionService.isCollection(uid,response.getId()));
-            }
-            response.setMedia(JsonUtils.JsonToList(post.getMedia()));
-            responseList.add(response);
-        });
+    public AppPageUtils mapPostList(Page<PostEntity> page, QueryWrapper<PostEntity> queryWrapper, Integer uid) {
+        Page<PostEntity> pages = baseMapper.selectPage(page, queryWrapper);
+        AppPageUtils appPage = new AppPageUtils(pages);
+
+        List<PostEntity> posts = (List<PostEntity>) appPage.getData();
+        if (posts == null || posts.isEmpty()) {
+            appPage.setData(Collections.emptyList());
+            return appPage;
+        }
+
+        // 批量获取用户信息
+        Map<Integer, AppUserEntity> userMap = buildUserMap(posts);
+
+        // 转换为响应对象
+        List<PostListResponse> responseList = posts.stream()
+                .map(post -> buildPostResponse(post, userMap, uid))
+                .collect(Collectors.toList());
+
         appPage.setData(responseList);
         return appPage;
     }
 
+    /**
+     * 构建用户映射
+     */
+    private Map<Integer, AppUserEntity> buildUserMap(List<PostEntity> posts) {
+        List<Integer> uidList = posts.stream()
+                .map(PostEntity::getUid)
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<AppUserEntity> appUserList = appUserService.getBatchUser(uidList);
+        return appUserList.stream()
+                .collect(Collectors.toMap(AppUserEntity::getUid, Function.identity()));
+    }
+
+    /**
+     * 构建帖子响应对象
+     */
+    private PostListResponse buildPostResponse(PostEntity post, Map<Integer, AppUserEntity> userMap, Integer uid) {
+        PostListResponse response = new PostListResponse();
+        BeanUtils.copyProperties(post, response);
+
+        // 设置统计信息
+        response.setCollectionCount(postCollectionService.collectCount(post.getId()));
+        response.setCommentCount(commentService.getCountByPostId(post.getId()));
+
+        // 设置用户信息
+        AppUserEntity userInfo = userMap.get(post.getUid());
+        if (userInfo != null) {
+            AppUserInfoShortResponse userInfoVo=new AppUserInfoShortResponse();
+            BeanUtils.copyProperties(userInfo,userInfoVo);
+            response.setUserInfo(userInfoVo);
+        }
+
+        // 设置点赞状态
+        boolean isCollection = uid != 0 && postCollectionService.isCollection(uid, post.getId());
+        response.setIsCollection(isCollection);
+
+        // 文件信息转化
+        response.setMedia(JsonUtils.JsonToList(post.getMedia()));
+
+        return response;
+    }
 }

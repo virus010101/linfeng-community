@@ -53,7 +53,6 @@ public class FollowServiceImpl extends ServiceImpl<FollowDao, FollowEntity> impl
 
     @Override
     public Integer getFans(Integer uid) {
-
         return this.lambdaQuery()
                 .eq(FollowEntity::getFollowUid,uid)
                 .count();
