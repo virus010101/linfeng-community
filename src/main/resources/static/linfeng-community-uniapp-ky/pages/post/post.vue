@@ -575,6 +575,16 @@
 			.user {
 				display: flex;
 
+				text {
+					font-size: 30rpx;
+					font-weight: 600;
+					color: #333;
+					
+					&:hover {
+						color: #2979ff;
+					}
+				}
+
 				.thumbs {
 					margin-left: auto;
 					display: flex;
@@ -585,6 +595,15 @@
 						margin-right: 10rpx;
 					}
 				}
+			}
+
+			.c-txt {
+				font-size: 28rpx;
+				color: #666;
+				line-height: 1.5;
+				margin: 16rpx 0;
+				word-break: break-all;
+				white-space: pre-wrap;
 			}
 		}
 

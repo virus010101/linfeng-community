@@ -38,7 +38,6 @@
 
 <script>
 	import postList from '@/components/post-list/post-list.vue';
-	import addPostTag from '@/components/add-post-tag/add-post-tag.vue';
 	export default {
 		components: {
 			postList
