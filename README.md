@@ -20,9 +20,9 @@
 
 #### 2.软件演示
 
-林风社交论坛项目官网：https://net.linfeng.tech
+林风社交论坛项目官网：https://www.linfengtech.cn
 
-备用官网：https://www.linfengtech.cn
+备用官网：https://net.linfeng.tech 
 
 ##### 2.1移动端演示
 
@@ -44,7 +44,7 @@ H5端：https://h5.linfeng.tech
 
 **注意:演示站点为标准版**
 
-开源版具体的功能清单请查看：https://net.linfeng.tech/version/version.html
+开源版具体的功能清单请查看：https://www.linfengtech.cn/version/version.html
 
 ##### 2.2移动端效果截图
 
@@ -85,11 +85,9 @@ H5端：https://h5.linfeng.tech
 
 3.**商业版和开源版的区别**
 
-https://net.linfeng.tech/version/version.html
+https://www.linfengtech.cn/version/version.html
 
-详情查看项目官网：https://net.linfeng.tech
-
-备用官网：https://www.linfengtech.cn
+详情查看项目官网：https://www.linfengtech.cn
 
 **标准商业版前往项目官网咨询客服了解详情**。
 
@@ -672,43 +670,9 @@ https://net.linfeng.tech/version/version.html
 
 【优化】15.后台管理系统细节优化如文本超出弹窗等
 
-2022.10.8
-
-###### **V1.5.0发布**
-
-【新增】1.新增会员模块
-
-【新增】2.接入广告模块
-
-【新增】3.新增用户改名限制
-
-【新增】4.新增发帖奖励
-
-【新增】5.新增数字格式化 过滤器
-
-【新增】6.会员积分奖励翻倍
-
-【新增】7.新增系统消息长按删除
-
-【新增】8.增加管理端消息模块 帐单模块条件查询
-
-【新增】9.创建圈子数量限制
-
-【优化】10.处理app端视频播放
-
-【优化】11.删除帖子的数据清理优化
-
-【优化】12.禁用账号禁止私聊
-
-【优化】13.用户端圈子信息修改可能越权的问题
-
-【优化】14.帖子详情查询优化
-
-【优化】15.敏感词库管理优化调整
 
 
-
-
+历史更新记录汇总：https://www.linfengtech.cn/authInfo/version.html
 
 
 
