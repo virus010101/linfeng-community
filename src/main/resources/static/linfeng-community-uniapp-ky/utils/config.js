@@ -1,5 +1,5 @@
 const miniappName = "林风社交论坛开源版"; //分享时的标题
-const shareH5Url = "https://h5.linfeng.tech/#/"; //H5分享路径
+const shareH5Url = "http://localhost:8002/#/"; //H5分享路径
 
 
 //本地环境配置
