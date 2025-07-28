@@ -148,8 +148,6 @@
 				<!-- #endif -->
 			</view>
 		</u-popup>
-
-	</view>
 	</view>
 </template>
 
@@ -475,8 +473,11 @@
 
 <style lang="scss" scoped>
 	.post-title {
-		margin: 20rpx 0;
+		margin: 30rpx 0;
 		font-weight: 700;
+		font-size: 36rpx;
+		line-height: 1.4;
+		color: #333;
 	}
 
 	.detail-container {
@@ -484,7 +485,23 @@
 		background-color: #ffffff;
 	}
 
+	.icon {
+		margin: 20rpx 0;
+		
+		text {
+			font-size: 26rpx;
+			color: #999;
+			padding: 6rpx 16rpx;
+			background-color: #f8f8f8;
+			border-radius: 20rpx;
+		}
+	}
 
+	.hr {
+		height: 1rpx;
+		background-color: #f5f5f5;
+		margin: 20rpx 0;
+	}
 
 	/*关注*/
 
@@ -512,11 +529,6 @@
 			margin-right: 10rpx;
 			border-radius: 50%;
 		}
-	}
-
-	.icon text {
-		font-size: 26rpx;
-		color: #999;
 	}
 
 	.menu-container {
