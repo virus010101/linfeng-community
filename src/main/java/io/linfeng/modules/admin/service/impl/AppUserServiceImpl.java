@@ -282,9 +282,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             return new AppPageUtils(new ArrayList<>(), 0, 20, currPage);
         }
         Page<AppUserEntity> page = new Page<>(currPage, 20);
-        QueryWrapper<AppUserEntity> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.lambda().in(AppUserEntity::getUid, uidList);
-        Page<AppUserEntity> page1 = this.page(page, queryWrapper1);
+        QueryWrapper<AppUserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(AppUserEntity::getUid, uidList);
+        Page<AppUserEntity> page1 = this.page(page, queryWrapper);
 
         AppPageUtils pages = new AppPageUtils(page1);
         List<?> data = pages.getData();
@@ -307,9 +307,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             return new AppPageUtils(new ArrayList<>(), 0, 20, currPage);
         }
         Page<AppUserEntity> page = new Page<>(currPage, 20);
-        QueryWrapper<AppUserEntity> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.lambda().in(AppUserEntity::getUid, followUidList);
-        Page<AppUserEntity> page1 = this.page(page, queryWrapper1);
+        QueryWrapper<AppUserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(AppUserEntity::getUid, followUidList);
+        Page<AppUserEntity> page1 = this.page(page, queryWrapper);
 
 
         AppPageUtils pages = new AppPageUtils(page1);
@@ -349,7 +349,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
         String openId = getOpenId(form.getCode());
         if(io.linfeng.common.utils.ObjectUtil.isEmpty(openId)){
-            throw new LinfengException("请正确配置appId和密钥");
+            throw new LinfengException("请在后台管理端配置appId和密钥");
         }
         //根据openId获取数据库信息 判断用户是否登录
         AppUserEntity user = this.lambdaQuery()
