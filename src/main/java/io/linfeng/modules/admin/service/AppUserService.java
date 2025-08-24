@@ -57,7 +57,7 @@ public interface AppUserService extends IService<AppUserEntity> {
 
     AppPageUtils userFans(Integer page, Integer uid);
 
-    AppPageUtils follow(Integer page, AppUserEntity user);
+    AppPageUtils followList(Integer page, AppUserEntity user);
 
     AppUserInfoResponse findUserInfoById(Integer uid, AppUserEntity user);
 

@@ -162,7 +162,7 @@ public class AppUserInfoController {
     public R follow(@RequestParam("page") Integer page,
                     @ApiIgnore @LoginUser AppUserEntity user) {
 
-        AppPageUtils pages = appUserService.follow(page, user);
+        AppPageUtils pages = appUserService.followList(page, user);
         return R.ok().put("result", pages);
     }
 

@@ -277,53 +277,66 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
 
     @Override
     public AppPageUtils userFans(Integer currPage, Integer uid) {
-        List<Integer> uidList = followService.getFansList(uid);
-        if (uidList.isEmpty()) {
+        // 获取用户的粉丝ID列表
+        List<Integer> fansUidList = followService.getFansList(uid);
+        
+        // 如果没有粉丝，直接返回空结果
+        if (fansUidList.isEmpty()) {
             return new AppPageUtils(new ArrayList<>(), 0, 20, currPage);
         }
+        
+        // 分页查询粉丝用户信息
         Page<AppUserEntity> page = new Page<>(currPage, 20);
-        QueryWrapper<AppUserEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().in(AppUserEntity::getUid, uidList);
-        Page<AppUserEntity> page1 = this.page(page, queryWrapper);
-
-        AppPageUtils pages = new AppPageUtils(page1);
-        List<?> data = pages.getData();
-        List<TopicUserResponse> responseList = new ArrayList<>();
-        data.forEach(l -> {
-            TopicUserResponse topicUserResponse = new TopicUserResponse();
-            BeanUtils.copyProperties(l, topicUserResponse);
-            Integer follow = followService.isFollow(uid, topicUserResponse.getUid());
-            topicUserResponse.setHasFollow(follow);
-            responseList.add(topicUserResponse);
-        });
-        pages.setData(responseList);
-        return pages;
+        Page<AppUserEntity> userPage = this.lambdaQuery()
+                .in(AppUserEntity::getUid, fansUidList)
+                .page(page);
+        
+        // 转换为响应对象并设置关注状态
+        List<AppUserBasicInfoResponse> responseList = userPage.getRecords().stream()
+                .map(userEntity -> {
+                    AppUserBasicInfoResponse response = new AppUserBasicInfoResponse();
+                    BeanUtils.copyProperties(userEntity, response);
+                    response.setHasFollow(followService.isFollow(uid, response.getUid()));
+                    return response;
+                })
+                .collect(Collectors.toList());
+        
+        // 构建分页响应
+        AppPageUtils result = new AppPageUtils(userPage);
+        result.setData(responseList);
+        return result;
     }
 
     @Override
-    public AppPageUtils follow(Integer currPage, AppUserEntity user) {
+    public AppPageUtils followList(Integer currPage, AppUserEntity user) {
+        // 获取用户关注的用户ID列表
         List<Integer> followUidList = followService.getFollowUids(user);
+        
+        // 如果没有关注任何用户，直接返回空结果
         if (followUidList.isEmpty()) {
             return new AppPageUtils(new ArrayList<>(), 0, 20, currPage);
         }
+        
+        // 分页查询关注的用户信息
         Page<AppUserEntity> page = new Page<>(currPage, 20);
-        QueryWrapper<AppUserEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().in(AppUserEntity::getUid, followUidList);
-        Page<AppUserEntity> page1 = this.page(page, queryWrapper);
-
-
-        AppPageUtils pages = new AppPageUtils(page1);
-        List<?> data = pages.getData();
-        List<TopicUserResponse> responseList = new ArrayList<>();
-        data.forEach(l -> {
-            TopicUserResponse topicUserResponse = new TopicUserResponse();
-            BeanUtils.copyProperties(l, topicUserResponse);
-            Integer follow = followService.isFollow(user.getUid(), topicUserResponse.getUid());
-            topicUserResponse.setHasFollow(follow);
-            responseList.add(topicUserResponse);
-        });
-        pages.setData(responseList);
-        return pages;
+        Page<AppUserEntity> userPage = this.lambdaQuery()
+                .in(AppUserEntity::getUid, followUidList)
+                .page(page);
+        
+        // 转换为响应对象并设置关注状态
+        List<AppUserBasicInfoResponse> responseList = userPage.getRecords().stream()
+                .map(userEntity -> {
+                    AppUserBasicInfoResponse response = new AppUserBasicInfoResponse();
+                    BeanUtils.copyProperties(userEntity, response);
+                    response.setHasFollow(followService.isFollow(user.getUid(), response.getUid()));
+                    return response;
+                })
+                .collect(Collectors.toList());
+        
+        // 构建分页响应
+        AppPageUtils result = new AppPageUtils(userPage);
+        result.setData(responseList);
+        return result;
     }
 
     @Override
