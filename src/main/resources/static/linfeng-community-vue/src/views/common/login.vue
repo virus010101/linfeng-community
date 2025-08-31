@@ -35,7 +35,7 @@
             -开源版
           </p>
           <p class="web-info__intro">
-            林风社交论坛项目官网：<a href="https://net.linfeng.tech" target="_blank">https://net.linfeng.tech</a>
+            林风社交论坛项目官网：<a href="https://www.linfengtech.cn" target="_blank">https://www.linfengtech.cn</a>
           </p>
           <p class="brand-info__intro">
             开源版后台前端技术栈：Vue2+Element-UI <br>

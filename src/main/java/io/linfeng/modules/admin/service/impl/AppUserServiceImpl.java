@@ -152,60 +152,118 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
     }
 
     /**
-     * 注册/登录
-     * @param form 手机验证码登录dto
-     * @param request
+     * 手机验证码登录/注册
+     * @param form 手机验证码登录表单
+     * @param request HTTP请求对象
      * @return 用户ID
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer smsLogin(SmsLoginForm form, HttpServletRequest request) {
-        AppUserEntity appUserEntity = this.lambdaQuery()
+        // 验证短信验证码
+        validateSmsCode(form.getMobile(), form.getCode());
+        
+        // 获取用户IP和城市信息
+        String userIp = IPUtils.getIpAddr(request);
+        String cityInfo = IPUtils.getCityInfo(userIp);
+        
+        // 查询用户是否已存在
+        AppUserEntity existingUser = this.lambdaQuery()
                 .eq(AppUserEntity::getMobile, form.getMobile())
                 .one();
-        String codeKey = Constant.SMS_PREFIX + form.getMobile();
-        String s = redisUtils.get(codeKey);
-        if (io.linfeng.common.utils.ObjectUtil.isEmpty(s)) {
+        
+        if (existingUser != null) {
+            // 用户已存在，执行登录逻辑
+            return handleUserLogin(existingUser, cityInfo);
+        } else {
+            // 用户不存在，执行注册逻辑
+            return handleUserRegistration(form.getMobile(), cityInfo);
+        }
+    }
+    
+    /**
+     * 验证短信验证码
+     * @param mobile 手机号
+     * @param code 验证码
+     */
+    private void validateSmsCode(String mobile, String code) {
+        String cacheKey = Constant.SMS_PREFIX + mobile;
+        String cachedCode = redisUtils.get(cacheKey);
+        
+        if (io.linfeng.common.utils.ObjectUtil.isEmpty(cachedCode)) {
             throw new LinfengException("请先发送验证码");
         }
-        if (!s.equals(form.getCode())) {
+        
+        if (!cachedCode.equals(code)) {
             throw new LinfengException("验证码错误");
         }
-        String ip = IPUtils.getIpAddr(request);
-        String cityInfo = IPUtils.getCityInfo(ip);
-        if (ObjectUtil.isNotNull(appUserEntity)) {
-            //登录
-            if (appUserEntity.getStatus().equals(Constant.USER_BANNER)) {
-                throw new LinfengException(Constant.USER_BANNER_MSG,Constant.USER_BANNER_CODE);
-            }
-            appUserEntity.setCity(cityInfo);
-            this.updateById(appUserEntity);
-            return appUserEntity.getUid();
-        } else {
-            //注册
-            AppUserEntity appUser = new AppUserEntity();
-            appUser.setMobile(form.getMobile());
-            appUser.setGender(GenderStatus.UNKNOWN.getValue());
-            appUser.setAvatar(Constant.DEAULT_HEAD);
-            appUser.setUsername(generateRandomName(Constant.H5));
-            appUser.setCreateTime(DateUtil.nowDateTime());
-            appUser.setUpdateTime(DateUtil.nowDateTime());
-            appUser.setCity(cityInfo);
-            List<String> list = new ArrayList<>();
-            list.add(Constant.DEFAULT_TAG);
-            appUser.setTagStr(JSON.toJSONString(list));
-            baseMapper.insert(appUser);
-            AppUserEntity user = this.lambdaQuery()
-                    .eq(AppUserEntity::getMobile, form.getMobile())
-                    .one();
-            if(ObjectUtil.isNull(user)){
-                throw new LinfengException("注册失败");
-            }
-            //其他业务处理
-            return user.getUid();
+    }
+    
+    /**
+     * 处理用户登录
+     * @param user 用户实体
+     * @param cityInfo 城市信息
+     * @return 用户ID
+     */
+    private Integer handleUserLogin(AppUserEntity user, String cityInfo) {
+        // 检查用户状态
+        if (user.getStatus().equals(Constant.USER_BANNER)) {
+            throw new LinfengException(Constant.USER_BANNER_MSG, Constant.USER_BANNER_CODE);
         }
-
-
+        
+        // 更新用户城市信息
+        user.setCity(cityInfo);
+        this.updateById(user);
+        
+        return user.getUid();
+    }
+    
+    /**
+     * 处理用户注册
+     * @param mobile 手机号
+     * @param cityInfo 城市信息
+     * @return 用户ID
+     */
+    private Integer handleUserRegistration(String mobile, String cityInfo) {
+        // 创建新用户
+        AppUserEntity newUser = createNewUser(mobile, cityInfo);
+        
+        // 保存用户到数据库
+        baseMapper.insert(newUser);
+        
+        // 验证注册是否成功并返回用户ID
+        AppUserEntity registeredUser = this.lambdaQuery()
+                .eq(AppUserEntity::getMobile, mobile)
+                .one();
+        
+        if (ObjectUtil.isNull(registeredUser)) {
+            throw new LinfengException("注册失败");
+        }
+        
+        return registeredUser.getUid();
+    }
+    
+    /**
+     * 创建新用户实体
+     * @param mobile 手机号
+     * @param cityInfo 城市信息
+     * @return 新用户实体
+     */
+    private AppUserEntity createNewUser(String mobile, String cityInfo) {
+        AppUserEntity newUser = new AppUserEntity();
+        newUser.setMobile(mobile);
+        newUser.setGender(GenderStatus.UNKNOWN.getValue());
+        newUser.setAvatar(Constant.DEAULT_HEAD);
+        newUser.setUsername(generateRandomName(Constant.H5));
+        newUser.setCreateTime(DateUtil.nowDateTime());
+        newUser.setUpdateTime(DateUtil.nowDateTime());
+        newUser.setCity(cityInfo);
+        
+        // 设置默认标签
+        List<String> defaultTags = Collections.singletonList(Constant.DEFAULT_TAG);
+        newUser.setTagStr(JSON.toJSONString(defaultTags));
+        
+        return newUser;
     }
 
     @Override
@@ -404,36 +462,51 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
      */
     @Override
     public List<AppUserRankResponse> userRank() {
-        DateTime week = cn.hutool.core.date.DateUtil.beginOfWeek(new Date());
+        // 获取本周开始时间
+        DateTime weekStart = cn.hutool.core.date.DateUtil.beginOfWeek(new Date());
 
-        List<PostEntity> postList = postService.lambdaQuery()
-                .gt(PostEntity::getCreateTime, week)
+        // 查询本周发布的所有帖子
+        List<PostEntity> weeklyPosts = postService.lambdaQuery()
+                .gt(PostEntity::getCreateTime, weekStart)
                 .list();
-        if(postList.isEmpty()){
+        
+        // 如果本周没有帖子，直接返回空列表
+        if (weeklyPosts.isEmpty()) {
             return new ArrayList<>();
         }
-        Map<Integer, Long> collect = postList.stream().collect(Collectors.groupingBy(PostEntity::getUid, Collectors.counting()));
-        Map<Integer, Long> sorted = collect
+
+        // 统计每个用户的发帖数量并按发帖数倒序排序
+        Map<Integer, Long> userPostCountMap = weeklyPosts.stream()
+                .collect(Collectors.groupingBy(PostEntity::getUid, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Collections.reverseOrder(comparingByValue()))
-                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                        LinkedHashMap::new));
-        List<Integer> userIdList = new ArrayList<>(sorted.keySet());
-        List<AppUserEntity> batchUser = userDao.getBatchUser(userIdList);
-        Map<Integer, AppUserEntity> userMap = batchUser.stream()
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+        // 批量查询用户信息
+        List<Integer> activeUserIds = new ArrayList<>(userPostCountMap.keySet());
+        Map<Integer, AppUserEntity> userMap = userDao.getBatchUser(activeUserIds)
+                .stream()
                 .collect(Collectors.toMap(AppUserEntity::getUid, Function.identity()));
-        List<AppUserRankResponse> list=new ArrayList<>();
-        sorted.forEach((k,v)->{
-            AppUserEntity appUser = userMap.get(k);
-            if(appUser!=null){
-                AppUserRankResponse response=new AppUserRankResponse();
-                BeanUtils.copyProperties(appUser,response);
-                response.setPostNumber(v.intValue());
-                list.add(response);
-            }
-        });
-        return list;
+
+        // 构建排行榜响应列表
+        return userPostCountMap.entrySet()
+                .stream()
+                .map(entry -> {
+                    Integer userId = entry.getKey();
+                    Long postCount = entry.getValue();
+                    AppUserEntity user = userMap.get(userId);
+                    
+                    if (user != null) {
+                        AppUserRankResponse response = new AppUserRankResponse();
+                        BeanUtils.copyProperties(user, response);
+                        response.setPostNumber(postCount.intValue());
+                        return response;
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
 

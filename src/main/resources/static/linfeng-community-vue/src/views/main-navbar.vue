@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     officialWebsite(){
-      window.open('https://net.linfeng.tech', '_blank');
+      window.open('https://www.linfengtech.cn', '_blank');
     },
     // 修改密码
     updatePasswordHandle() {

@@ -82,7 +82,7 @@
     </el-row>
         <el-row :gutter="20">
       <el-col :sm="24" :lg="12" style="padding-left: 20px">
-        <h2>林风社交论坛系统开源版</h2>
+        <h2>林风社交论坛系统开源版【当前版本】</h2>
         <p>
           林风社交论坛uniapp小程序/H5/APP版本是前后端分离的社交论坛问答发帖/BBS/SNS项目。 
           项目分为Uniapp用户端（兼容H5、微信小程序）和Vue2后台管理端 包括完整的权限处理。
@@ -96,8 +96,7 @@
           <b>当前版本:</b> <span>开源版</span>
         </p>
         <p>
-          <b>项目官网:</b> <a href="https://net.linfeng.tech" target="_blank">https://net.linfeng.tech</a><br>
-          <b>公司官网:</b> <a href="https://www.linfengtech.cn" target="_blank">https://www.linfengtech.cn</a><br>
+          <b>项目官网:</b> <a href="https://www.linfengtech.cn" target="_blank">https://www.linfengtech.cn</a><br>
           <b>微信公众号:</b> <span>林风科技</span>
         </p>
         <p>
@@ -117,7 +116,7 @@
             size="mini"
             icon="el-icon-s-home"
             plain
-            @click="goTo('https://net.linfeng.tech')"
+            @click="goTo('https://www.linfengtech.cn')"
             >访问项目官网</el-button
           >
           <el-button
@@ -125,7 +124,7 @@
             size="mini"
             icon="el-icon-cloudy"
             plain
-            @click="goTo('https://net.linfeng.tech/version/version.html')"
+            @click="goTo('https://www.linfengtech.cn/version/version.html')"
             >功能清单</el-button
           >
           <el-button
@@ -133,7 +132,7 @@
             size="mini"
             icon="el-icon-cloudy"
             plain
-            @click="goTo('https://net.linfeng.tech/commercial.html')"
+            @click="goTo('https://www.linfengtech.cn/commercial.html')"
             >商业版咨询</el-button
           >
         </p>
