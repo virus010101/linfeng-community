@@ -118,7 +118,7 @@ https://www.linfengtech.cn/version/version.html
 
 #### 6.版本更新记录
 
-**当前版本V1.23.0**
+**当前版本V1.24.0**
 
 历史更新记录汇总：https://www.linfengtech.cn/authInfo/version.html
 
