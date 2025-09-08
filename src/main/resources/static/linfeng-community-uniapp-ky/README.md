@@ -22,7 +22,7 @@
 
 **标准版和开源版的区别**：
 
-https://net.linfeng.tech/version/version.html
+https://www.linfengtech.cn/version/version.html
 
 开源版运行效果：
 
@@ -30,6 +30,4 @@ https://net.linfeng.tech/version/version.html
 
 了解更多请查看：
 
-[林风社交论坛官网](https://net.linfeng.tech) 
-
-备用官网：https://www.linfengtech.cn/
+[林风社交论坛官网](https://www.linfengtech.cn) 

@@ -10,7 +10,7 @@
 					</view>
 					<u-button v-show="!isAuthor&&postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
 						@click="cancelFollow">已关注</u-button>
-					<u-button v-show="!isAuthor&&!postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
+					<u-button v-show="!isAuthor&&!postDetail.isFollow" size="mini" style="float:right;font-size: 14px;background-color: #333;color: #fff;"
 						@click="follow">关注</u-button>
 					<u-button v-show="isAuthor" size="mini" type="error" style="float:right;font-size: 14px;"
 						@click="deletePost">删除</u-button>
@@ -157,7 +157,7 @@
 			return {
 				btnStyle: {
 					color: "#fff",
-					backgroundColor: '#55aaff'
+					backgroundColor: '#333'
 				},
 				postId: 0,
 				postDetail: {
