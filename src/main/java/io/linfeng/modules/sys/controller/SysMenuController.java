@@ -24,7 +24,7 @@ import java.util.Set;
  * 系统菜单
  *
  */
-@Api(tags = "后台系统菜单")
+@Api(tags = "管理端——后台系统菜单")
 @RestController
 @RequestMapping("/sys/menu")
 public class SysMenuController extends AbstractController {

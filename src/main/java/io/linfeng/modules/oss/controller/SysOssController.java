@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("sys/oss")
-@Api(tags = "文件上传")
+@Api(tags = "管理端——文件上传")
 public class SysOssController {
 
 	@Value("${oss.admin-max-size}")

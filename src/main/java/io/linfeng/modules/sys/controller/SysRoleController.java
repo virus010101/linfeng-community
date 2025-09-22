@@ -23,7 +23,7 @@ import java.util.Map;
  * 角色管理
  *
  */
-@Api(tags = "角色管理")
+@Api(tags = "管理端——角色管理")
 @RestController
 @RequestMapping("/sys/role")
 public class SysRoleController extends AbstractController {

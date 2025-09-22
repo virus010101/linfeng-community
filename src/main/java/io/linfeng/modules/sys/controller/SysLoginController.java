@@ -28,7 +28,7 @@ import java.util.Map;
  * 登录相关
  *
  */
-@Api(tags = "后台登录")
+@Api(tags = "管理端——后台登录")
 @RestController
 public class SysLoginController extends AbstractController {
 	@Autowired

@@ -26,7 +26,7 @@ import java.util.Map;
  * 定时任务日志
  *
  */
-@Api(tags = "定时任务日志")
+@Api(tags = "管理端——定时任务日志")
 @RestController
 @RequestMapping("/sys/scheduleLog")
 public class ScheduleJobLogController {

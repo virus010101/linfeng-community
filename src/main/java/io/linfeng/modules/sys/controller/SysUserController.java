@@ -28,7 +28,7 @@ import java.util.Map;
  * 系统用户
  *
  */
-@Api(tags = "系统用户")
+@Api(tags = "管理端——系统用户")
 @RestController
 @RequestMapping("/sys/user")
 public class SysUserController extends AbstractController {

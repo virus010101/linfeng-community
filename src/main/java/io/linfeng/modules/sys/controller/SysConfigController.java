@@ -19,7 +19,7 @@ import java.util.Map;
  * 系统配置信息
  *
  */
-@Api(tags = "系统配置信息")
+@Api(tags = "管理端——系统配置信息")
 @RestController
 @RequestMapping("/sys/config")
 public class SysConfigController extends AbstractController {

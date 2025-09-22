@@ -21,7 +21,7 @@ import java.util.Map;
  * 系统日志
  *
  */
-@Api(tags = "系统日志")
+@Api(tags = "管理端——系统日志")
 @Controller
 @RequestMapping("/sys/log")
 public class SysLogController {

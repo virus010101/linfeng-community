@@ -29,7 +29,7 @@ import java.util.Map;
  * 定时任务
  *
  */
-@Api(tags = "定时任务")
+@Api(tags = "管理端——定时任务")
 @RestController
 @RequestMapping("/sys/schedule")
 public class ScheduleJobController {

@@ -42,7 +42,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/app/user")
-@Api(tags = "APP登录接口")
+@Api(tags = "用户端——APP用户模块接口")
 public class AppUserInfoController {
 
 

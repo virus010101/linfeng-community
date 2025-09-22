@@ -5,8 +5,6 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 public class IPUtils {
-	private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
     // IP归属地查询
     private static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp?ip=%s&json=true";
 	/**
@@ -45,7 +42,7 @@ public class IPUtils {
                 ip = request.getRemoteAddr();
             }
         } catch (Exception e) {
-        	logger.error("IPUtils ERROR ", e);
+            log.error("IPUtils ERROR ", e);
         }
         
         return ip;
@@ -57,21 +54,32 @@ public class IPUtils {
      * @return 地址
      */
     public static String getCityInfo(String ip) {
-        String api = String.format(IP_URL,ip);
-        String s = HttpUtil.get(api,5000);
+        String api = String.format(IP_URL, ip);
+
+        String s = null;
+        try {
+            s = HttpUtil.get(api, 5000);
+        } catch (Exception e) {
+            log.error("HTTP请求异常，IP: {}, 错误: {}", ip, e.getMessage());
+            return "";
+        }
+
         if(s == null || s.isEmpty()){
             return "";
         }
+
         JSONObject object = null;
         try {
             object = JSONUtil.parseObj(s);
         } catch (Exception e) {
             log.error("获取地理位置异常 {}", ip);
-//            return getCityInfo2(ip); //继续调用第二个接口
+            return "";
         }
+
         if(object == null){
             return "";
         }
+
         String addr = object.get("addr", String.class);
         if(!ObjectUtil.isEmpty(addr)){
             return addr.split(" ")[0];

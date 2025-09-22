@@ -35,7 +35,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("app/common")
-@Api(tags = "App文件上传")
+@Api(tags = "用户端——App文件上传")
 public class AppOssController {
 
 	@Value("${oss.max-size}")
