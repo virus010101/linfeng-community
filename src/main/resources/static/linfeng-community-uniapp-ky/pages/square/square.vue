@@ -95,16 +95,10 @@
 			this.getBannerList();
 			this.getClassList();
 			this.getUserRanking();
-			if (uni.getStorageSync("hasLogin")) {
-				this.getPostList();
-			} else {
-				this.goLogin()
-			}
+
 		},
 		onShow() {
-			if (uni.getStorageSync("linfeng")) {
-				this.getPostList();
-			}
+			this.getPostList();
 		},
 		onReachBottom() {
 			if (this.pageCurrent == 0) {
@@ -179,7 +173,10 @@
 			},
 			// 根据分页和分类展示帖子列表
 			getPostList() {
-				uni.removeStorageSync("linfeng");
+				if (!uni.getStorageSync("hasLogin")) {
+					this.$u.toast('请先登录哦')
+					return;
+				}
 				this.loadPostStatus = 'loading';
 				this.$H
 					.post('post/list', {
@@ -187,6 +184,9 @@
 						page: this.page
 					})
 					.then(res => {
+						if (this.page == 1) {
+							this.postList = []
+						}
 						this.postList = this.postList.concat(res.result.data);
 						if (res.result.current_page === res.result.last_page || res.result.last_page === 0) {
 							this.loadPostStatus = 'nomore';

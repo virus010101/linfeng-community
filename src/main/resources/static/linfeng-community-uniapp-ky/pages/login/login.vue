@@ -83,7 +83,6 @@
 					if (res.code == 0) {
 						uni.setStorageSync("hasLogin", true);
 						uni.setStorageSync("token", res.token);
-						uni.setStorageSync("linfeng", "lf");
 						uni.switchTab({
 							url: '/pages/index/index'
 						});
