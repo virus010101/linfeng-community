@@ -12,7 +12,9 @@
 
 ***后台前端的代码在 src\main\resources\static\linfeng-community-vue目录下！***
 
-***用户端的前端代码在 src\main\resources\static\linfeng-community-uniapp-ky 目录下！***
+***用户端的前端uniapp(vue2)代码在 src\main\resources\static\linfeng-community-uniapp-ky 目录下！***
+
+***用户端的前端uniapp(vue3)新版代码在 src\main\resources\static\linfeng-community-uniapp3-ky 目录下！***
 
 代码三端均发布了开源版供学习
 
@@ -81,7 +83,9 @@ H5端：https://h5.linfeng.tech
 
 1.后台前端的代码在\src\main\resources\static\linfeng-community-vue目录下！
 
-2.用户端代码在\src\main\resources\static\linfeng-community-uniapp-ky目录下！
+2.用户端前端uniapp(vue2)代码在\src\main\resources\static\linfeng-community-uniapp-ky目录下！
+
+用户端前端uniapp(vue3)新版代码在 src\main\resources\static\linfeng-community-uniapp3-ky目录下！
 
 3.**商业版和开源版的区别**
 
@@ -118,7 +122,7 @@ https://www.linfengtech.cn/version/version.html
 
 #### 6.版本更新记录
 
-**当前版本V1.24.0**
+**当前版本V1.25.0**
 
 历史更新记录汇总：https://www.linfengtech.cn/authInfo/version.html
 

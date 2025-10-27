@@ -1,0 +1,149 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "主页",
+				"backgroundColor": "#fff",
+				"navigationBarTextStyle": "black",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}
+	    ,{
+            "path" : "pages/post/post",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登录注册",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/my/post",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的帖子",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my/user",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/post/add",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "正在发帖",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/edit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人信息维护",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/home",
+            "style": {
+            	"navigationBarTitleText": "个人主页"
+            }
+            
+        }
+        ,{
+            "path" : "pages/login/weixin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+			"path" : "pages/square/square",
+			"style" :
+			{
+			    
+			    "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		}
+        
+        ,{
+            "path" : "pages/post/category",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "帖子分类",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/error/error",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "404",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "林风社交论坛开源版",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#2c2c2c",
+		"borderStyle": "white",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabbar/home-1.png",
+				"selectedIconPath": "static/tabbar/home.png",
+				"text": "主页"
+			},
+			{
+				"pagePath": "pages/square/square",
+				"iconPath": "static/tabbar/square-1.png",
+				"selectedIconPath": "static/tabbar/square.png",
+				"text": "广场"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"iconPath": "static/tabbar/my-1.png",
+				"selectedIconPath": "static/tabbar/my.png",
+				"text": "我的"
+			}
+		]
+	}
+}
