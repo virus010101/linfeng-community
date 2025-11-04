@@ -9,23 +9,31 @@
 </template>
 
 <script setup>
-	import { ref, reactive, getCurrentInstance } from 'vue'
-	import { onLoad } from '@dcloudio/uni-app'
-	
-	const { proxy } = getCurrentInstance()
-	
+	import {
+		ref,
+		reactive,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	const btnStyle = reactive({
 		color: "#fff",
 		backgroundColor: '#333333'
 	})
 	const logo = ref("")
-	
+
 	function goBack() {
 		uni.reLaunch({
 			url: '/pages/index/index'
 		})
 	}
-	
+
 	function getSysInfo() {
 		proxy.$H.get("system/config").then(res => {
 			if (res.code == 0) {
@@ -33,7 +41,7 @@
 			}
 		})
 	}
-	
+
 	async function login() {
 		uni.showLoading({
 			mask: true,
@@ -60,13 +68,13 @@
 			}
 		})
 	}
-	
+
 	function getUserInfo() {
 		proxy.$H.get("user/userInfo").then(res => {
 			uni.setStorageSync("userInfo", res.result)
 		})
 	}
-	
+
 	function getLoginCode() {
 		return new Promise((resolve, reject) => {
 			uni.login({
@@ -77,7 +85,7 @@
 			})
 		})
 	}
-	
+
 	onLoad(() => {
 		getSysInfo()
 	})

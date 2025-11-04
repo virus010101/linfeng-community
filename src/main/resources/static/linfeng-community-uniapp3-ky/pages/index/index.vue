@@ -18,8 +18,16 @@
 </template>
 
 <script setup>
-	import { ref, getCurrentInstance } from 'vue'
-	import { onLoad, onReachBottom, onPullDownRefresh, onShareAppMessage } from '@dcloudio/uni-app'
+	import {
+		ref,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onLoad,
+		onReachBottom,
+		onPullDownRefresh,
+		onShareAppMessage
+	} from '@dcloudio/uni-app'
 	import PostList from '@/components/post-list/post-list.vue'
 	import AddPostTag from '@/components/add-post-tag/add-post-tag.vue'
 	const loadStatus1 = ref('loadmore')
@@ -37,7 +45,10 @@
 		}
 	])
 	const current = ref(1)
-	const { proxy } = getCurrentInstance()
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	function tabChange(index) {
 		current.value = index
 		followUserPost.value = []
@@ -50,6 +61,7 @@
 			getLastPost()
 		}
 	}
+
 	function getFollowUserPost() {
 		loadStatus1.value = 'loading'
 		proxy.$H
@@ -69,6 +81,7 @@
 				}
 			})
 	}
+
 	function getLastPost() {
 		loadStatus2.value = 'loading'
 		proxy.$H

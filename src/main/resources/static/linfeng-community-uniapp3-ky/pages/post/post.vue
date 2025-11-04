@@ -10,7 +10,8 @@
 					</view>
 					<u-button v-show="!isAuthor&&postDetail.isFollow" size="mini" style="float:right;font-size: 14px;"
 						@click="cancelFollow">已关注</u-button>
-					<u-button v-show="!isAuthor&&!postDetail.isFollow" size="mini" style="float:right;font-size: 14px;background-color: #333;color: #fff;"
+					<u-button v-show="!isAuthor&&!postDetail.isFollow" size="mini"
+						style="float:right;font-size: 14px;background-color: #333;color: #fff;"
 						@click="follow">关注</u-button>
 					<u-button v-show="isAuthor" size="mini" type="error" style="float:right;font-size: 14px;"
 						@click="deletePost">删除</u-button>
@@ -63,18 +64,18 @@
 
 			<!--点赞、分享、评论-->
 			<view class="menu-container">
-			<view v-if="postDetail.isCollection">
+				<view v-if="postDetail.isCollection">
 					<view class="p-item" @click="cancelCollection">
 						<text class="iconfont icon-lujing" style="color: #d81e06;"></text>
 						<text>{{ postDetail.collectionCount}}</text>
 					</view>
-			</view>
-			<view v-else>
+				</view>
+				<view v-else>
 					<view class="p-item" @click="addCollection">
 						<text class="iconfont icon-shoucang"></text>
 						<text>{{ postDetail.collectionCount }}</text>
 					</view>
-			</view>
+				</view>
 				<view class="p-item" @click="focus = true">
 					<text class="iconfont icon-pinglun"></text>
 					<text>{{ postDetail.commentCount  || 0  }}</text>
@@ -121,8 +122,8 @@
 		<view style="height: 100rpx;"></view>
 		<!-- 评论输入框 -->
 		<view class="comment-input">
-			<textarea :placeholder="placeholder" @blur="onBlur" fixed="true" cursor-spacing="10"
-				v-model="form.content" auto-height="true" placeholder-class="txt-placeholder" confirm-type="send"
+			<textarea :placeholder="placeholder" @blur="onBlur" fixed="true" cursor-spacing="10" v-model="form.content"
+				auto-height="true" placeholder-class="txt-placeholder" confirm-type="send"
 				@confirm="addComment"></textarea>
 			<u-button @click="addComment" :disabled="canSunbmit" :custom-style="btnStyle" style="border-radius: 0;">发布
 			</u-button>
@@ -148,24 +149,48 @@
 </template>
 
 <script setup>
-	import { ref, reactive, getCurrentInstance } from 'vue'
-	import { onLoad, onReachBottom, onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
-	const { proxy } = getCurrentInstance()
-	const btnStyle = reactive({ color: "#fff", backgroundColor: '#333' })
+	import {
+		ref,
+		reactive,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onLoad,
+		onReachBottom,
+		onShareAppMessage,
+		onShareTimeline
+	} from '@dcloudio/uni-app'
+	const {
+		proxy
+	} = getCurrentInstance()
+	const btnStyle = reactive({
+		color: "#fff",
+		backgroundColor: '#333'
+	})
 	const postId = ref(0)
 	const postDetail = reactive({
 		comment: [],
 		media: [],
-		commentList: { data: [] },
+		commentList: {
+			data: []
+		},
 		userInfo: {}
 	})
 	const focus = ref(false)
 	const canSunbmit = ref(false)
 	const commentList = ref([])
 	const placeholder = ref('文明发言哦')
-	const form = reactive({ pid: 0, type: 1, toUid: '', postId: '', content: '' })
+	const form = reactive({
+		pid: 0,
+		type: 1,
+		toUid: '',
+		postId: '',
+		content: ''
+	})
 	const showShare = ref(false)
-	const shareBtnStyle = reactive({ backgroundColor: '#333' })
+	const shareBtnStyle = reactive({
+		backgroundColor: '#333'
+	})
 	const page = ref(1)
 	const loadStatus = ref('loadmore')
 	const isAuthor = ref(false)
@@ -177,10 +202,14 @@
 			success: function(res) {
 				if (res.confirm) {
 					proxy.$H
-						.post('post/deleteMyPost', { id: postId.value })
+						.post('post/deleteMyPost', {
+							id: postId.value
+						})
 						.then(res => {
 							if (res.code == 0) {
-								uni.switchTab({ url: "/pages/index/index" })
+								uni.switchTab({
+									url: "/pages/index/index"
+								})
 							}
 						});
 				}
@@ -193,7 +222,11 @@
 			data: proxy.$c.shareH5Url + 'pages/post/detail?id=' + postId.value,
 			success: function() {
 				uni.hideToast();
-				uni.showToast({ title: '复制成功可分享链接', icon: 'success', duration: 2000 })
+				uni.showToast({
+					title: '复制成功可分享链接',
+					icon: 'success',
+					duration: 2000
+				})
 				showShare.value = false;
 			}
 		});
@@ -201,7 +234,9 @@
 	// 点赞
 	function onThumbs(id, index, index2) {
 		proxy.$H
-			.post('comment/thumbs', { id: id })
+			.post('comment/thumbs', {
+				id: id
+			})
 			.then(res => {
 				if (res.code == 0) {
 					if (index2 || index2 == 0) {
@@ -217,7 +252,9 @@
 	// 取消点赞
 	function cancelThumbs(id, index, index2) {
 		proxy.$H
-			.post('comment/cancelThumbs', { id: id })
+			.post('comment/cancelThumbs', {
+				id: id
+			})
 			.then(res => {
 				if (res.code == 0) {
 					if (index2 || index2 == 0) {
@@ -242,7 +279,10 @@
 	function getCommentList() {
 		loadStatus.value = 'loading';
 		proxy.$H
-			.get('comment/list', { postId: postId.value, page: page.value })
+			.get('comment/list', {
+				postId: postId.value,
+				page: page.value
+			})
 			.then(res => {
 				if (res.code == 0) {
 					commentList.value = commentList.value.concat(res.result.data);
@@ -256,7 +296,9 @@
 	}
 
 	function jumpUser(uid) {
-		uni.navigateTo({ url: '/pages/user/home?uid=' + uid });
+		uni.navigateTo({
+			url: '/pages/user/home?uid=' + uid
+		});
 	}
 
 	function addComment() {
@@ -266,7 +308,10 @@
 			canSunbmit.value = false;
 			return;
 		}
-		uni.showLoading({ mask: true, title: '发布中' });
+		uni.showLoading({
+			mask: true,
+			title: '发布中'
+		});
 		proxy.$H.post('post/addComment', form).then(res => {
 			if (res.code == 0) {
 				form.content = '';
@@ -282,14 +327,21 @@
 	}
 
 	function getPostDetail() {
-		uni.showLoading({ mask: true, title: '加载中' });
+		uni.showLoading({
+			mask: true,
+			title: '加载中'
+		});
 		proxy.$H
-			.get('post/detail', { id: postId.value })
+			.get('post/detail', {
+				id: postId.value
+			})
 			.then(res => {
 				if (res.code == 500) {
 					proxy.$u.toast(res.msg);
 					setTimeout(function() {
-						uni.switchTab({ url: '/pages/index/index' });
+						uni.switchTab({
+							url: '/pages/index/index'
+						});
 					}, 1500);
 				}
 				Object.assign(postDetail, res.result);
@@ -306,7 +358,9 @@
 
 	function cancelCollection() {
 		proxy.$H
-			.post('post/cancelCollection', { id: postId.value })
+			.post('post/cancelCollection', {
+				id: postId.value
+			})
 			.then(res => {
 				if (res.code === 0) {
 					postDetail.isCollection = false;
@@ -317,7 +371,10 @@
 
 	function addCollection() {
 		proxy.$H
-			.post('post/addCollection', { id: postId.value, uid: postDetail.uid })
+			.post('post/addCollection', {
+				id: postId.value,
+				uid: postDetail.uid
+			})
 			.then(res => {
 				if (res.code === 0) {
 					postDetail.isCollection = true;
@@ -328,7 +385,9 @@
 
 	function addThumb() {
 		proxy.$H
-			.post('post/addThumb', { id: postId.value })
+			.post('post/addThumb', {
+				id: postId.value
+			})
 			.then(res => {
 				if (res.code === 0) {
 					postDetail.isThumb = true;
@@ -338,7 +397,10 @@
 
 	function cancelThumb() {
 		proxy.$H
-			.post('post/cancelThumb', { id: postId.value, uid: postDetail.uid })
+			.post('post/cancelThumb', {
+				id: postId.value,
+				uid: postDetail.uid
+			})
 			.then(res => {
 				if (res.code === 0) {
 					postDetail.isThumb = false;
@@ -348,7 +410,9 @@
 
 	function follow() {
 		proxy.$H
-			.post('user/addFollow', { id: postDetail.uid })
+			.post('user/addFollow', {
+				id: postDetail.uid
+			})
 			.then(res => {
 				if (res.code === 0) {
 					postDetail.isFollow = true;
@@ -359,7 +423,9 @@
 
 	function cancelFollow() {
 		proxy.$H
-			.post('user/cancelFollow', { id: postDetail.uid })
+			.post('user/cancelFollow', {
+				id: postDetail.uid
+			})
 			.then(res => {
 				if (res.code === 0) {
 					postDetail.isFollow = false;
@@ -383,7 +449,10 @@
 		getPostDetail();
 		getCommentList();
 		//#ifdef MP-WEIXIN
-		wx.showShareMenu({ withShareTicket: true, menus: ['shareAppMessage', 'shareTimeline'] });
+		wx.showShareMenu({
+			withShareTicket: true,
+			menus: ['shareAppMessage', 'shareTimeline']
+		});
 		//#endif
 	})
 
@@ -427,7 +496,7 @@
 
 	.icon {
 		margin: 20rpx 0;
-		
+
 		text {
 			font-size: 26rpx;
 			color: #999;
@@ -531,7 +600,7 @@
 					font-size: 30rpx;
 					font-weight: 600;
 					color: #333;
-					
+
 					&:hover {
 						color: #2979ff;
 					}

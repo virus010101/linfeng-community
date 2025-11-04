@@ -45,11 +45,19 @@
 </template>
 
 <script setup>
-	import { ref, reactive, getCurrentInstance } from 'vue'
-	import { onLoad } from '@dcloudio/uni-app'
-	
-	const { proxy } = getCurrentInstance()
-	
+	import {
+		ref,
+		reactive,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	const form = reactive({
 		mobile: "",
 		code: ""
@@ -58,13 +66,13 @@
 	const logo = ref('')
 	const title = ref(proxy.$c.miniappName)
 	const uCode = ref(null)
-	
+
 	function goIndex() {
 		uni.switchTab({
 			url: "/pages/index/index"
 		})
 	}
-	
+
 	function getSysInfo() {
 		proxy.$H.get("system/config").then(res => {
 			if (res.code == 0) {
@@ -72,7 +80,7 @@
 			}
 		})
 	}
-	
+
 	function phoneLogin() {
 		uni.showLoading({
 			mask: true,
@@ -95,11 +103,11 @@
 			}
 		})
 	}
-	
+
 	function codeChange(text) {
 		tips.value = text
 	}
-	
+
 	function getCode() {
 		let phoneCodeVerification = /^[1][3-9][0-9]{9}$/
 		if (form.mobile == '') {
@@ -125,11 +133,11 @@
 			}
 		}
 	}
-	
+
 	function end() {}
-	
+
 	function start() {}
-	
+
 	onLoad(() => {
 		getSysInfo()
 	})

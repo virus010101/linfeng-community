@@ -24,10 +24,22 @@
 </template>
 
 <script setup>
-	import { ref, reactive, getCurrentInstance, onUnmounted } from 'vue'
-	import { onLoad } from '@dcloudio/uni-app'
-	const { proxy } = getCurrentInstance()
-	const btnStyle = reactive({ color: '#fff', backgroundColor: '#333333' })
+	import {
+		ref,
+		reactive,
+		getCurrentInstance,
+		onUnmounted
+	} from 'vue'
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+	const {
+		proxy
+	} = getCurrentInstance()
+	const btnStyle = reactive({
+		color: '#fff',
+		backgroundColor: '#333333'
+	})
 	const uploadImgUrl = proxy.$c.domain + 'common/upload'
 	const form = reactive({
 		title: '',
@@ -43,18 +55,22 @@
 		pay: ''
 	})
 	const cateName = ref('')
-	const header = reactive({ token: uni.getStorageSync('token') })
+	const header = reactive({
+		token: uni.getStorageSync('token')
+	})
 	const uploadRef = ref(null)
-	
+
 	function chooseClass() {
-		uni.navigateTo({ url: 'category' })
+		uni.navigateTo({
+			url: 'category'
+		})
 	}
-	
+
 	function handleCategorySelect(data) {
 		form.cut = data.id;
 		cateName.value = data.name;
 	}
-	
+
 	function uploadImg() {
 		if (!form.content) {
 			proxy.$u.toast('内容不能为空')
@@ -64,23 +80,33 @@
 			proxy.$u.toast('标题不能为空')
 			return
 		}
-		uni.showLoading({ mask: true, title: '发布中' })
+		uni.showLoading({
+			mask: true,
+			title: '发布中'
+		})
 		uploadRef.value?.upload()
 	}
-	
+
 	function submit(e) {
-		uni.showLoading({ mask: true, title: '发布中' })
+		uni.showLoading({
+			mask: true,
+			title: '发布中'
+		})
 		const mediaList = []
-		e.forEach(function(item) { mediaList.push(item.response.result) })
+		e.forEach(function(item) {
+			mediaList.push(item.response.result)
+		})
 		form.media = mediaList
 		proxy.$H.post('post/addPost', form).then(res => {
 			if (res.code == 0) {
-				uni.redirectTo({ url: '/pages/post/post?id=' + res.result })
+				uni.redirectTo({
+					url: '/pages/post/post?id=' + res.result
+				})
 			}
 			uni.hideLoading()
 		})
 	}
-	
+
 	onLoad(() => {
 		if (!uni.getStorageSync('hasLogin')) {
 			proxy.$u.toast('请先登录哦')
@@ -88,7 +114,7 @@
 		// 监听分类选择事件
 		uni.$on('selectCategory', handleCategorySelect)
 	})
-	
+
 	onUnmounted(() => {
 		// 清理事件监听
 		uni.$off('selectCategory', handleCategorySelect)
@@ -96,9 +122,10 @@
 </script>
 
 <style lang="scss" scoped>
-	.container{
+	.container {
 		padding: 30rpx;
 	}
+
 	.title-input {
 		border-bottom: 1px solid #F5F5F5;
 		margin: 20rpx 0;

@@ -9,16 +9,27 @@
 </template>
 
 <script setup>
-	import { ref, onMounted, getCurrentInstance } from 'vue'
-	const { proxy } = getCurrentInstance()
+	import {
+		ref,
+		onMounted,
+		getCurrentInstance
+	} from 'vue'
+	const {
+		proxy
+	} = getCurrentInstance()
 	const classList = ref([])
+
 	function getClassList() {
 		proxy.$H.get('category/classList').then(res => {
 			classList.value = res.result
 		})
 	}
+
 	function chooseClass(id, name) {
-		uni.$emit('selectCategory', { id, name });
+		uni.$emit('selectCategory', {
+			id,
+			name
+		});
 		uni.navigateBack();
 	}
 	onMounted(() => {
@@ -27,9 +38,10 @@
 </script>
 
 <style lang="scss" scoped>
-	.container{
+	.container {
 		padding: 30rpx;
 	}
+
 	.title {
 		margin-bottom: 30rpx;
 	}
