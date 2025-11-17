@@ -65,17 +65,30 @@
 </template>
 
 <script setup>
-	import { ref, getCurrentInstance } from 'vue'
-	import { onLoad, onShow, onReachBottom } from '@dcloudio/uni-app'
+	import {
+		ref,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onLoad,
+		onShow,
+		onReachBottom
+	} from '@dcloudio/uni-app'
 	import PostList from '@/components/post-list/post-list.vue'
 	import AddPostTag from '@/components/add-post-tag/add-post-tag.vue'
 	const pageCurrent = ref(0)
 	const current = ref(0)
-	const pageTab = ref([
-		{ name: '广场' },
-		{ name: '达人' }
+	const pageTab = ref([{
+			name: '广场'
+		},
+		{
+			name: '达人'
+		}
 	])
-	const classList = ref([{ cateId: 0, cateName: '推荐' }])
+	const classList = ref([{
+		cateId: 0,
+		cateName: '推荐'
+	}])
 	const swiperList = ref([])
 	const postList = ref([])
 	const loadPostStatus = ref('loadmore')
@@ -84,10 +97,14 @@
 	const userList = ref([])
 	const loadStatus = ref('nomore')
 	const currentRank = ref(0)
-	const { proxy } = getCurrentInstance()
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	function tabChangeRank() {
 		currentRank.value = currentRank.value ? 0 : 1
 	}
+
 	function getBannerList() {
 		proxy.$H.get('link/list').then(res => {
 			if (res.code == 0) {
@@ -95,22 +112,26 @@
 			}
 		})
 	}
+
 	function toSearch() {
 		uni.showToast({
 			icon: 'none',
 			title: '暂无搜索'
 		})
 	}
+
 	function goPostAdd() {
 		uni.navigateTo({
 			url: '/pages/post/add'
 		})
 	}
+
 	function goUser(uid) {
 		uni.navigateTo({
 			url: "/pages/user/home?uid=" + uid
 		})
 	}
+
 	function goLogin() {
 		// #ifdef MP-WEIXIN
 		uni.navigateTo({
@@ -123,9 +144,11 @@
 		})
 		// #endif
 	}
+
 	function pageTabChange(index) {
 		pageCurrent.value = index
 	}
+
 	function tabChange(index) {
 		current.value = index
 		page.value = 1
@@ -133,11 +156,13 @@
 		postList.value = []
 		getPostList()
 	}
+
 	function getClassList() {
 		proxy.$H.get('category/classList').then(res => {
 			classList.value = classList.value.concat(res.result)
 		})
 	}
+
 	function getUserRanking() {
 		proxy.$H
 			.post('user/userRank')
@@ -145,6 +170,7 @@
 				userList.value = res.result
 			})
 	}
+
 	function getPostList() {
 		if (!uni.getStorageSync("hasLogin")) {
 			proxy.$u.toast('请先登录哦')

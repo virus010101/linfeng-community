@@ -37,19 +37,28 @@
 </template>
 
 <script setup>
-	import { ref, reactive, getCurrentInstance } from 'vue'
-	import { onLoad, onReachBottom } from '@dcloudio/uni-app'
+	import {
+		ref,
+		reactive,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onLoad,
+		onReachBottom
+	} from '@dcloudio/uni-app'
 	import PostList from '@/components/post-list/post-list.vue'
-	
-	const { proxy } = getCurrentInstance()
-	
+
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	const loading = ref(true)
 	const uid = ref(0)
 	const postList = ref([])
 	const userInfo = reactive({})
 	const loadStatus = ref("loading")
 	const page = ref(1)
-	
+
 	function follow() {
 		proxy.$H.post('user/addFollow', {
 			id: userInfo.uid
@@ -60,7 +69,7 @@
 			proxy.$u.toast(res.msg)
 		})
 	}
-	
+
 	function cancelFollow() {
 		proxy.$H.post('user/cancelFollow', {
 			id: userInfo.uid
@@ -71,7 +80,7 @@
 			proxy.$u.toast(res.msg)
 		})
 	}
-	
+
 	function getPostList() {
 		loadStatus.value = "loading"
 		proxy.$H.post('post/list', {
@@ -86,7 +95,7 @@
 			}
 		})
 	}
-	
+
 	function getUserInfo() {
 		proxy.$H.post('user/userInfoById', {
 			uid: uid.value
@@ -111,7 +120,7 @@
 			loading.value = false
 		})
 	}
-	
+
 	onLoad((options) => {
 		if (options.uid) {
 			uid.value = options.uid
@@ -121,7 +130,7 @@
 		getUserInfo()
 		getPostList()
 	})
-	
+
 	onReachBottom(() => {
 		page.value++
 		getPostList()

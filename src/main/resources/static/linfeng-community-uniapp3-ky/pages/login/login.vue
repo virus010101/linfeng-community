@@ -172,6 +172,7 @@
 			margin-top: 40rpx;
 			color: #333;
 			letter-spacing: 2rpx;
+			text-align: center;
 		}
 
 		.subtitle {

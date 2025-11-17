@@ -2,24 +2,20 @@
 	<view>
 		<view class="info-container">
 			<u-form ref="uForm" label-width="auto">
-				<u-form-item label="头像"  input-align="right">
+				<u-form-item label="头像" input-align="right">
 					<u-avatar @click="onAvatar" mode="square" slot="right" :src="userInfo.avatar" size="100"></u-avatar>
 				</u-form-item>
 				<u-form-item label="昵称" right-icon="arrow-right">
-					<u-input  v-model="username"
-						 input-align="right"/>
+					<u-input v-model="username" input-align="right" />
 				</u-form-item>
 				<u-form-item label="手机号" right-icon="arrow-right">
-					<u-input  v-model="mobile" disabled
-						input-align="right"/>
+					<u-input v-model="mobile" disabled input-align="right" />
 				</u-form-item>
 				<u-form-item label="性别" right-icon="arrow-right">
-					<u-input @click="openGender" :placeholder="userInfo.gender"
-						input-align="right"/>
+					<u-input @click="openGender" :placeholder="userInfo.gender" input-align="right" />
 				</u-form-item>
 				<u-form-item label="个性签名" right-icon="arrow-right">
-					<u-input  v-model="intro"
-						input-align="right"/>
+					<u-input v-model="intro" input-align="right" />
 				</u-form-item>
 			</u-form>
 		</view>
@@ -35,36 +31,52 @@
 </template>
 
 <script setup>
-	import { ref, reactive, getCurrentInstance } from 'vue'
-	import { onShow } from '@dcloudio/uni-app'
-	
-	const { proxy } = getCurrentInstance()
-	
+	import {
+		ref,
+		reactive,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onShow
+	} from '@dcloudio/uni-app'
+
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	const saveBtnStyle = reactive({
 		color: "#fff",
 		backgroundColor: '#8f8fd6'
 	})
-	
+
 	const btnStyle = reactive({
 		color: "#000000",
 		backgroundColor: '#fff'
 	})
-	
+
 	const userInfo = reactive({})
 	const showGender = ref(false)
-	const gender = [
-		{ value: 1, label: "男" },
-		{ value: 2, label: "女" },
-		{ value: 0, label: "保密" }
+	const gender = [{
+			value: 1,
+			label: "男"
+		},
+		{
+			value: 2,
+			label: "女"
+		},
+		{
+			value: 0,
+			label: "保密"
+		}
 	]
 	const username = ref("")
 	const intro = ref("")
 	const mobile = ref("")
-	
+
 	function openGender() {
 		showGender.value = true
 	}
-	
+
 	function saveInfo() {
 		if (!username.value) {
 			proxy.$u.toast('昵称不能为空')
@@ -83,7 +95,7 @@
 			}
 		})
 	}
-	
+
 	// 修改性别
 	function saveGender(index) {
 		let genderValue = index[0].value
@@ -96,7 +108,7 @@
 			}
 		})
 	}
-	
+
 	function getUserInfo() {
 		proxy.$H.get("user/userInfo").then(res => {
 			Object.assign(userInfo, res.result)
@@ -112,7 +124,7 @@
 			}
 		})
 	}
-	
+
 	function outlogin() {
 		uni.removeStorageSync("hasLogin")
 		uni.removeStorageSync("token")
@@ -120,7 +132,7 @@
 			url: "/pages/index/index"
 		})
 	}
-	
+
 	function onAvatar() {
 		uni.chooseImage({
 			count: 1,
@@ -149,7 +161,7 @@
 			}
 		})
 	}
-	
+
 	function updateAvatar(avatar) {
 		proxy.$H.post("user/userInfoEdit", {
 			avatar: avatar
@@ -160,7 +172,7 @@
 			}
 		})
 	}
-	
+
 	onShow(() => {
 		getUserInfo()
 	})
@@ -170,9 +182,11 @@
 		padding: 20rpx;
 		background-color: #FFFFFF;
 	}
+
 	.save-btn {
 		margin: 40rpx 30rpx;
 	}
+
 	.out-btn {
 		margin: 40rpx 30rpx;
 	}

@@ -97,52 +97,61 @@
 </template>
 
 <script setup>
-	import { ref, getCurrentInstance } from 'vue'
-	import { onLoad, onShow, onShareAppMessage } from '@dcloudio/uni-app'
+	import {
+		ref,
+		getCurrentInstance
+	} from 'vue'
+	import {
+		onLoad,
+		onShow,
+		onShareAppMessage
+	} from '@dcloudio/uni-app'
 	import AddPostTag from '@/components/add-post-tag/add-post-tag.vue'
-	
-	const { proxy } = getCurrentInstance()
-	
+
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	const userInfo = ref('')
 	const hasLogin = ref(false)
 	const shareCover = ref('')
-	
+
 	function phoneLogin() {
 		uni.navigateTo({
 			url: '/pages/login/login'
 		})
 	}
-	
+
 	function wxLogin() {
 		uni.navigateTo({
 			url: '/pages/login/weixin'
 		})
 	}
-	
+
 	function getUserInfo() {
 		proxy.$H.get('user/userInfo').then(res => {
 			userInfo.value = res.result
 		})
 	}
-	
+
 	function goUser() {
 		uni.navigateTo({
 			url: '/pages/user/edit'
 		})
 	}
-	
+
 	function toNav(url) {
 		uni.navigateTo({
 			url: url
 		})
 	}
-	
+
 	function getSysInfo() {
 		proxy.$H.get('system/config').then(res => {
 			shareCover.value = res.logo
 		})
 	}
-	
+
 	function commercialLink() {
 		// #ifdef H5
 		window.open("https://www.linfengtech.cn")
@@ -160,7 +169,7 @@
 		})
 		// #endif
 	}
-	
+
 	onLoad(() => {
 		//#ifdef MP-WEIXIN
 		wx.showShareMenu({
@@ -170,7 +179,7 @@
 		//#endif
 		getSysInfo()
 	})
-	
+
 	onShow(() => {
 		if (uni.getStorageSync('hasLogin')) {
 			getUserInfo()
@@ -179,7 +188,7 @@
 			hasLogin.value = false
 		}
 	})
-	
+
 	onShareAppMessage((res) => {
 		return {
 			title: proxy.$c.miniappName,
@@ -359,11 +368,11 @@
 		position: relative;
 		padding: 0 20rpx;
 		transition: all 0.3s ease;
-		
+
 		&:hover {
 			transform: translateY(-2rpx);
 		}
-		
+
 		&:not(:last-child)::after {
 			content: '';
 			position: absolute;
@@ -382,7 +391,7 @@
 		color: #333;
 		line-height: 1.4;
 		margin-bottom: 8rpx;
-		
+
 		&:hover {
 			color: #2979ff;
 		}
@@ -392,7 +401,7 @@
 		font-size: 26rpx;
 		color: #999;
 		position: relative;
-		
+
 		&::after {
 			content: '';
 			position: absolute;
@@ -404,7 +413,7 @@
 			background: #2979ff;
 			transition: width 0.3s ease;
 		}
-		
+
 		&:hover::after {
 			width: 100%;
 		}
