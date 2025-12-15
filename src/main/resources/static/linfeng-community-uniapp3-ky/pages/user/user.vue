@@ -154,7 +154,7 @@
 
 	function commercialLink() {
 		// #ifdef H5
-		window.open("https://www.linfengtech.cn")
+		window.open("https://www.linfengtech.cn?from=kyh5")
 		// #endif
 		// #ifdef MP-WEIXIN
 		uni.navigateToMiniProgram({

@@ -31,3 +31,9 @@ https://www.linfengtech.cn/version/version.html
 了解更多请查看：
 
 [林风社交论坛官网](https://www.linfengtech.cn) 
+
+
+
+### 三、说明
+
+项目开源地址：[https://gitee.com/virus010101/linfeng-community](https://gitee.com/virus010101/linfeng-community)
