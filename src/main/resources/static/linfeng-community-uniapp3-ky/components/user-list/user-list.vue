@@ -15,6 +15,8 @@
 				<u-button @click="cancelFollow(index, item.uid)" v-if="item.hasFollow === 2" class="btn-gz"
 					type="default" size="mini" plain>已关注</u-button>
 			</view>
+			<!-- 分割线 -->
+			<view v-if="index < userList.length - 1" class="divider"></view>
 		</view>
 		<!-- 加载状态 -->
 		<view v-if="loadStatus != 'none'">
@@ -63,18 +65,18 @@
 </script>
 
 <style lang="scss" scoped>
-	.user-list-item {
-		display: flex;
-		align-items: center;
-		padding: 20rpx;
-		border-bottom: 1px solid #f5f5f5;
-		background-color: #ffffff;
+.user-list-item {
+	display: flex;
+	align-items: center;
+	padding: 20rpx;
+	background-color: #ffffff;
+}
 
-		&:last-child {
-			border-bottom: 0;
-		}
-
-	}
+.divider {
+	height: 1px;
+	background-color: #e5e5e5;
+	margin: 0 20rpx;
+}
 
 	.user-list-item .icon-nv {
 		color: #ff4d94;

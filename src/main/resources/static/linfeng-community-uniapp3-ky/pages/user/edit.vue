@@ -8,8 +8,8 @@
 				<u-form-item label="昵称" right-icon="arrow-right">
 					<u-input v-model="username" input-align="right" />
 				</u-form-item>
-				<u-form-item label="手机号" right-icon="arrow-right">
-					<u-input v-model="mobile" disabled input-align="right" />
+				<u-form-item label="手机号" right-icon="arrow-right" @click="onMobile">
+					<u-input v-model="mobile" disabled  input-align="right" />
 				</u-form-item>
 				<u-form-item label="性别" right-icon="arrow-right">
 					<u-input @click="openGender" :placeholder="userInfo.gender" input-align="right" />
@@ -171,6 +171,10 @@
 				proxy.$u.toast('头像更新成功')
 			}
 		})
+	}
+	
+	function onMobile(){
+		proxy.$u.toast('手机号禁止修改')
 	}
 
 	onShow(() => {
