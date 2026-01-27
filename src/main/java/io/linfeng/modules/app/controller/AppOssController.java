@@ -27,7 +27,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * APP文件上传
@@ -37,6 +40,20 @@ import java.util.Date;
 @RequestMapping("app/common")
 @Api(tags = "用户端——App文件上传")
 public class AppOssController {
+
+	/**
+	 * 允许的图片类型
+	 */
+	private static final Set<String> ALLOWED_IMAGE_TYPES = new HashSet<>(Arrays.asList(
+			".jpg", ".jpeg", ".png", ".gif"
+	));
+
+	/**
+	 * 允许的视频类型
+	 */
+	private static final Set<String> ALLOWED_VIDEO_TYPES = new HashSet<>(Arrays.asList(
+			".mp4"
+	));
 
 	@Value("${oss.max-size}")
 	private Long maxSize;
@@ -51,9 +68,23 @@ public class AppOssController {
 		if (file.isEmpty()) {
 			throw new LinfengException("上传文件不能为空");
 		}
+
+		// 校验文件类型
+		String originalFilename = file.getOriginalFilename();
+		if (originalFilename == null || originalFilename.lastIndexOf(".") == -1) {
+			throw new LinfengException("上传文件格式不正确");
+		}
+		String suffix = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
+
+		boolean isImage = ALLOWED_IMAGE_TYPES.contains(suffix);
+		boolean isVideo = ALLOWED_VIDEO_TYPES.contains(suffix);
+
+		if (!isImage && !isVideo) {
+			throw new LinfengException("只支持图片和视频格式上传");
+		}
+
 		FileCheckUtil.checkSize(maxSize, file.getSize());
 		//上传文件
-		String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		String url = OSSFactory.build().uploadSuffix(file.getBytes(), suffix);
 
 		//保存文件信息
