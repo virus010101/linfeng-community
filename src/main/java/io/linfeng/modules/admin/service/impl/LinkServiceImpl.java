@@ -12,6 +12,8 @@
  */
 package io.linfeng.modules.admin.service.impl;
 
+import io.linfeng.common.utils.DataConvertUtils;
+import io.linfeng.common.vo.AppLinkResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,9 +43,8 @@ public class LinkServiceImpl extends ServiceImpl<LinkDao, LinkEntity> implements
     }
 
     @Override
-    public List<LinkEntity> getList() {
-        List<LinkEntity> list = this.list();
-        return list;
+    public List<AppLinkResponse> getList() {
+        return DataConvertUtils.sourceToTarget(this.list(), AppLinkResponse.class);
     }
 
 }

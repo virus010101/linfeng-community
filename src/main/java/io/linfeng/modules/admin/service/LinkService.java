@@ -14,6 +14,7 @@ package io.linfeng.modules.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.linfeng.common.utils.PageUtils;
+import io.linfeng.common.vo.AppLinkResponse;
 import io.linfeng.modules.admin.entity.LinkEntity;
 
 import java.util.List;
@@ -30,6 +31,6 @@ public interface LinkService extends IService<LinkEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
-    List<LinkEntity> getList();
+    List<AppLinkResponse> getList();
 }
 
