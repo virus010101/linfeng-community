@@ -94,7 +94,7 @@
 					<image @click="jumpUser(item.userInfo.uid)" class="avatar" :src="item.userInfo.avatar"></image>
 					<view class="c-content">
 						<view class="user">
-							<text>{{ item.userInfo.username }}</text>
+							<view class="username">{{ item.userInfo.username }}</view>
 							<view v-if="item.isThumbs" @click.stop="cancelThumbs(item.id, index)" class="thumbs">
 								<text class="num">{{ item.thumbs }}</text>
 								<u-icon class="icon" size="40" name="heart-fill" color="#e62e00"></u-icon>
@@ -319,6 +319,10 @@
 				page.value = 1;
 				commentList.value = [];
 				form.pid = 0;
+				
+				// 更新评论数量
+				postDetail.commentCount++;
+				
 				getCommentList();
 			}
 			canSunbmit.value = false;
@@ -568,19 +572,29 @@
 	.comment-box {
 		background-color: #ffffff;
 		margin-top: 20rpx;
-		padding: 20rpx;
+		padding: 30rpx;
 	}
 
 	.comment-box>.title {
-		margin-bottom: 20rpx;
+		margin-bottom: 30rpx;
+		font-size: 32rpx;
+		font-weight: 600;
+		color: #333;
+		border-left: 6rpx solid #333;
+		padding-left: 20rpx;
 	}
 
 	.comment-item {
 		display: flex;
-		padding: 20rpx;
+		padding: 24rpx 0;
+		border-bottom: 1rpx solid #f0f0f0;
+
+		&:last-child {
+			border-bottom: none;
+		}
 
 		&:active {
-			background-color: #F5F5F5;
+			background-color: #fafafa;
 		}
 
 		.c-content {
@@ -590,20 +604,18 @@
 
 			.time {
 				color: #999;
-				font-size: 10px;
+				font-size: 24rpx;
+				margin-top: 10rpx;
 			}
 
 			.user {
 				display: flex;
+				align-items: center;
 
-				text {
-					font-size: 30rpx;
+				.username {
+					font-size: 28rpx;
 					font-weight: 600;
 					color: #333;
-
-					&:hover {
-						color: #2979ff;
-					}
 				}
 
 				.thumbs {
@@ -613,7 +625,8 @@
 					color: #bfbfbf;
 
 					.num {
-						margin-right: 10rpx;
+						margin-right: 8rpx;
+						font-size: 24rpx;
 					}
 				}
 			}
@@ -621,18 +634,19 @@
 			.c-txt {
 				font-size: 28rpx;
 				color: #666;
-				line-height: 1.5;
-				margin: 16rpx 0;
+				line-height: 1.6;
+				margin-top: 12rpx;
 				word-break: break-all;
 				white-space: pre-wrap;
 			}
 		}
 
 		.avatar {
-			width: 100rpx;
-			height: 100rpx;
+			width: 80rpx;
+			height: 80rpx;
 			border-radius: 50%;
 			margin-right: 20rpx;
+			flex-shrink: 0;
 		}
 	}
 
@@ -696,17 +710,21 @@
 		padding: 20rpx;
 		display: flex;
 		z-index: 999;
+		box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
 	}
 
 	.comment-input textarea {
 		background-color: #f5f5f5;
 		padding: 20rpx;
-		border-radius: 10rpx;
+		border-radius: 40rpx;
 		min-height: 40rpx;
+		flex: 1;
+		font-size: 28rpx;
 	}
 
 	.comment-input .u-btn {
-		margin-left: 10rpx;
+		margin-left: 20rpx;
+		border-radius: 40rpx;
 	}
 
 

@@ -17,6 +17,7 @@
 					<u-swiper :list="swiperList" name="img" border-radius="20" mode="dot" :effect3d="true"></u-swiper>
 				</view>
 			</view>
+			<u-line></u-line>
 			<!-- 帖子列表 -->
 			<post-list :list="postList" :loadStatus="loadPostStatus"></post-list>
 		</view>
