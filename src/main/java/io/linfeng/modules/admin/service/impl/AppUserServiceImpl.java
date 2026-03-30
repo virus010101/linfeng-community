@@ -430,6 +430,8 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
             if(user.getStatus().equals(Constant.USER_BANNER)){
                 throw new LinfengException(Constant.USER_BANNER_MSG,Constant.USER_BANNER_CODE);
             }
+            user.setUpdateTime(DateUtil.nowDateTime());
+            this.saveOrUpdate(user);
             //其他业务todo
             return user.getUid();
         } else {
