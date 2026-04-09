@@ -103,13 +103,27 @@
 </template>
 
 <script setup>
-	import { getCurrentInstance } from 'vue'
+	import {
+		getCurrentInstance
+	} from 'vue'
 	const props = defineProps({
-		list: { type: Array, default: () => [] },
-		loadStatus: { type: String, default: '' },
-		uid: { type: Number, default: undefined },
+		list: {
+			type: Array,
+			default: () => []
+		},
+		loadStatus: {
+			type: String,
+			default: ''
+		},
+		uid: {
+			type: Number,
+			default: undefined
+		},
 	})
-	const { proxy } = getCurrentInstance()
+	const {
+		proxy
+	} = getCurrentInstance()
+
 	function cancelCollection(id, index) {
 		proxy.$H
 			.post('post/cancelCollection', {
@@ -122,6 +136,7 @@
 				}
 			})
 	}
+
 	function addCollection(id, index) {
 		proxy.$H
 			.post('post/addCollection', {
@@ -135,17 +150,20 @@
 				}
 			})
 	}
+
 	function previewImage(url, urls) {
 		uni.previewImage({
 			current: url,
 			urls: urls
 		})
 	}
+
 	function jump(e) {
 		uni.navigateTo({
 			url: '/pages/post/post?id=' + e.id
 		})
 	}
+
 	function toUser(uid) {
 		uni.navigateTo({
 			url: '/pages/user/home?uid=' + uid

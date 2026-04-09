@@ -626,16 +626,16 @@
 
 					.num {
 						margin-right: 8rpx;
-						font-size: 24rpx;
+						font-size: 30rpx;
 					}
 				}
 			}
 
 			.c-txt {
-				font-size: 28rpx;
+				font-size: 30rpx;
 				color: #666;
-				line-height: 1.6;
-				margin-top: 12rpx;
+				line-height: 1.4;
+				margin-top: 2rpx;
 				word-break: break-all;
 				white-space: pre-wrap;
 			}
@@ -646,6 +646,7 @@
 			height: 80rpx;
 			border-radius: 50%;
 			margin-right: 20rpx;
+			margin-top: 40rpx;
 			flex-shrink: 0;
 		}
 	}

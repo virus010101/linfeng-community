@@ -188,7 +188,7 @@
 					postList.value = []
 				}
 				postList.value = postList.value.concat(res.result.data)
-				if (res.result.current_page === res.result.last_page || res.result.last_page === 0) {
+				if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
 					loadPostStatus.value = 'nomore'
 				} else {
 					loadPostStatus.value = 'loadmore'
@@ -215,6 +215,9 @@
 </script>
 
 <style lang="scss" scoped>
+	page{
+		background-color: #f3f3f3;
+	}
 	.add-icon {
 		margin-left: 20rpx;
 		margin-right: 30%;
