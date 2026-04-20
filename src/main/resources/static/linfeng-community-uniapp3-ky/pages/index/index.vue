@@ -71,7 +71,7 @@
 			.then(res => {
 				if (res.code == 0 && res.result) {
 					followUserPost.value = followUserPost.value.concat(res.result.data)
-					if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+					if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 						loadStatus1.value = 'nomore'
 					} else {
 						loadStatus1.value = 'loadmore'
@@ -90,7 +90,7 @@
 			})
 			.then(res => {
 				lastPost.value = lastPost.value.concat(res.result.data)
-				if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+				if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 					loadStatus2.value = 'nomore'
 				} else {
 					loadStatus2.value = 'loadmore'

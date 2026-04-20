@@ -44,7 +44,7 @@
 				}).then(res => {
 					if (res.result.data) {
 						this.postList = this.postList.concat(res.result.data);
-						if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+						if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 							this.loadStatus = "nomore";
 						} else {
 							this.loadStatus = "loadmore"
@@ -60,7 +60,7 @@
 					page: this.page
 				}).then(res => {
 					this.postList = this.postList.concat(res.result.data);
-					if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+					if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 						this.loadStatus = "nomore";
 					} else {
 						this.loadStatus = "loadmore"

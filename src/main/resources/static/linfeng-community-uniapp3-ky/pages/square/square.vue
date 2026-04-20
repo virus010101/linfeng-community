@@ -188,7 +188,7 @@
 					postList.value = []
 				}
 				postList.value = postList.value.concat(res.result.data)
-				if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+				if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 					loadPostStatus.value = 'nomore'
 				} else {
 					loadPostStatus.value = 'loadmore'

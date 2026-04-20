@@ -286,7 +286,7 @@
 			.then(res => {
 				if (res.code == 0) {
 					commentList.value = commentList.value.concat(res.result.data);
-					if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+					if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 						loadStatus.value = 'nomore';
 					} else {
 						loadStatus.value = 'loadmore';

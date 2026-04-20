@@ -61,7 +61,7 @@
 		}).then(res => {
 			if (res.result.data) {
 				userList.value = userList.value.concat(res.result.data)
-				if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+				if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 					loadStatus.value = "nomore"
 				} else {
 					loadStatus.value = "loadmore"
@@ -79,7 +79,7 @@
 		}).then(res => {
 			if (res.result.data) {
 				userList.value = userList.value.concat(res.result.data)
-				if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+				if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 					loadStatus.value = "nomore"
 				} else {
 					loadStatus.value = "loadmore"

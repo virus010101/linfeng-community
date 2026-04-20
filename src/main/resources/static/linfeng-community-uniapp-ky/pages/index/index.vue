@@ -100,7 +100,7 @@
 					.then(res => {
 						if (res.code == 0 && res.result) {
 							this.followUserPost = this.followUserPost.concat(res.result.data);
-							if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+							if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 								this.loadStatus1 = 'nomore';
 							} else {
 								this.loadStatus1 = 'loadmore';
@@ -120,7 +120,7 @@
 					})
 					.then(res => {
 						this.lastPost = this.lastPost.concat(res.result.data);
-						if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+						if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 							this.loadStatus2 = 'nomore';
 						} else {
 							this.loadStatus2 = 'loadmore';

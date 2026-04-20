@@ -322,7 +322,7 @@
 						if (res.code == 0) {
 							this.commentList = this.commentList.concat(res.result.data);
 
-							if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+							if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 								this.loadStatus = 'nomore';
 							} else {
 								this.loadStatus = 'loadmore';

@@ -29,7 +29,7 @@
 		}).then(res => {
 			if (res.result.data) {
 				postList.value = postList.value.concat(res.result.data)
-				if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+				if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 					loadStatus.value = "nomore"
 				} else {
 					loadStatus.value = "loadmore"
@@ -46,7 +46,7 @@
 			page: page.value
 		}).then(res => {
 			postList.value = postList.value.concat(res.result.data)
-			if (res.result.current_page >= res.result.total || res.result.last_page === 0) {
+			if (res.result.current_page >= res.result.last_page || res.result.total === 0) {
 				loadStatus.value = "nomore"
 			} else {
 				loadStatus.value = "loadmore"
