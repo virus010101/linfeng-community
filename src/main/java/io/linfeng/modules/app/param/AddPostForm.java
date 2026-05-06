@@ -5,7 +5,7 @@
  * 演示站点:https://www.linfengtech.cn
  * 可正常分享和学习源码，不得用于非法牟利！
  * 商业版购买联系技术客服 QQ: 3582996245
- * Copyright (c) 2021-2025 linfeng all rights reserved.
+ * Copyright (c) 2021-2026 linfeng all rights reserved.
  * 版权所有，侵权必究！
  * -----------------------------------
  */
@@ -40,13 +40,13 @@ public class AddPostForm implements Serializable {
      * 标题
      */
     @Length(max = 30, message = "标题不能超过30个字符")
-    @NotBlank(message = "标题不能超过30个字符")
+    @NotBlank(message = "标题不能为空")
     private String title;
     /**
      * 内容
      */
     @Length(max = 2000, message = "内容不能超过2000个字符")
-    @NotBlank(message = "内容不能超过2000个字符")
+    @NotBlank(message = "内容不能为空")
     private String content;
     /**
      * 文件
