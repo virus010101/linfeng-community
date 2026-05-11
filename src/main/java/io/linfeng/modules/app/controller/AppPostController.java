@@ -45,15 +45,14 @@ public class AppPostController {
     private PostCollectionService postCollectionService;
 
 
-
     @GetMapping("/lastPost")
     @ApiOperation("最新动态列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+            @ApiImplicitParam(name = "page", value = "分页", paramType = "query", dataType = "Integer", required = true)
     })
-    public R lastPost(@RequestParam Integer page){
+    public R lastPost(@RequestParam Integer page) {
 
-        AppPageUtils pages =postService.lastPost(page);
+        AppPageUtils pages = postService.lastPost(page);
         return R.ok().put("result", pages);
     }
 
@@ -62,18 +61,17 @@ public class AppPostController {
     @GetMapping("/followUserPost")
     @ApiOperation("获取关注用户帖子")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+            @ApiImplicitParam(name = "page", value = "分页", paramType = "query", dataType = "Integer", required = true)
     })
     public R followUserPost(@RequestParam Integer page,
-                            @ApiIgnore @LoginUser AppUserEntity user){
+                            @ApiIgnore @LoginUser AppUserEntity user) {
 
-        AppPageUtils pages =postService.followUserPost(page,user);
-        if(ObjectUtil.isNull(pages)){
+        AppPageUtils pages = postService.followUserPost(page, user);
+        if (ObjectUtil.isNull(pages)) {
             return R.error("您没有关注的用户");
         }
         return R.ok().put("result", pages);
     }
-
 
 
     /**
@@ -83,8 +81,8 @@ public class AppPostController {
     @PostMapping("/addCollection")
     @ApiOperation("帖子点赞收藏")
     public R addCollection(@RequestBody AddCollectionForm request,
-                           @ApiIgnore @LoginUser AppUserEntity user){
-        postService.addCollection(request,user);
+                           @ApiIgnore @LoginUser AppUserEntity user) {
+        postService.addCollection(request, user);
 
         return R.ok();
     }
@@ -96,8 +94,8 @@ public class AppPostController {
     @PostMapping("/cancelCollection")
     @ApiOperation("帖子取消点赞收藏")
     public R cancelCollection(@RequestBody AddCollectionForm request,
-                              @ApiIgnore @LoginUser AppUserEntity user){
-        postCollectionService.cancelCollection(request,user);
+                              @ApiIgnore @LoginUser AppUserEntity user) {
+        postCollectionService.cancelCollection(request, user);
         return R.ok();
     }
 
@@ -106,8 +104,8 @@ public class AppPostController {
     @PostMapping("/deleteMyPost")
     @ApiOperation("删除自己帖子")
     public R deleteMyPost(@RequestBody DeletePostForm request,
-                              @ApiIgnore @LoginUser AppUserEntity user){
-        postService.deleteMyPost(request,user);
+                          @ApiIgnore @LoginUser AppUserEntity user) {
+        postService.deleteMyPost(request, user);
         return R.ok();
     }
 
@@ -115,12 +113,12 @@ public class AppPostController {
     @GetMapping("/myPost")
     @ApiOperation("我的帖子")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+            @ApiImplicitParam(name = "page", value = "分页", paramType = "query", dataType = "Integer", required = true)
     })
     public R myPost(@RequestParam("page") Integer page,
-                    @ApiIgnore @LoginUser AppUserEntity user){
+                    @ApiIgnore @LoginUser AppUserEntity user) {
 
-        AppPageUtils pages =postService.myPost(page,user);
+        AppPageUtils pages = postService.myPost(page, user);
         return R.ok().put("result", pages);
     }
 
@@ -129,12 +127,12 @@ public class AppPostController {
     @GetMapping("/myCollectPost")
     @ApiOperation("我点赞收藏的帖子")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "分页",paramType = "query", dataType = "Integer", required = true)
+            @ApiImplicitParam(name = "page", value = "分页", paramType = "query", dataType = "Integer", required = true)
     })
     public R myCollectPost(@RequestParam("page") Integer page,
-                           @ApiIgnore @LoginUser AppUserEntity user){
+                           @ApiIgnore @LoginUser AppUserEntity user) {
 
-        AppPageUtils pages =postService.myCollectPost(page,user);
+        AppPageUtils pages = postService.myCollectPost(page, user);
         return R.ok().put("result", pages);
     }
 
@@ -142,11 +140,11 @@ public class AppPostController {
     @GetMapping("/detail")
     @ApiOperation("获取帖子详情")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "帖子id",paramType = "query", dataType = "Integer", required = true)
+            @ApiImplicitParam(name = "id", value = "帖子id", paramType = "query", dataType = "Integer", required = true)
     })
-    public R detail(@RequestParam Integer id){
+    public R detail(@RequestParam Integer id) {
 
-        PostDetailResponse response=postService.detail(id);
+        PostDetailResponse response = postService.detail(id);
         return R.ok().put("result", response);
     }
 
@@ -154,9 +152,9 @@ public class AppPostController {
     @Login
     @PostMapping("/addComment")
     @ApiOperation("添加评论")
-    public R addComment(@RequestBody AddCommentForm request, @ApiIgnore @LoginUser AppUserEntity user){
+    public R addComment(@RequestBody AddCommentForm request, @ApiIgnore @LoginUser AppUserEntity user) {
         ValidatorUtils.validateEntity(request);
-        postService.addComment(request,user);
+        postService.addComment(request, user);
 
         return R.ok();
     }
@@ -165,22 +163,22 @@ public class AppPostController {
     @PostMapping("/addPost")
     @ApiOperation("发帖子")
     public R addPost(@RequestBody AddPostForm request,
-                     @ApiIgnore @LoginUser AppUserEntity user){
+                     @ApiIgnore @LoginUser AppUserEntity user) {
         ValidatorUtils.validateEntity(request);
-        Integer id=postService.addPost(request,user);
-        if(id==0){
+        Integer id = postService.addPost(request, user);
+        if (id == 0) {
             return R.error("发帖失败");
         }
-        return R.ok().put("result",id);
+        return R.ok().put("result", id);
     }
 
     @Login
     @PostMapping("/list")
     @ApiOperation("帖子列表分页")
     public R list(@RequestBody PostListForm request,
-                  @ApiIgnore @LoginUser AppUserEntity user){
+                  @ApiIgnore @LoginUser AppUserEntity user) {
 
-        AppPageUtils page = postService.queryPageList(request,user);
+        AppPageUtils page = postService.queryPageList(request, user);
 
         return R.ok().put("result", page);
     }

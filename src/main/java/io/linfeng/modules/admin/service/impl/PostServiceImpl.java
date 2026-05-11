@@ -99,7 +99,6 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteByAdmin(List<Integer> ids) {
-
         boolean remove = this.removeByIds(ids);
         if (!remove) {
             throw new LinfengException("批量删除失败");
