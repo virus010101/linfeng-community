@@ -12,6 +12,7 @@
 package io.linfeng.modules.app.controller;
 
 import cn.hutool.core.util.ObjectUtil;
+import io.linfeng.common.annotation.NoRepeatSubmit;
 import io.linfeng.common.vo.PostDetailResponse;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.R;
@@ -79,6 +80,7 @@ public class AppPostController {
      */
     @Login
     @PostMapping("/addCollection")
+    @NoRepeatSubmit
     @ApiOperation("帖子点赞收藏")
     public R addCollection(@RequestBody AddCollectionForm request,
                            @ApiIgnore @LoginUser AppUserEntity user) {
@@ -92,6 +94,7 @@ public class AppPostController {
      */
     @Login
     @PostMapping("/cancelCollection")
+    @NoRepeatSubmit
     @ApiOperation("帖子取消点赞收藏")
     public R cancelCollection(@RequestBody AddCollectionForm request,
                               @ApiIgnore @LoginUser AppUserEntity user) {
@@ -151,6 +154,7 @@ public class AppPostController {
 
     @Login
     @PostMapping("/addComment")
+    @NoRepeatSubmit
     @ApiOperation("添加评论")
     public R addComment(@RequestBody AddCommentForm request, @ApiIgnore @LoginUser AppUserEntity user) {
         ValidatorUtils.validateEntity(request);
@@ -161,6 +165,7 @@ public class AppPostController {
 
     @Login
     @PostMapping("/addPost")
+    @NoRepeatSubmit
     @ApiOperation("发帖子")
     public R addPost(@RequestBody AddPostForm request,
                      @ApiIgnore @LoginUser AppUserEntity user) {

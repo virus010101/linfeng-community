@@ -11,6 +11,7 @@
  */
 package io.linfeng.modules.app.controller;
 
+import io.linfeng.common.annotation.NoRepeatSubmit;
 import io.linfeng.common.vo.AppUserInfoResponse;
 import io.linfeng.common.vo.AppUserRankResponse;
 import io.linfeng.common.vo.AppUserResponse;
@@ -117,7 +118,17 @@ public class AppUserInfoController {
     }
 
     @Login
+    @PostMapping("/userInfoEdit")
+    @ApiOperation("用户修改个人信息")
+    public R userInfoEdit(@ApiIgnore @LoginUser AppUserEntity user,
+                          @RequestBody AppUserUpdateForm appUserUpdateForm) {
+        appUserService.updateAppUserInfo(appUserUpdateForm, user);
+        return R.ok("修改成功");
+    }
+
+    @Login
     @PostMapping("/cancelFollow")
+    @NoRepeatSubmit
     @ApiOperation("取消关注用户")
     public R cancelFollow(@ApiIgnore @LoginUser AppUserEntity user,
                           @RequestBody AddFollowForm request) {
@@ -125,25 +136,16 @@ public class AppUserInfoController {
         return R.ok("取消关注用户成功");
     }
 
-    @Login
-    @PostMapping("/userInfoEdit")
-    @ApiOperation("用户修改个人信息")
-    public R userInfoEdit(@ApiIgnore  @LoginUser AppUserEntity user,
-                          @RequestBody AppUserUpdateForm appUserUpdateForm) {
-        appUserService.updateAppUserInfo(appUserUpdateForm, user);
-        return R.ok("修改成功");
-    }
-
 
     @Login
     @PostMapping("/addFollow")
+    @NoRepeatSubmit
     @ApiOperation("关注用户")
-    public R addFollow(@ApiIgnore  @LoginUser AppUserEntity user,
+    public R addFollow(@ApiIgnore @LoginUser AppUserEntity user,
                        @RequestBody AddFollowForm request) {
         appUserService.addFollow(request, user);
         return R.ok("关注用户成功");
     }
-
 
 
     @Login
@@ -177,13 +179,11 @@ public class AppUserInfoController {
         return R.ok().put("result", response);
     }
 
-
-
     @PostMapping("/userRank")
     @ApiOperation("发帖达人列表")
     public R userRank() {
-        List<AppUserRankResponse> list=appUserService.userRank();
-        return R.ok().put("result",list);
+        List<AppUserRankResponse> list = appUserService.userRank();
+        return R.ok().put("result", list);
     }
 
 }

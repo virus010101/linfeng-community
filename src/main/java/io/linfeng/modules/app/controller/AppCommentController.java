@@ -12,6 +12,7 @@
 package io.linfeng.modules.app.controller;
 
 
+import io.linfeng.common.annotation.NoRepeatSubmit;
 import io.linfeng.common.utils.AppPageUtils;
 import io.linfeng.common.utils.R;
 import io.linfeng.modules.admin.entity.AppUserEntity;
@@ -66,6 +67,7 @@ public class AppCommentController {
      */
     @Login
     @PostMapping("/thumbs")
+    @NoRepeatSubmit
     @ApiOperation("评论区的点赞")
     public R thumbs(@RequestBody AddThumbsForm request,
                     @ApiIgnore @LoginUser AppUserEntity user){
@@ -79,6 +81,7 @@ public class AppCommentController {
      */
     @Login
     @PostMapping("/cancelThumbs")
+    @NoRepeatSubmit
     @ApiOperation("取消评论区的点赞")
     public R cancelThumbs(@RequestBody AddThumbsForm request,
                           @ApiIgnore @LoginUser AppUserEntity user){
