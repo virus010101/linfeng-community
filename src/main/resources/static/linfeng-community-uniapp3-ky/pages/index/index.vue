@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<u-navbar :is-back="false" z-index="99999">
-			<u-tabs :list="tabList" font-size="35" name="cateName" inactive-color="#949494" v-model="current"
+			<u-tabs :list="tabList" active-color="#000" font-size="35" name="cateName" inactive-color="#949494" v-model="current"
 				@change="tabChange"></u-tabs>
 		</u-navbar>
 		<!-- 最新 -->
