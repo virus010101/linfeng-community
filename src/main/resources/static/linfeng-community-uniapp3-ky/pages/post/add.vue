@@ -1,12 +1,22 @@
 <template>
 	<view class="container">
 		<u-line></u-line>
-		<input v-model="form.title" class="title-input" placeholder="标题" />
-		<textarea placeholder="说些什么叭..." :auto-height="true" maxlength="-1" v-model="form.content"
-			class="content-display"></textarea>
+		<view class="input-wrapper">
+			<input v-model="form.title" class="title-input" placeholder="标题" maxlength="30" />
+			<text class="char-count">{{ form.title.length }}/30</text>
+		</view>
+		<view class="textarea-wrapper">
+			<textarea placeholder="说些什么叭..." :auto-height="true" maxlength="2000" v-model="form.content"
+				class="content-display"></textarea>
+			<text class="char-count">{{ form.content.length }}/2000</text>
+		</view>
 		<u-line></u-line>
 		<!-- 上传图片 -->
-		<view v-if="form.type == 1">
+		<view v-if="form.type == 1" class="upload-wrapper">
+			<!-- <view class="upload-header">
+				<text class="upload-title">上传图片</text>
+				<text class="upload-tip">最多4张</text>
+			</view> -->
 			<u-upload ref="uploadRef" :size-type="['original']" name="Image" :max-count="4" :header="header"
 				:action="uploadImgUrl" @on-uploaded="submit" :auto-upload="false"></u-upload>
 		</view>
@@ -126,16 +136,65 @@
 		padding: 30rpx;
 	}
 
-	.title-input {
-		border-bottom: 1px solid #F5F5F5;
+	.input-wrapper {
+		position: relative;
 		margin: 20rpx 0;
 		padding: 20rpx 0;
+		border-bottom: 1px solid #F5F5F5;
+		
+		.title-input {
+			width: 100%;
+			padding-right: 100rpx;
+		}
+		
+		.char-count {
+			position: absolute;
+			right: 0;
+			bottom: 30rpx;
+			font-size: 24rpx;
+			color: #999;
+		}
 	}
 
-	.content-display {
-		width: 100%;
+	.textarea-wrapper {
+		position: relative;
 		padding: 20rpx 0;
-		min-height: 300rpx;
+		
+		.content-display {
+			width: 100%;
+			min-height: 300rpx;
+			padding-right: 100rpx;
+		}
+		
+		.char-count {
+			position: absolute;
+			right: 0;
+			bottom: 30rpx;
+			font-size: 24rpx;
+			color: #999;
+		}
+	}
+
+	.upload-wrapper {
+		padding: 20rpx 0;
+		
+		.upload-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20rpx;
+			
+			.upload-title {
+				font-size: 28rpx;
+				font-weight: 500;
+				color: #333;
+			}
+			
+			.upload-tip {
+				font-size: 24rpx;
+				color: #999;
+			}
+		}
 	}
 
 	.choose-item {
