@@ -8,7 +8,7 @@
 				<text class="iconfont icon-nv" v-else-if="userInfo.gender=='女'"></text>
 			</view>
 			<view class="desc">{{userInfo.intro}}</view>
-			<text class="desc" v-if="userInfo.city">IP:{{userInfo.city}}</text>
+			<text class="desc" v-if="userInfo.city">IP属地:{{userInfo.city}}</text>
 			<text class="desc" v-else>IP属地:未知</text>
 			<view class="stats">
 				<view class="stat-item">
@@ -261,6 +261,6 @@
 		left: 0;
 		width: 48rpx;
 		height: 4rpx;
-		background-color: #aa55ff;
+		background-color: #000000;
 	}
 </style>
