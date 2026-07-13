@@ -11,13 +11,13 @@
 					<view class="input-icon">
 						<text class="iconfont icon-shouji"></text>
 					</view>
-					<u-input v-model="form.mobile" placeholder="请输入手机号" class="form-input" />
+					<u-input v-model="form.mobile" placeholder="请输入手机号" class="form-input" placeholder-class="placeholder-style" />
 				</u-form-item>
 				<u-form-item class="form-item">
 					<view class="input-icon">
 						<text class="iconfont icon-yanzhengma"></text>
 					</view>
-					<u-input v-model="form.code" placeholder="请输入验证码" class="form-input" />
+					<u-input v-model="form.code" placeholder="请输入验证码" class="form-input" placeholder-class="placeholder-style" />
 					<u-button slot="right" size="mini" @click="getCode" class="code-btn">{{tips}}</u-button>
 					<u-verification-code :seconds="60" @end="end" @start="start" ref="uCode" @change="codeChange">
 					</u-verification-code>
@@ -182,7 +182,7 @@
 		}
 	}
 
-	.login-form-box {
+		.login-form-box {
 		background-color: #ffffff;
 		border-radius: 20rpx;
 		padding: 50rpx 40rpx;
@@ -196,30 +196,52 @@
 				display: flex;
 				align-items: center;
 				border-bottom: 1rpx solid #f0f0f0;
-				padding-bottom: 20rpx;
+				padding-bottom: 24rpx;
 
 				.input-icon {
-					margin-right: 20rpx;
+					margin-right: 24rpx;
+					width: 48rpx;
+					display: flex;
+					justify-content: center;
 
 					.iconfont {
-						font-size: 40rpx;
+						font-size: 48rpx;
 						color: #2979ff;
 					}
 				}
 
 				.form-input {
 					flex: 1;
+					font-size: 32rpx;
+					
+					::v-deep .u-input__input {
+						font-size: 32rpx !important;
+						min-height: 50rpx !important;
+					}
+					
+					::v-deep .uni-input-input {
+						font-size: 32rpx !important;
+					}
+					
+					::v-deep .u-input__placeholder {
+						font-size: 32rpx !important;
+					}
+					
+					.placeholder-style {
+						font-size: 32rpx;
+						color: #c0c0c0;
+					}
 				}
 
 				.code-btn {
 					background: #f5f7fa;
 					color: #2979ff;
 					border: none;
-					font-size: 24rpx;
-					padding: 0 30rpx;
-					height: 70rpx;
-					line-height: 70rpx;
-					border-radius: 35rpx;
+					font-size: 26rpx;
+					padding: 0 24rpx;
+					height: 64rpx;
+					line-height: 64rpx;
+					border-radius: 32rpx;
 				}
 			}
 		}
@@ -228,11 +250,11 @@
 			margin-top: 60rpx;
 
 			.login-btn {
-				height: 90rpx;
-				line-height: 90rpx;
-				font-size: 32rpx;
+				height: 96rpx;
+				line-height: 96rpx;
+				font-size: 34rpx;
 				letter-spacing: 4rpx;
-				border-radius: 45rpx;
+				border-radius: 48rpx;
 				background: linear-gradient(to right, #2979ff, #5e9dff);
 				box-shadow: 0 10rpx 20rpx rgba(41, 121, 255, 0.2);
 				border: none;

@@ -303,7 +303,7 @@
 
 	function addComment() {
 		canSunbmit.value = true;
-		if (form.content == '') {
+		if (form.content == ''|| !form.content.trim()) {
 			proxy.$u.toast('评论不能为空');
 			canSunbmit.value = false;
 			return;

@@ -82,12 +82,12 @@
 	}
 
 	function uploadImg() {
-		if (!form.content) {
-			proxy.$u.toast('内容不能为空')
+		if (!form.title || !form.title.trim()) {
+			proxy.$u.toast('标题不能为空')
 			return
 		}
-		if (!form.title) {
-			proxy.$u.toast('标题不能为空')
+		if (!form.content || !form.content.trim()) {
+			proxy.$u.toast('内容不能为空')
 			return
 		}
 		uni.showLoading({

@@ -78,11 +78,11 @@
 	}
 
 	function saveInfo() {
-		if (!username.value) {
+		if (!username.value.trim()) {
 			proxy.$u.toast('昵称不能为空')
 			return
 		}
-		if (!intro.value) {
+		if (!intro.value.trim()) {
 			proxy.$u.toast('个性签名不能为空')
 			return
 		}
