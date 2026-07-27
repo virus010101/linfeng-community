@@ -210,8 +210,10 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         BeanUtils.copyProperties(request,commentEntity);
         commentEntity.setCreateTime(DateUtil.nowDateTime());
         commentEntity.setUid(user.getUid().longValue());
-        commentService.save(commentEntity);
-
+        boolean save = commentService.save(commentEntity);
+        if(!save){
+            throw new LinfengException("评论失败");
+        }
     }
 
     @Override

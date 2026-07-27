@@ -1,6 +1,8 @@
 package io.linfeng.modules.app.controller;
 
+import io.linfeng.common.utils.DataConvertUtils;
 import io.linfeng.common.utils.R;
+import io.linfeng.common.vo.AppCategoryResponse;
 import io.linfeng.modules.admin.entity.CategoryEntity;
 import io.linfeng.modules.admin.service.CategoryService;
 import io.swagger.annotations.Api;
@@ -21,16 +23,15 @@ import java.util.List;
 @RequestMapping("app/category")
 public class AppCategoryController {
 
-
     @Autowired
     private CategoryService categoryService;
 
 
-
     @GetMapping("/classList")
     @ApiOperation("分类列表")
-    public R classList(){
+    public R classList() {
         List<CategoryEntity> list = categoryService.list();
-        return R.ok().put("result",list);
+        List<AppCategoryResponse> result = DataConvertUtils.sourceToTarget(list, AppCategoryResponse.class);
+        return R.ok().put("result", result);
     }
 }

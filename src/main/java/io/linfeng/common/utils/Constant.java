@@ -81,7 +81,7 @@ public class Constant {
     /**
      * 注册账户默认分配头像
      */
-    public static final String DEAULT_HEAD = "http://pic.linfeng.tech/test/20220126/4515fc2cbed74d0b9163d35a12bd4c3b.png";
+    public static final String DEAULT_HEAD = "http://localhost:8080/static/default-img.png";
 
     /**
 	 * 菜单类型

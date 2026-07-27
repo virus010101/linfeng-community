@@ -210,9 +210,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserDao, AppUserEntity> i
         if (user.getStatus().equals(Constant.USER_BANNER)) {
             throw new LinfengException(Constant.USER_BANNER_MSG, Constant.USER_BANNER_CODE);
         }
-        
         // 更新用户城市信息
         user.setCity(cityInfo);
+        user.setUpdateTime(new Date());
         this.updateById(user);
         
         return user.getUid();
