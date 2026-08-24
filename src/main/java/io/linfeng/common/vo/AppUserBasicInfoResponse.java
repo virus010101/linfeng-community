@@ -11,12 +11,9 @@
  */
 package io.linfeng.common.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 
@@ -32,7 +29,6 @@ public class AppUserBasicInfoResponse implements Serializable {
 	/**
 	 * 用户id
 	 */
-	@TableId
 	private Integer uid;
 	/**
 	 * 用户名

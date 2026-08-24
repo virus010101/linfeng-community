@@ -30,7 +30,7 @@ public class AppLinkResponse implements Serializable {
      */
     private String img;
     /**
-     * 3圈子页轮播图
+     * 类型
      */
     private Integer type;
     /**

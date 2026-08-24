@@ -11,7 +11,6 @@
  */
 package io.linfeng.common.vo;
 
-import io.linfeng.modules.admin.entity.AppUserEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -54,7 +53,6 @@ public class PostDetailResponse implements Serializable {
 	/**
 	 * 文件
 	 */
-//	private String media;
 	List<String> media;
 	/**
 	 * 浏览量

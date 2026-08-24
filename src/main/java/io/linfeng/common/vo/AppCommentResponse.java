@@ -11,7 +11,6 @@
  */
 package io.linfeng.common.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.linfeng.modules.admin.entity.AppUserEntity;
 import lombok.Data;
 
@@ -33,7 +32,6 @@ public class AppCommentResponse implements Serializable {
 	/**
 	 * id
 	 */
-	@TableId
 	private Long id;
 
 	/**

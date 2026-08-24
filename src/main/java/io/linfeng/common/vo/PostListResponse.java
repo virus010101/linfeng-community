@@ -11,7 +11,6 @@
  */
 package io.linfeng.common.vo;
 
-import io.linfeng.modules.admin.entity.AppUserEntity;
 import lombok.Data;
 
 import java.io.Serializable;
