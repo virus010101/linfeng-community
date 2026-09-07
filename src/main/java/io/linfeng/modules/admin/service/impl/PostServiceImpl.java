@@ -99,6 +99,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteByAdmin(List<Integer> ids) {
+        deletePostRelations(ids);
         boolean remove = this.removeByIds(ids);
         if (!remove) {
             throw new LinfengException("批量删除失败");
@@ -273,6 +274,7 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteMyPost(DeletePostForm request, AppUserEntity user) {
         PostEntity post = this.getById(request.getId());
         if(post==null){
@@ -281,8 +283,26 @@ public class PostServiceImpl extends ServiceImpl<PostDao, PostEntity> implements
         if(!post.getUid().equals(user.getUid())){
             throw new LinfengException("不能删除别人帖子");
         }
+        deletePostRelations(Collections.singletonList(request.getId()));
         this.removeById(request.getId());
-        //关联业务处理todo
+    }
+
+    /**
+     * 删除帖子关联的点赞、评论数据
+     * @param postIds 帖子id列表
+     */
+    private void deletePostRelations(List<Integer> postIds) {
+        if (postIds == null || postIds.isEmpty()) {
+            return;
+        }
+        //删除点赞表数据
+        postCollectionService.lambdaUpdate()
+                .in(PostCollectionEntity::getPostId, postIds)
+                .remove();
+        //删除评论数据
+        commentService.lambdaUpdate()
+                .in(CommentEntity::getPostId, postIds)
+                .remove();
     }
 
     /**
