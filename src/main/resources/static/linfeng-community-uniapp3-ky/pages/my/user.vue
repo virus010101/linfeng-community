@@ -1,9 +1,10 @@
 <template>
-	<view>
+	<view class="page">
 		<view class="tab-box">
 			<view v-for="(item, index) in tabBars" :key="index" class="tab-item"
 				:class="type == item.id ? 'active' : ''" @click="changeTab(item.id)">
-				{{ item.name }}
+				<text class="tab-name">{{ item.name }}</text>
+				<view class="tab-line"></view>
 			</view>
 		</view>
 		<user-list :list="userList" :loadStatus="loadStatus"></user-list>
@@ -99,37 +100,54 @@
 	})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	.page {
+		min-height: 100vh;
+		background: #fff;
+	}
+
 	.tab-box {
 		display: flex;
-		height: 100rpx;
-		border-bottom: 1rpx solid #f5f5f5;
+		height: 88rpx;
+		background: #fff;
+		border-bottom: 1rpx solid #f0f0f0;
+		position: sticky;
+		top: 0;
+		z-index: 10;
+	}
 
-		.tab-item {
-			flex: 1;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-size: 30rpx;
-			color: #333;
-			position: relative;
+	.tab-item {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+	}
 
-			&.active {
-				color: #007AFF;
-				font-weight: bold;
+	.tab-name {
+		font-size: 30rpx;
+		color: #949494;
+		line-height: 1;
+	}
 
-				&::after {
-					content: "";
-					position: absolute;
-					bottom: 0;
-					left: 50%;
-					transform: translateX(-50%);
-					width: 120rpx;
-					height: 4rpx;
-					background-color: #007AFF;
-					border-radius: 10rpx;
-				}
-			}
+	.tab-line {
+		position: absolute;
+		bottom: 0;
+		width: 40rpx;
+		height: 4rpx;
+		border-radius: 4rpx;
+		background: transparent;
+	}
+
+	.tab-item.active {
+		.tab-name {
+			color: #000;
+			font-weight: 600;
+		}
+
+		.tab-line {
+			background: #000;
 		}
 	}
 </style>
