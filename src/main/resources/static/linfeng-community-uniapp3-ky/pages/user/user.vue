@@ -82,7 +82,7 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
-		<view class="lf-bottom-section" @click="commercialLink">
+		<view class="lf-bottom-section">
 			<view class="bottom-info">
 				林风社交论坛开源版
 			</view>

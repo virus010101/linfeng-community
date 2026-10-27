@@ -18,7 +18,9 @@
 						<text class="iconfont icon-yanzhengma"></text>
 					</view>
 					<u-input v-model="form.code" placeholder="请输入验证码" class="form-input" placeholder-class="placeholder-style" />
-					<u-button slot="right" size="mini" @click="getCode" class="code-btn">{{tips}}</u-button>
+					<template #right>
+						<u-button size="mini" @click="getCode" class="code-btn">{{tips}}</u-button>
+					</template>
 					<u-verification-code :seconds="60" @end="end" @start="start" ref="uCode" @change="codeChange">
 					</u-verification-code>
 				</u-form-item>
@@ -194,14 +196,43 @@
 			.form-item {
 				margin-bottom: 40rpx;
 				display: flex;
-				align-items: center;
+				flex-direction: column;
+				align-items: stretch;
+				width: 100%;
 				border-bottom: 1rpx solid #f0f0f0;
 				padding-bottom: 24rpx;
+
+				::v-deep .u-form-item__body,
+				::v-deep .u-form-item--right,
+				::v-deep .u-form-item--right__content {
+					width: 100%;
+				}
+
+				::v-deep .u-form-item__body {
+					align-items: center;
+				}
+
+				::v-deep .u-form-item--left {
+					width: 0 !important;
+					flex: 0 0 0rpx !important;
+					margin: 0 !important;
+					padding: 0 !important;
+					overflow: hidden;
+				}
+
+				::v-deep .u-form-item--right__content__slot {
+					display: flex;
+					align-items: center;
+					flex: 1;
+					min-width: 0;
+				}
 
 				.input-icon {
 					margin-right: 24rpx;
 					width: 48rpx;
+					flex: 0 0 48rpx;
 					display: flex;
+					align-items: center;
 					justify-content: center;
 
 					.iconfont {
@@ -212,24 +243,27 @@
 
 				.form-input {
 					flex: 1;
+					min-width: 0;
+					width: auto;
 					font-size: 32rpx;
 					
-					::v-deep .u-input__input {
-						font-size: 32rpx !important;
-						min-height: 50rpx !important;
-					}
-					
-					::v-deep .uni-input-input {
-						font-size: 32rpx !important;
-					}
-					
+					::v-deep .u-input__input,
+					::v-deep .uni-input-input,
+					::v-deep .uni-input-placeholder,
 					::v-deep .u-input__placeholder {
 						font-size: 32rpx !important;
+						text-align: left !important;
+						width: 100%;
+					}
+
+					::v-deep .u-input__input {
+						min-height: 50rpx !important;
 					}
 					
 					.placeholder-style {
 						font-size: 32rpx;
 						color: #c0c0c0;
+						text-align: left;
 					}
 				}
 
