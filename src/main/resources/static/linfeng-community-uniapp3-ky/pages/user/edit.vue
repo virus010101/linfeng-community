@@ -1,31 +1,38 @@
 <template>
-	<view>
-		<view class="info-container">
-			<u-form ref="uForm" label-width="auto">
-				<u-form-item label="头像" input-align="right">
-					<u-avatar @click="onAvatar" mode="square" slot="right" :src="userInfo.avatar" size="100"></u-avatar>
+	<view class="edit-page">
+		<view class="group-card">
+			<u-form ref="uForm" label-width="auto" :label-style="labelStyle" :border-bottom="true">
+				<u-form-item label="头像" input-align="right" :border-bottom="true">
+					<view class="avatar-row" @click.stop="onAvatar">
+						<u-avatar :src="userInfo.avatar" size="100"></u-avatar>
+					</view>
 				</u-form-item>
-				<u-form-item label="昵称" right-icon="arrow-right">
-					<u-input v-model="username" input-align="right" />
+				<u-form-item label="昵称" right-icon="arrow-right" :border-bottom="true">
+					<u-input v-model="username" input-align="right" :custom-style="inputStyle"
+						placeholder-style="color: #8e8e93" placeholder="请输入昵称" />
 				</u-form-item>
-				<u-form-item label="手机号" right-icon="arrow-right" @click="onMobile">
-					<u-input v-model="mobile" disabled  input-align="right" />
+				<u-form-item label="手机号" right-icon="arrow-right" :border-bottom="true" @click="onMobile">
+					<u-input v-model="mobile" disabled input-align="right" :custom-style="inputStyle" />
 				</u-form-item>
-				<u-form-item label="性别" right-icon="arrow-right">
-					<u-input @click="openGender" :placeholder="userInfo.gender" input-align="right" />
+				<u-form-item label="性别" right-icon="arrow-right" :border-bottom="true">
+					<u-input @click="openGender" :placeholder="userInfo.gender || '请选择'" input-align="right"
+						:custom-style="inputStyle" placeholder-style="color: #8e8e93" />
 				</u-form-item>
-				<u-form-item label="个性签名" right-icon="arrow-right">
-					<u-input v-model="intro" input-align="right" />
+				<u-form-item label="个性签名" right-icon="arrow-right" :border-bottom="false">
+					<u-input v-model="intro" input-align="right" :custom-style="inputStyle"
+						placeholder-style="color: #8e8e93" placeholder="写点什么" />
 				</u-form-item>
 			</u-form>
 		</view>
-		<view class="save-btn">
-			<u-button :custom-style="saveBtnStyle" @click="saveInfo">保存个人信息</u-button>
+
+		<view class="action-block">
+			<u-button :hair-line="false" :custom-style="saveBtnStyle" @click="saveInfo">保存个人信息</u-button>
 		</view>
-		<view class="out-btn">
-			<u-button :custom-style="btnStyle" @click="outlogin">退出登录</u-button>
+
+		<view class="group-card group-card--logout">
+			<u-button :hair-line="false" :custom-style="btnStyle" @click="outlogin">退出登录</u-button>
 		</view>
-		<!-- 性别选择 -->
+
 		<u-select v-model="showGender" :list="gender" @confirm="saveGender"></u-select>
 	</view>
 </template>
@@ -44,14 +51,35 @@
 		proxy
 	} = getCurrentInstance()
 
+	const labelStyle = {
+		fontWeight: '600',
+		fontSize: '30rpx',
+		color: '#000000'
+	}
+
+	const inputStyle = {
+		fontSize: '30rpx',
+		color: '#3c3c43'
+	}
+
 	const saveBtnStyle = reactive({
-		color: "#fff",
-		backgroundColor: '#8f8fd6'
+		color: '#ffffff',
+		backgroundColor: '#000000',
+		border: 'none',
+		borderRadius: '24rpx',
+		height: '96rpx',
+		fontSize: '32rpx',
+		fontWeight: '600'
 	})
 
 	const btnStyle = reactive({
-		color: "#000000",
-		backgroundColor: '#fff'
+		color: '#ff3b30',
+		backgroundColor: '#ffffff',
+		border: 'none',
+		borderRadius: '20rpx',
+		height: '96rpx',
+		fontSize: '32rpx',
+		fontWeight: '400'
 	})
 
 	const userInfo = reactive({})
@@ -96,7 +124,6 @@
 		})
 	}
 
-	// 修改性别
 	function saveGender(index) {
 		let genderValue = index[0].value
 		proxy.$H.post("user/userInfoEdit", {
@@ -172,8 +199,8 @@
 			}
 		})
 	}
-	
-	function onMobile(){
+
+	function onMobile() {
 		proxy.$u.toast('手机号禁止修改')
 	}
 
@@ -181,17 +208,76 @@
 		getUserInfo()
 	})
 </script>
-<style scoped>
-	.info-container {
-		padding: 20rpx;
-		background-color: #FFFFFF;
+
+<style>
+	page {
+		background-color: #f2f2f7;
+	}
+</style>
+
+<style lang="scss" scoped>
+	.edit-page {
+		min-height: 100vh;
+		padding: 24rpx 32rpx 48rpx;
+		box-sizing: border-box;
 	}
 
-	.save-btn {
-		margin: 40rpx 30rpx;
+	.group-card {
+		background: #ffffff;
+		border-radius: 20rpx;
+		overflow: hidden;
+
+		::v-deep .u-form-item {
+			padding: 28rpx 32rpx;
+			font-size: 30rpx;
+			line-height: 42rpx;
+		}
+
+		::v-deep .u-form-item--left__content__label {
+			font-weight: 600 !important;
+			color: #000 !important;
+		}
+
+		::v-deep .u-form-item--right__content__icon {
+			color: #c7c7cc;
+		}
+
+		::v-deep .u-border-bottom:after {
+			border-color: rgba(60, 60, 67, 0.12);
+		}
+
+		::v-deep .u-input__input,
+		::v-deep .uni-input-input {
+			color: #3c3c43 !important;
+		}
+
+		::v-deep .u-form-item--right__content__slot {
+			flex: 1;
+			min-width: 0;
+		}
 	}
 
-	.out-btn {
-		margin: 40rpx 30rpx;
+	.avatar-row {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	.group-card--logout {
+		margin-top: 32rpx;
+		padding: 0;
+
+		::v-deep .u-btn {
+			width: 100%;
+		}
+	}
+
+	.action-block {
+		margin: 40rpx 0 0;
+
+		::v-deep .u-btn {
+			width: 100%;
+		}
 	}
 </style>
